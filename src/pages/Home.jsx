@@ -1,62 +1,119 @@
-import React from 'react';
-import { Segment , Card, Button} from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react';
+import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form} from 'semantic-ui-react'
+import api from '../lib/api';
 
 const Home = () => {
+
+  const [post,setPost] = useState({title:'',description:''})
+  const [posts,setPosts] = useState([]);
+  const [loading,setLoading] = useState(false);
+
+  async function loadPosts() {
+    setLoading(true);
+    try{
+      const {page,limit,total,data} = await api.fetchPosts({page:0,limit:5});
+      setPosts(data)
+
+    }catch(error){
+      console.log('find error',error)
+
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => loadPosts() , [] )
+
+
+  const removePost = async (id) => {
+    try{
+      await api.removePost(id);
+    }catch(error) {
+      console.log('Found error',error)
+    }finally {
+    }
+    await loadPosts();
+  }
+
+  const createPost = async () => {
+    try{
+      await api.addPosts(post.title,post.description);
+    }catch(error) {
+      console.log('Found error',error)
+    }finally {
+    }
+    await loadPosts();
+  }
+
+
+  const donePost = async (id,name,description) => {
+    try{
+      await api.donePost(id,name,description);
+    }catch(error) {
+      console.log('Found error',error)
+    }finally {
+    }
+    await loadPosts();
+  }
   return (
-    <Segment>
-      <Card.Group itemsPerRow={2}>
-        <Card >
-          <Card.Content>
-            <Card.Header>Jenny Lawrence</Card.Header>
-            <Card.Meta>New User</Card.Meta>
-            <Card.Description>Jenny requested permission to view your contact details
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <div className='ui two buttons'>
-              <Button basic color='green'>Done
-              </Button>
-              <Button basic color='red'>Delete
-              </Button>
-            </div>
-          </Card.Content>
-        </Card>
+    <Grid relaxed>
+      <Grid.Row>
+        <Grid.Column width={3}>
+        </Grid.Column>
+        <Grid.Column width={10}>
+          <Segment>
+            <Segment>
 
-        <Card >
-          <Card.Content>
-            <Card.Header>Jenny Lawrence</Card.Header>
-            <Card.Meta>New User</Card.Meta>
-            <Card.Description>Jenny requested permission to view your contact details
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <div className='ui two buttons'>
-              <Button basic color='green'>Done
-              </Button>
-              <Button basic color='red'>Delete
-              </Button>
-            </div>
-          </Card.Content>
-        </Card>
+              <Form>
+                <Form.Group widths='equal'>
+                  <Form.Input 
+                    fluid 
+                    label='Title'
+                    placeholder='Title'  
+                    value={post.title} 
+                    onChange={e => setPost({...post, title: e.target.value})} />
+                </Form.Group>
+                <Form.TextArea 
+                  label='Description' 
+                  placeholder='Tell more about what need to do...'  
+                  value={post.description} 
+                  onChange={e => setPost({...post, description: e.target.value})} />
+                <Form.Button primary onClick={createPost}>Add ToDo</Form.Button>
+              </Form>
 
-        <Card >
-          <Card.Content>
-            <Card.Header>Jenny Lawrence</Card.Header>
-            <Card.Meta>New User</Card.Meta>
-            <Card.Description>Jenny requested permission to view your contact details
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <div className='ui two buttons'>
-              <Button basic color='green'>Done
-              </Button>
-              <Button basic color='red'>Delete
-              </Button>
-            </div>
-          </Card.Content>
-        </Card>
-      </Card.Group>
-    </Segment>
+              {loading &&     <Segment>
+                <Dimmer active inverted>
+                  <Loader size='large'>Loading</Loader>
+                </Dimmer>
+
+                <Image src='paragraph.png' />
+              </Segment>}
+            </Segment>
+            {posts.map(({id,name,date,description}) =>
+              <Card fluid>
+                <Card.Content>
+                  <Card.Header>{name}</Card.Header>
+                  <Card.Meta>{date}</Card.Meta>
+                  <Card.Description>{description}
+
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                  <div className='ui two buttons'>
+                    <Button basic color='green' onClick={() => donePost(id,name,description)}>Done
+                    </Button>
+                    <Button basic color='red' onClick={() => removePost(id)}>Delete
+                    </Button>
+                  </div>
+                </Card.Content>
+              </Card>
+            )}
+          </Segment>
+        </Grid.Column>
+        <Grid.Column width={3}>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 };
 
