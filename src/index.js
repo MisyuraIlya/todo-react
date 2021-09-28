@@ -1,19 +1,8 @@
+// Global
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import 'semantic-ui-css/semantic.min.css'
-import Navigation from './components/UI/Navigation';
-import {BrowserRouter} from 'react-router-dom'
+// Local
+import App from './App';
 
-
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Navigation/>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
-
-
+ReactDOM.render(<App/>, document.getElementById('root'));

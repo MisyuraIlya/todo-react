@@ -1,10 +1,11 @@
 import React from 'react';
+import { Segment } from 'semantic-ui-react';
 
 const Error = () => {
   return (
-    <div>
-            404
-    </div>
+    <Segment>
+      Some fancy error message
+    </Segment>
   );
 };
 

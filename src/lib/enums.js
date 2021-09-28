@@ -1,5 +1,18 @@
 export const ROUTES = {
-  HOME: { path: '/', name: 'Homy page!' },
-  ABOUT: { path: '/about', name: 'About' },
-  HISTORY: { path: '/history', name: 'History' },
+  HOME: {
+    path: '/',
+    name: 'Home'
+  },
+  HISTORY: {
+    path: '/history',
+    name: 'History'
+  },
+  ABOUT: {
+    path: '/about',
+    name: 'About'
+  },
+  ERROR: {
+    path: '/error',
+    name: 'Error'
+  },
 };
