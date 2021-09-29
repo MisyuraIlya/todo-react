@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form} from 'semantic-ui-react'
+import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form, Icon} from 'semantic-ui-react'
 import api from '../lib/api';
 import moment from 'moment'
 
@@ -40,6 +40,7 @@ const Home = () => {
     }catch(error) {
       console.log('Found error',error)
     }finally {
+      setPost({title:'',description:''})
     }
     await loadPosts();
   }
@@ -92,7 +93,7 @@ const Home = () => {
                 <Image src='paragraph.png' />
               </Segment>}
             </Segment>
-            {posts.map(({id,name,date,description}) =>
+            {posts.length ? posts.map(({id,name,date,description}) =>
               <Card fluid>
                 <Card.Content>
                   <Card.Header>{name}</Card.Header>
@@ -110,7 +111,10 @@ const Home = () => {
                   </div>
                 </Card.Content>
               </Card>
-            )}
+            ) :   <Header as='h2'>
+              <Icon name='pencil alternate' />
+              <Header.Content>No posts found!</Header.Content>
+            </Header>}
           </Segment>
         </Grid.Column>
         <Grid.Column width={3}>
