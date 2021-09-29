@@ -10,7 +10,6 @@ const Home = () => {
   const [posts,setPosts] = useState([]);
   const [loading,setLoading] = useState(false);
 
-  console.log(posts)
 
 
   async function loadPosts() {
