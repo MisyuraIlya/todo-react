@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form} from 'semantic-ui-react'
+import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form , Icon} from 'semantic-ui-react'
 import api from '../lib/api';
 const History = () => {
 
@@ -37,16 +37,21 @@ const History = () => {
 
               <Image src='paragraph.png' />
             </Segment>}
-            {history.map(({id,name,date,description}) => 
-              <Card fluid>
-                <Card.Content>
-                  <Card.Header>{name}</Card.Header>
-                  <Card.Meta>{date}</Card.Meta>
-                  <Card.Description>{description}
-                  </Card.Description>
-                </Card.Content>
-              </Card>
-            )}
+            {history.length ?
+              history.map(({id,name,date,description}) => 
+                <Card fluid>
+                  <Card.Content>
+                    <Card.Header>{name}</Card.Header>
+                    <Card.Meta>{date}</Card.Meta>
+                    <Card.Description>{description}
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
+              ) : 
+              <Header as='h2'>
+                <Icon name='pencil alternate' />
+                <Header.Content>No History posts found!</Header.Content>
+              </Header>}
           </Segment>
         </Grid.Column>
         <Grid.Column width={3}>

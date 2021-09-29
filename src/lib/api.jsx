@@ -45,18 +45,7 @@ let posts = [
 ]
   
 let historyPosts = [
-  {
-    id: 0,
-    name: 'sleep',
-    date: '28.09.2021',
-    description: 'Fancy program!',
-  },
-  {
-    id: 1,
-    name: 'train',
-    date: '28.09.2021',
-    description: 'Fancy program!',
-  }
+
 ]
   
   

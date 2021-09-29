@@ -93,28 +93,30 @@ const Home = () => {
                 <Image src='paragraph.png' />
               </Segment>}
             </Segment>
-            {posts.length ? posts.map(({id,name,date,description}) =>
-              <Card fluid>
-                <Card.Content>
-                  <Card.Header>{name}</Card.Header>
-                  <Card.Meta>{date}</Card.Meta>
-                  <Card.Description>{description}
+            {posts.length ? 
+              posts.map(({id,name,date,description}) =>
+                <Card fluid>
+                  <Card.Content>
+                    <Card.Header>{name}</Card.Header>
+                    <Card.Meta>{date}</Card.Meta>
+                    <Card.Description>{description}
 
-                  </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  <div className='ui two buttons'>
-                    <Button basic color='green' onClick={() => donePost(id,name,description)}>Done
-                    </Button>
-                    <Button basic color='red' onClick={() => removePost(id)}>Delete
-                    </Button>
-                  </div>
-                </Card.Content>
-              </Card>
-            ) :   <Header as='h2'>
-              <Icon name='pencil alternate' />
-              <Header.Content>No posts found!</Header.Content>
-            </Header>}
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <div className='ui two buttons'>
+                      <Button basic color='green' onClick={() => donePost(id,name,description)}>Done
+                      </Button>
+                      <Button basic color='red' onClick={() => removePost(id)}>Delete
+                      </Button>
+                    </div>
+                  </Card.Content>
+                </Card>
+              ) :   
+              <Header as='h2'>
+                <Icon name='pencil alternate' />
+                <Header.Content>No posts found!</Header.Content>
+              </Header>}
           </Segment>
         </Grid.Column>
         <Grid.Column width={3}>
