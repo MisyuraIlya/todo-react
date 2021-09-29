@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form, Icon} from 'semantic-ui-react'
 import api from '../lib/api';
 import moment from 'moment'
+import PaginationModal from '../components/PaginationModal';
 
 const Home = () => {
 
@@ -117,6 +118,11 @@ const Home = () => {
                 <Icon name='pencil alternate' />
                 <Header.Content>No posts found!</Header.Content>
               </Header>}
+            <Segment basic textAlign={"center"}>
+              <PaginationModal />
+            </Segment>
+
+
           </Segment>
         </Grid.Column>
         <Grid.Column width={3}>

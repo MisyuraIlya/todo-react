@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form , Icon} from 'semantic-ui-react'
 import api from '../lib/api';
+import PaginationModal from '../components/PaginationModal';
 const History = () => {
 
   const [history,setHistory] = useState([])
@@ -52,6 +53,9 @@ const History = () => {
                 <Icon name='pencil alternate' />
                 <Header.Content>No History posts found!</Header.Content>
               </Header>}
+            <Segment basic textAlign={"center"}>
+              <PaginationModal />
+            </Segment>
           </Segment>
         </Grid.Column>
         <Grid.Column width={3}>
