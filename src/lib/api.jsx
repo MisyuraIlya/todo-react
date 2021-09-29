@@ -1,3 +1,4 @@
+import moment from 'moment'
 let posts = [
   {
     id: 0,
@@ -77,13 +78,13 @@ async function removePost(id) {
   return delay({data: true}, 1000);
 }
 async function addPosts(title,description) {
-  posts.push({name:title,date:'28.09.2021',description:description})
+  posts.push({name:title,date:moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
 }
   
   
 async function donePost(id,name,description) {
   posts = posts.filter(({id: postsID}) => postsID !== id );
-  historyPosts.push({name:name, date: '28.09.2021',description:description})
+  historyPosts.push({name:name, date: moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
   return delay({data: true}, 1000);
 }
   
@@ -96,7 +97,7 @@ async function fetchHistory({ page, limit }) {
       
   return delay({page, limit, total: historyPosts.length, data: historyPosts.slice(start, end)}, 1000);
 }
-  
+
   
 // -----------------------------------------------
   

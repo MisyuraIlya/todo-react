@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Segment , Card, Button, Header ,  Dimmer, Loader, Image, Form} from 'semantic-ui-react'
 import api from '../lib/api';
+import moment from 'moment'
 
 const Home = () => {
 
@@ -23,8 +24,6 @@ const Home = () => {
   }
 
   useEffect(() => loadPosts() , [] )
-
-
   const removePost = async (id) => {
     try{
       await api.removePost(id);
@@ -55,6 +54,10 @@ const Home = () => {
     }
     await loadPosts();
   }
+
+
+  let timess = moment().format('MMMM Do YYYY, h:mm:ss a')
+  console.log(timess)
   return (
     <Grid relaxed>
       <Grid.Row>
