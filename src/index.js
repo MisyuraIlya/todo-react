@@ -1,13 +1,8 @@
+// Global
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'semantic-ui-css/semantic.min.css'
+// Local
 import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
-
-
-reportWebVitals();
+ReactDOM.render(<App/>, document.getElementById('root'));
