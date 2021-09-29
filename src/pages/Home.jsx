@@ -10,6 +10,9 @@ const Home = () => {
   const [posts,setPosts] = useState([]);
   const [loading,setLoading] = useState(false);
 
+  console.log(posts)
+
+
   async function loadPosts() {
     setLoading(true);
     try{
@@ -58,8 +61,7 @@ const Home = () => {
   }
 
 
-  let timess = moment().format('MMMM Do YYYY, h:mm:ss a')
-  console.log(timess)
+
   return (
     <Grid relaxed>
       <Grid.Row>

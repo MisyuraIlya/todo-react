@@ -78,7 +78,7 @@ async function removePost(id) {
   return delay({data: true}, 1000);
 }
 async function addPosts(title,description) {
-  posts.push({name:title,date:moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
+  posts.push({id: posts.length+1 ,name:title,date:moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
 }
   
   
@@ -107,7 +107,7 @@ const api = {
   addPosts,
   removePost,
   fetchHistory,
-  donePost
+  donePost,
 };
     
 export default api;
