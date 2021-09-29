@@ -1,43 +1,44 @@
 import moment from 'moment'
+import { v4 as uuidv4 } from 'uuid';
 let posts = [
   {
-    id: 0,
+    id: uuidv4(),
     name: 'Create app',
     date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 1,
+    id: uuidv4(),
     name: 'Cooking',
     Date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 2,
+    id: uuidv4(),
     name: 'Training',
     Date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 3,
+    id: uuidv4(),
     name: 'Play',
     Date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 4,
+    id: uuidv4(),
     name: 'Coding',
     Date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 5,
+    id: uuidv4(),
     name: 'Read book',
     Date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 6,
+    id: uuidv4(),
     name: 'Sleep',
     Date: '28.09.2021',
     description: 'Fancy program!',
@@ -46,13 +47,13 @@ let posts = [
   
 let historyPosts = [
   {
-    id: 0,
+    id: uuidv4(),
     name: 'sleep',
     date: '28.09.2021',
     description: 'Fancy program!',
   },
   {
-    id: 1,
+    id: uuidv4(),
     name: 'train',
     date: '28.09.2021',
     description: 'Fancy program!',
@@ -70,7 +71,7 @@ async function fetchPosts({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
     
-  return delay({page, limit, total: posts.length, data: posts.slice(start, end)}, 1000);
+  return delay({page, limit, total: posts.length, data: posts.slice(start, end)}, 0);
 }
   
 async function removePost(id) {
@@ -78,14 +79,14 @@ async function removePost(id) {
   return delay({data: true}, 1000);
 }
 async function addPosts(title,description) {
-  posts.push({id: posts.length+1 ,name:title,date:moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
+  posts.push({id: uuidv4() + 1 , name:title, date:moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
 }
   
   
 async function donePost(id,name,description) {
   posts = posts.filter(({id: postsID}) => postsID !== id );
   historyPosts.push({name:name, date: moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
-  return delay({data: true}, 1000);
+  return delay({data: true}, 0);
 }
   
 // -----------------------------------------------
@@ -95,7 +96,7 @@ async function fetchHistory({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
       
-  return delay({page, limit, total: historyPosts.length, data: historyPosts.slice(start, end)}, 1000);
+  return delay({page, limit, total: historyPosts.length, data: historyPosts.slice(start, end)}, 0);
 }
 
   
