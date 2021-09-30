@@ -6,59 +6,53 @@ let posts = [
     name: 'Create app',
     date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'IN PROGRESS',
   },
   {
     id: uuidv4(),
     name: 'Cooking',
     Date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'DONE',
   },
   {
     id: uuidv4(),
     name: 'Training',
     Date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'IN PROGRESS',
   },
   {
     id: uuidv4(),
     name: 'Play',
     Date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'DONE',
   },
   {
     id: uuidv4(),
     name: 'Coding',
     Date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'IN PROGRESS',
   },
   {
     id: uuidv4(),
     name: 'Read book',
     Date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'DONE',
   },
   {
     id: uuidv4(),
     name: 'Sleep',
     Date: '28.09.2021',
     description: 'Fancy program!',
+    status: 'DONE',
   },
 ]
   
-let historyPosts = [
-  {
-    id: uuidv4(),
-    name: 'sleep',
-    date: '28.09.2021',
-    description: 'Fancy program!',
-  },
-  {
-    id: uuidv4(),
-    name: 'train',
-    date: '28.09.2021',
-    description: 'Fancy program!',
-  }
-]
+
   
   
 // Helpers
@@ -70,8 +64,10 @@ function delay(data, time) {
 async function fetchPosts({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
-    
-  return delay({page, limit, total: posts.length, data: posts.slice(start, end)}, 0);
+  const data = posts
+    .filter(({status}) => status === 'IN PROGRESS')
+    .slice(start, end)
+  return delay({page, limit, total: posts.length, data}, 0);
 }
   
 async function removePost(id) {
@@ -95,8 +91,10 @@ async function donePost(id,name,description) {
 async function fetchHistory({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
-      
-  return delay({page, limit, total: historyPosts.length, data: historyPosts.slice(start, end)}, 0);
+  const data = posts
+    .filter(({status}) => status === 'DONE')
+    .slice(start, end)
+  return delay({page, limit, total: posts.length, data}, 0);
 }
 
   
