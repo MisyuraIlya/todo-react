@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Segment, Card, Button, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
+import { Segment, Card, Button, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
 import api from '../lib/api';
 import moment from 'moment'
 import PaginationModal from '../components/PaginationModal';
@@ -9,8 +9,6 @@ const Home = () => {
   const [post, setPost] = useState({ title: '', description: '' })
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  console.log(posts)
 
   async function loadPosts() {
     setLoading(true);
@@ -48,18 +46,14 @@ const Home = () => {
     await loadPosts();
   }
 
-
   const donePost = async (id, name, description) => {
     try {
       await api.donePost(id, name, description);
     } catch (error) {
       console.log('Found error', error)
-    } finally {
     }
     await loadPosts();
   }
-
-
 
   return (
 

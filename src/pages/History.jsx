@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Segment, Card, Button, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
+import { Segment, Card, Header, Dimmer, Loader, Image, Icon } from 'semantic-ui-react'
 import api from '../lib/api';
 import PaginationModal from '../components/PaginationModal';
 import moment from 'moment'
@@ -7,6 +7,8 @@ const History = () => {
 
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(false);
+
+  
   async function loadHistory() {
     setLoading(true);
     try {
