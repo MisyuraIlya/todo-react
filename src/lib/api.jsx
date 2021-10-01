@@ -92,7 +92,7 @@ async function fetchHistory({ page, limit }) {
   const data = posts
     .filter(({ status }) => status === 'DONE')
     .slice(start, end)
-  return delay({ page, limit, total: posts.length, data }, 0);
+  return delay({ page, limit, total: posts.length, data }, 1000);
 }
 // -----------------------------------------------
 const api = {

@@ -10,12 +10,13 @@ import HistoryCard from '../components/HistoryCard';
 
 
 const History = () => {
-
+  const [overlay, setOverlay] = useState(false)
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(false);
 
 
   async function loadHistory() {
+    setOverlay(true);
     setLoading(true);
     try {
       const { page, limit, total, data } = await api.fetchHistory({ page: 0, limit: 5 });
@@ -26,6 +27,7 @@ const History = () => {
 
     } finally {
       setLoading(false);
+      setOverlay(false);
     }
   }
 
@@ -34,8 +36,10 @@ const History = () => {
 
 
   return (
-
-    <Segment>
+    <Dimmer.Dimmable as={Segment} dimmed={overlay}>
+      <Dimmer active={overlay} inverted>
+        <Loader>Loading</Loader>
+      </Dimmer>
       {loading && <Segment>
         <Dimmer active inverted>
           <Loader size='large'>Loading</Loader>
@@ -54,8 +58,7 @@ const History = () => {
       <Segment basic textAlign={"center"}>
         <PaginationModal />
       </Segment>
-    </Segment>
-
+    </Dimmer.Dimmable>
   );
 };
 
