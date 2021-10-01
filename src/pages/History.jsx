@@ -42,7 +42,7 @@ const History = () => {
       </Dimmer>
       {history.length ?
         history.map(({ id, name, date, description }) =>
-          <HistoryCard id={id} name={name} date={date} description={description} />
+          <HistoryCard key={id} id={id} name={name} date={date} description={description} />
         ) :
         <Header as='h2'>
           <Icon name='pencil alternate' />

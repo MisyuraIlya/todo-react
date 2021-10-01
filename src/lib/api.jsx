@@ -2,49 +2,49 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
 let posts = [
   {
-    id: uuidv4(),
+    id: "f1d28c0d-a29f-41a9-afb3-7f8d1f84ef63",
     name: 'Create app',
     date: '28.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
-    id: uuidv4(),
+    id: "fa94d90a-1f03-404d-a9fc-1d2df7ef7052",
     name: 'Cooking',
     Date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
-    id: uuidv4(),
+    id: "320e2ed6-06ef-4ba5-aa33-db3b26e859f7",
     name: 'Training',
     Date: '28.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
-    id: uuidv4(),
+    id: "1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb",
     name: 'Play',
     Date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
-    id: uuidv4(),
+    id: "1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb",
     name: 'Coding',
     Date: '28.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
-    id: uuidv4(),
+    id: "ce4ab3c5-d1bb-4289-8750-e11e5d291b5e",
     name: 'Read book',
     Date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
-    id: uuidv4(),
+    id: "b0aa43e7-3b6a-43fc-bc3f-bf77f7a37937",
     name: 'Sleep',
     Date: '28.09.2021',
     description: 'Fancy program!',
@@ -75,15 +75,22 @@ async function removePost(id) {
   return delay({ data: true }, 1000);
 }
 async function addPosts(title, description) {
-  posts.push({ id: uuidv4() + 1, name: title, date: moment().format(), description })
+  posts.push({ id: uuidv4() , name: title, date: moment().format(), description })
 }
 
-async function donePost(id, name, description) {
-  posts = posts.filter(({ id: postsID }) => postsID !== id);
-  historyPosts.push({ name: name, date: moment().format(), description })
-  return delay({ data: true }, 0);
+async function donePost(postid) {
+  posts = posts.map(({ id , ...rest }) => id === postid ? { id, ...rest, status: "DONE" } : { id, ...rest })
+  console.log('posts', posts, postid)
+  return delay({ data: true }, 2000);
 }
 
+// {
+//   id: uuidv4(),
+//   name: 'Training',
+//   Date: '28.09.2021',
+//   description: 'Fancy program!',
+//   status: 'IN PROGRESS',
+// },
 // -----------------------------------------------
 // -------History page logic------------------------
 async function fetchHistory({ page, limit }) {

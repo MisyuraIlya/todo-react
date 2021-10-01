@@ -5,6 +5,7 @@ import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
 import { useFetchedPosts } from '../hooks/useFetch';
 const Home = () => {
+  
   const [overlay, setOverlay] = useState(false)
   const [post, setPost] = useState({ title: '', description: '' })
   const [posts, setPosts] = useState([]);
@@ -50,7 +51,8 @@ const Home = () => {
 
   const donePost = async (id, name, description) => {
     try {
-      await api.donePost(id, name, description);
+      const tmp = await api.donePost(id, name, description);
+      console.log(tmp);
     } catch (error) {
       console.log('Found error', error)
     }
@@ -85,6 +87,7 @@ const Home = () => {
         posts.length ?
           posts.map(({ id, name, date, description }) =>
             <HomeCards
+              key={id}
               id={id}
               name={name}
               date={date}
