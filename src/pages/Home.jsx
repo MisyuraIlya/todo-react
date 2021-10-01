@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Segment, Card, Button, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
+import { Segment, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
 import api from '../lib/api';
-import moment from 'moment'
 import PaginationModal from '../components/PaginationModal';
+import HomeCards from '../components/HomeCards';
 
 const Home = () => {
 
@@ -87,23 +87,13 @@ const Home = () => {
         //card to component
         posts.length ?
           posts.map(({ id, name, date, description }) =>
-            <Card fluid>
-              <Card.Content>
-                <Card.Header>{name}</Card.Header>
-                <Card.Meta>{moment(date, 'DD.MM.YYYY').utc().format('DD.MM.YYYY')}</Card.Meta>
-                <Card.Description>{description}
-
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <div className='ui two buttons'>
-                  <Button basic color='green' onClick={() => donePost(id, name, description)}>Done
-                  </Button>
-                  <Button basic color='red' onClick={() => removePost(id)}>Delete
-                  </Button>
-                </div>
-              </Card.Content>
-            </Card>
+            <HomeCards
+              id={id}
+              name={name}
+              date={date}
+              description={description}
+              donePost={() => donePost(id, name, description)}
+              removePost={() => removePost(id)} />
           ) :
           <Header as='h2'>
             <Icon name='pencil alternate' />
