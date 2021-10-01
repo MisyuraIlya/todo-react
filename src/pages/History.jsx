@@ -40,13 +40,6 @@ const History = () => {
       <Dimmer active={overlay} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
-      {loading && <Segment>
-        <Dimmer active inverted>
-          <Loader size='large'>Loading</Loader>
-        </Dimmer>
-
-        <Image src='paragraph.png' />
-      </Segment>}
       {history.length ?
         history.map(({ id, name, date, description }) =>
           <HistoryCard id={id} name={name} date={date} description={description} />
