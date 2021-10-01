@@ -1,7 +1,7 @@
 import React from 'react';
-import { Segment, Card, Header, Dimmer, Loader, Image, Icon } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import moment from 'moment'
-const HistoryCard = ({name,date,description}) => {
+const HistoryCard = ({ id, name, date, description }) => {
   return (
     <Card fluid>
       <Card.Content>
