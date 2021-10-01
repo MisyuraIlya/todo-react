@@ -5,12 +5,13 @@ import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
 
 const Home = () => {
-
+  const [overlay, setOverlay] = useState(false)
   const [post, setPost] = useState({ title: '', description: '' })
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   async function loadPosts() {
+    setOverlay(true);
     setLoading(true);
     try {
       const { page, limit, total, data } = await api.fetchPosts({ page: 0, limit: 5 });
@@ -21,6 +22,7 @@ const Home = () => {
 
     } finally {
       setLoading(false);
+      setOverlay(false);
     }
   }
 
@@ -57,8 +59,10 @@ const Home = () => {
 
   return (
 
-    <Segment>
-
+    <Dimmer.Dimmable as={Segment} dimmed={overlay}>
+      <Dimmer active={overlay} inverted>
+        <Loader>Loading</Loader>
+      </Dimmer>
       <Form>
         <Form.Group widths='equal'>
           <Form.Input
@@ -76,14 +80,7 @@ const Home = () => {
         <Form.Button primary onClick={createPost}>Add ToDo</Form.Button>
       </Form>
 
-      {loading ?
-        <Segment>
-          <Dimmer active inverted>
-            <Loader size='large'>Loading</Loader>
-          </Dimmer>
-
-          <Image src='paragraph.png' />
-        </Segment> :
+      {
         //card to component
         posts.length ?
           posts.map(({ id, name, date, description }) =>
@@ -104,8 +101,7 @@ const Home = () => {
         <PaginationModal />
       </Segment>
 
-
-    </Segment>
+    </Dimmer.Dimmable>
 
   );
 };

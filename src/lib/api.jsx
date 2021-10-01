@@ -67,7 +67,7 @@ async function fetchPosts({ page, limit }) {
   const data = posts
     .filter(({ status }) => status === 'IN PROGRESS')
     .slice(start, end)
-  return delay({ page, limit, total: posts.length, data }, 0);
+  return delay({ page, limit, total: posts.length, data }, 2000);
 }
 
 async function removePost(id) {
