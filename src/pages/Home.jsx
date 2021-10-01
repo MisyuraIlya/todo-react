@@ -3,7 +3,7 @@ import { Segment, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-
 import api from '../lib/api';
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
-
+import { useFetchedPosts } from '../hooks/useFetch';
 const Home = () => {
   const [overlay, setOverlay] = useState(false)
   const [post, setPost] = useState({ title: '', description: '' })
@@ -14,7 +14,7 @@ const Home = () => {
     setOverlay(true);
     setLoading(true);
     try {
-      const { page, limit, total, data } = await api.fetchPosts({ page: 0, limit: 5 });
+      const { page, limit, total, data } = await useFetchedPosts(0,5);
       setPosts(data)
 
     } catch (error) {
