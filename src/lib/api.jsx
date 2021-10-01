@@ -51,56 +51,56 @@ let posts = [
     status: 'DONE',
   },
 ]
-  
 
-  
-  
+
+
+
 // Helpers
 function delay(data, time) {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
-  
+
 // -----------Home page logics-------------------
 async function fetchPosts({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
   const data = posts
-    .filter(({status}) => status === 'IN PROGRESS')
+    .filter(({ status }) => status === 'IN PROGRESS')
     .slice(start, end)
-  return delay({page, limit, total: posts.length, data}, 0);
+  return delay({ page, limit, total: posts.length, data }, 0);
 }
-  
+
 async function removePost(id) {
-  posts = posts.filter(({id: postsID}) => postsID !== id );
-  return delay({data: true}, 1000);
+  posts = posts.filter(({ id: postsID }) => postsID !== id);
+  return delay({ data: true }, 1000);
 }
-async function addPosts(title,description) {
-  posts.push({id: uuidv4() + 1 , name:title, date:moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
+async function addPosts(title, description) {
+  posts.push({ id: uuidv4() + 1, name: title, date: moment().format('MMMM Do YYYY, h:mm:ss a'), description: description })
 }
-  
-  
-async function donePost(id,name,description) {
-  posts = posts.filter(({id: postsID}) => postsID !== id );
-  historyPosts.push({name:name, date: moment().format('MMMM Do YYYY, h:mm:ss a'),description:description})
-  return delay({data: true}, 0);
+
+
+async function donePost(id, name, description) {
+  posts = posts.filter(({ id: postsID }) => postsID !== id);
+  historyPosts.push({ name: name, date: moment().format('MMMM Do YYYY, h:mm:ss a'), description: description })
+  return delay({ data: true }, 0);
 }
-  
+
 // -----------------------------------------------
 // -------History page logic------------------------
-  
+
 async function fetchHistory({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
   const data = posts
-    .filter(({status}) => status === 'DONE')
+    .filter(({ status }) => status === 'DONE')
     .slice(start, end)
-  return delay({page, limit, total: posts.length, data}, 0);
+  return delay({ page, limit, total: posts.length, data }, 0);
 }
 
-  
+
 // -----------------------------------------------
-  
-  
+
+
 const api = {
   fetchPosts,
   addPosts,
@@ -108,5 +108,5 @@ const api = {
   fetchHistory,
   donePost,
 };
-    
+
 export default api;
