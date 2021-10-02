@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+//GLOBAL
+import React, { useState } from 'react';
 import { Segment, Header, Dimmer, Loader, Form, Icon } from 'semantic-ui-react'
-import api from '../lib/api';
+
+//LOCAL
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
-
-
 import { useTodo } from '../state/todos';
 
 const Home = () => {
 
+  //local states
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { todos, overlay, methods } = useTodo();
@@ -29,33 +30,24 @@ const Home = () => {
   async function createTodo() {
     await methods.createTodo(title, description);
     await methods.loadTodo();
-
     setDescription('');
     setTitle('');
   }
 
-  // Done LOGIC
-  const doneTodo = async (id, name, description) => {
-    try {
-      const tmp = await api.doneTodo(id, name, description);
-      console.log(tmp);
-    } catch (error) {
-      console.log('Found error', error)
-    }
+
+  // Done Todo
+  async function doneTodo(id, name, description) {
+    await methods.doneTodo(id, name, description);
     await methods.loadTodo();
   }
 
+
   // Remove Todo
-  useEffect(() => methods.loadTodo(), [])
-  const removeTodo = async (id) => {
-    try {
-      await api.removeTodo(id);
-    } catch (error) {
-      console.log('Found error', error)
-    } finally {
-    }
+  async function removeTodo(id) {
+    await methods.removeTodo(id);
     await methods.loadTodo();
   }
+
 
   return (
 

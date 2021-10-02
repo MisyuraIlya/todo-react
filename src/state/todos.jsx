@@ -60,6 +60,18 @@ const TodoProvider = (props) => {
   }
 
 
+  //Done LOGIC
+
+  const doneTodo = async (id, name, description) => {
+    try {
+      await api.doneTodo(id, name, description);
+      console.log('yes')
+    } catch (error) {
+      console.error('[state/todo/doneTodo] Failed to load Todo', { error });
+      setError({ isError: true, message: error.message });
+    }
+  }
+
 
 
 
@@ -67,7 +79,7 @@ const TodoProvider = (props) => {
   useEffect(() => loadTodo(), [])
 
   // Export
-  const methods = { createTodo, loadTodo };
+  const methods = { createTodo, loadTodo, doneTodo};
   return <TodoContex.Provider value={{ todos, overlay, pagination, error, methods }} {...props} />
 }
 
