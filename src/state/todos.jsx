@@ -72,6 +72,16 @@ const TodoProvider = (props) => {
     }
   }
 
+  //Remove LOGIC
+  const removeTodo = async (id) => {
+    try {
+      await api.removeTodo(id);
+    } catch (error) {
+      console.error('[state/todo/removeTodo] Failed to Remove Todo', { error });
+      setError({ isError: true, message: error.message });
+    } 
+  }
+
 
 
 
@@ -79,7 +89,7 @@ const TodoProvider = (props) => {
   useEffect(() => loadTodo(), [])
 
   // Export
-  const methods = { createTodo, loadTodo, doneTodo};
+  const methods = { createTodo, loadTodo, doneTodo, removeTodo};
   return <TodoContex.Provider value={{ todos, overlay, pagination, error, methods }} {...props} />
 }
 
