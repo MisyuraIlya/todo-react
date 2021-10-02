@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Segment, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
 import api from '../lib/api';
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
 import { useFetchedPosts } from '../hooks/useFetch';
+import LoadingContext from '../state/Context';
+
+
 const Home = () => {
   
   const [overlay, setOverlay] = useState(false)
   const [post, setPost] = useState({ title: '', description: '' })
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  // const [loading, setLoading] = useState(false);
+  const {loading, setLoading} = useContext(LoadingContext)
   async function loadPosts() {
     setOverlay(true);
     setLoading(true);
