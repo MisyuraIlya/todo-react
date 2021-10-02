@@ -81,7 +81,6 @@ async function addPosts(title, description) {
 
 async function doneTodo(postid) {
   posts = posts.map(({ id , ...rest }) => id === postid ? { id, ...rest, status: "DONE" } : { id, ...rest })
-  console.log(posts)
   return delay({ data: true }, 2000);
 }
 

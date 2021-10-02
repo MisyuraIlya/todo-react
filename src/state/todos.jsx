@@ -65,7 +65,6 @@ const TodoProvider = (props) => {
   const doneTodo = async (id, name, description) => {
     try {
       await api.doneTodo(id, name, description);
-      console.log('yes')
     } catch (error) {
       console.error('[state/todo/doneTodo] Failed to load Todo', { error });
       setError({ isError: true, message: error.message });
