@@ -70,7 +70,7 @@ async function fetchPosts({ page, limit }) {
   return delay({ page, limit, total: posts.length, data }, 2000);
 }
 
-async function removePost(id) {
+async function removeTodo(id) {
   posts = posts.filter(({ id: postsID }) => postsID !== id);
   return delay({ data: true }, 1000);
 }
@@ -79,7 +79,7 @@ async function addPosts(title, description) {
   console.log(posts)
 }
 
-async function donePost(postid) {
+async function doneTodo(postid) {
   posts = posts.map(({ id , ...rest }) => id === postid ? { id, ...rest, status: "DONE" } : { id, ...rest })
   console.log('posts', posts, postid)
   return delay({ data: true }, 2000);
@@ -106,9 +106,9 @@ async function fetchHistory({ page, limit }) {
 const api = {
   fetchPosts,
   addPosts,
-  removePost,
+  removeTodo,
   fetchHistory,
-  donePost,
+  doneTodo,
 };
 
 export default api;

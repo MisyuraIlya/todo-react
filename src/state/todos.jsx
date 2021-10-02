@@ -53,11 +53,13 @@ const TodoProvider = (props) => {
     }
   }
 
+
+
   // Logic
   useEffect(() => loadTodo(), [])
 
   // Export
-  const methods = { createTodo, loadTodo };
+  const methods = { createTodo, loadTodo, donePost };
   return <TodoContex.Provider value={{todos, loading, pagination, error, methods }} {...props}/>
 }
 

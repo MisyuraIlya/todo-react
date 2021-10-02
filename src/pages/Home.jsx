@@ -1,65 +1,62 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Segment, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react';
+import { Segment, Header, Dimmer, Loader, Form, Icon } from 'semantic-ui-react'
 import api from '../lib/api';
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
-import { useFetchedPosts } from '../hooks/useFetch';
-import LoadingContext from '../state/Context';
 
+
+import { useTodo } from '../state/todos';
 
 const Home = () => {
-  
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [overlay, setOverlay] = useState(false)
-  const [post, setPost] = useState({ title: '', description: '' })
-  const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  const {loading, setLoading} = useContext(LoadingContext)
-  async function loadPosts() {
-    setOverlay(true);
-    setLoading(true);
-    try {
-      const { page, limit, total, data } = await useFetchedPosts(0,5);
-      setPosts(data)
 
-    } catch (error) {
-      console.log('find error', error)
+  const { todos, loading, methods } = useTodo();
 
-    } finally {
-      setLoading(false);
-      setOverlay(false);
-    }
+
+  // Event hendlers
+  function updateTitle({ target }) {
+    setTitle(target.value);
   }
 
-  useEffect(() => loadPosts(), [])
-  const removePost = async (id) => {
-    try {
-      await api.removePost(id);
-    } catch (error) {
-      console.log('Found error', error)
-    } finally {
-    }
-    await loadPosts();
+  function updateDescription({ target }) {
+    setDescription(target.value);
   }
 
-  const createPost = async () => {
-    try {
-      await api.addPosts(post.title, post.description);
-    } catch (error) {
-      console.log('Found error', error)
-    } finally {
-      setPost({ title: '', description: '' })
-    }
-    await loadPosts();
+
+
+  // Create Todo
+  async function createTodo() {
+    await methods.createTodo(title, description);
+    await methods.loadTodo();
+
+    setDescription('');
+    setTitle('');
   }
 
-  const donePost = async (id, name, description) => {
+  // Done LOGIC
+  const doneTodo = async (id, name, description) => {
     try {
-      const tmp = await api.donePost(id, name, description);
+      const tmp = await api.doneTodo(id, name, description);
       console.log(tmp);
     } catch (error) {
       console.log('Found error', error)
     }
-    await loadPosts();
+    await methods.loadTodo();
+  }
+
+  // Remove Todo
+  useEffect(() => methods.loadTodo(), [])
+  const removeTodo = async (id) => {
+    try {
+      await api.removeTodo(id);
+    } catch (error) {
+      console.log('Found error', error)
+    } finally {
+    }
+    await methods.loadTodo();
   }
 
   return (
@@ -74,29 +71,29 @@ const Home = () => {
             fluid
             label='Title'
             placeholder='Title'
-            value={post.title}
-            onChange={e => setPost({ ...post, title: e.target.value })} />
+            value={title}
+            onChange={updateTitle} />
         </Form.Group>
         <Form.TextArea
           label='Description'
           placeholder='Tell more about what need to do...'
-          value={post.description}
-          onChange={e => setPost({ ...post, description: e.target.value })} />
-        <Form.Button primary onClick={createPost}>Add ToDo</Form.Button>
+          value={description}
+          onChange={updateDescription} />
+        <Form.Button primary onClick={createTodo}>Add ToDo</Form.Button>
       </Form>
 
       {
         //card to component
-        posts.length ?
-          posts.map(({ id, name, date, description }) =>
+        todos.length ?
+          todos.map(({ id, name, date, description }) =>
             <HomeCards
               key={id}
               id={id}
               name={name}
               date={date}
               description={description}
-              donePost={() => donePost(id, name, description)}
-              removePost={() => removePost(id)} />
+              donePost={() => doneTodo(id, name, description)}
+              removePost={() => removeTodo(id)} />
           ) :
           <Header as='h2'>
             <Icon name='pencil alternate' />
