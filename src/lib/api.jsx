@@ -11,42 +11,42 @@ let posts = [
   {
     id: "fa94d90a-1f03-404d-a9fc-1d2df7ef7052",
     name: 'Cooking',
-    Date: '28.09.2021',
+    date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
     id: "320e2ed6-06ef-4ba5-aa33-db3b26e859f7",
     name: 'Training',
-    Date: '28.09.2021',
+    date: '28.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
     id: "1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb",
     name: 'Play',
-    Date: '28.09.2021',
+    date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
     id: "1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb",
     name: 'Coding',
-    Date: '28.09.2021',
+    date: '28.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
     id: "ce4ab3c5-d1bb-4289-8750-e11e5d291b5e",
     name: 'Read book',
-    Date: '28.09.2021',
+    date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
     id: "b0aa43e7-3b6a-43fc-bc3f-bf77f7a37937",
     name: 'Sleep',
-    Date: '28.09.2021',
+    date: '28.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
@@ -75,7 +75,8 @@ async function removePost(id) {
   return delay({ data: true }, 1000);
 }
 async function addPosts(title, description) {
-  posts.push({ id: uuidv4() , name: title, date: moment().format(), description, status:"IN PROGRESS" })
+  posts.push({ id: uuidv4() , name: title, date: moment().format('DD.MM.YYYY'), description, status:"IN PROGRESS" })
+  console.log(posts)
 }
 
 async function donePost(postid) {
