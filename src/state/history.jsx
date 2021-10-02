@@ -13,7 +13,7 @@ const LIMIT = 10;
 const useHistory = () => {
   const context = useContext(HistoryContext)
   if (!context) {
-    throw new Error('Can not run without "TodoProvider"');
+    throw new Error('Can not run without "HistoryProvider"');
   }
 
   return context;

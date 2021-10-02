@@ -11,9 +11,7 @@ const Home = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [overlay, setOverlay] = useState(false)
-
-  const { todos, loading, methods } = useTodo();
+  const { todos, overlay, methods } = useTodo();
 
 
   // Event hendlers

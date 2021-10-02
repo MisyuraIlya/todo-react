@@ -23,13 +23,18 @@ const useTodo = () => {
 const TodoProvider = (props) => {
   // State
   const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({ page: 0, total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
+  const [overlay, setOverlay] = useState(false)
+
+
 
   // Helpers
+
+  //LoadTodo
   async function loadTodo() {
-    setLoading(true);
+    setOverlay(true);
     try {
       const { data, page, limit, total } = await api
         .fetchPosts({ page: pagination.page, limit: pagination.limit });
@@ -40,10 +45,11 @@ const TodoProvider = (props) => {
       console.error('[state/todo/loadTodo] Failed to load posts', { error });
       setError({ isError: true, message: error.message });
     } finally {
-      setLoading(false);
+      setOverlay(false);
     }
   }
 
+  //CreateTodo
   async function createTodo(title, description) {
     try {
       await api.addPosts(title, description);
@@ -55,12 +61,14 @@ const TodoProvider = (props) => {
 
 
 
+
+
   // Logic
   useEffect(() => loadTodo(), [])
 
   // Export
   const methods = { createTodo, loadTodo };
-  return <TodoContex.Provider value={{ todos, loading, pagination, error, methods }} {...props} />
+  return <TodoContex.Provider value={{ todos, overlay, pagination, error, methods }} {...props} />
 }
 
 export { useTodo, TodoProvider };
