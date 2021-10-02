@@ -10,18 +10,17 @@ import Home from './pages/Home';
 import History from './pages/History';
 import About from './pages/About';
 import Error from './pages/Error';
-import LoadingContext from './state/Context';
 import { TodoProvider } from './state/todos';
+import { HistoryProvider } from './state/history';
 
 
 const App = () => {
-  const [loading, setLoading] = useState(false);
 
 
   return (
     <BrowserRouter>
       <TodoProvider>
-        <LoadingContext.Provider value={{loading, setLoading}}>
+        <HistoryProvider>
           <Navigation/>
 
           <Container>
@@ -45,7 +44,7 @@ const App = () => {
               <Redirect to={ROUTES.ERROR.path}/>
             </Switch>
           </Container>
-        </LoadingContext.Provider>
+        </HistoryProvider>
       </TodoProvider>
     </BrowserRouter>
   );
