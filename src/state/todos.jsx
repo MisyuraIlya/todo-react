@@ -24,7 +24,7 @@ const TodoProvider = (props) => {
   // State
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState({page: 0, total: null, limit: LIMIT});
+  const [pagination, setPagination] = useState({ page: 0, total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
 
   // Helpers
@@ -35,10 +35,10 @@ const TodoProvider = (props) => {
         .fetchPosts({ page: pagination.page, limit: pagination.limit });
 
       setTodos(data);
-      setPagination({page, limit, total});
+      setPagination({ page, limit, total });
     } catch (error) {
-      console.error('[state/todo/loadTodo] Failed to load posts', {error});
-      setError({isError: true, message: error.message});
+      console.error('[state/todo/loadTodo] Failed to load posts', { error });
+      setError({ isError: true, message: error.message });
     } finally {
       setLoading(false);
     }
@@ -48,8 +48,8 @@ const TodoProvider = (props) => {
     try {
       await api.addPosts(title, description);
     } catch (error) {
-      console.error('[state/todo/createPost] Failed to load posts', {error});
-      setError({isError: true, message: error.message});
+      console.error('[state/todo/createPost] Failed to load posts', { error });
+      setError({ isError: true, message: error.message });
     }
   }
 
@@ -59,8 +59,8 @@ const TodoProvider = (props) => {
   useEffect(() => loadTodo(), [])
 
   // Export
-  const methods = { createTodo, loadTodo, donePost };
-  return <TodoContex.Provider value={{todos, loading, pagination, error, methods }} {...props}/>
+  const methods = { createTodo, loadTodo };
+  return <TodoContex.Provider value={{ todos, loading, pagination, error, methods }} {...props} />
 }
 
 export { useTodo, TodoProvider };
