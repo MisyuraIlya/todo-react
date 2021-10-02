@@ -75,7 +75,7 @@ async function removePost(id) {
   return delay({ data: true }, 1000);
 }
 async function addPosts(title, description) {
-  posts.push({ id: uuidv4() , name: title, date: moment().format(), description })
+  posts.push({ id: uuidv4() , name: title, date: moment().format(), description, status:"IN PROGRESS" })
 }
 
 async function donePost(postid) {
