@@ -9,8 +9,7 @@ import { useHistory } from '../state/history';
 
 
 const History = () => {
-  const { overlay, history, pagination, page,  methods} = useHistory();
-
+  const { loading, history, pagination, page,  methods} = useHistory();
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }
@@ -18,8 +17,8 @@ const History = () => {
   useEffect(() => methods.loadHistory(), [page])
 
   return (
-    <Dimmer.Dimmable as={Segment} dimmed={overlay}>
-      <Dimmer active={overlay} inverted>
+    <Dimmer.Dimmable as={Segment} dimmed={loading}>
+      <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
       {history.length ?

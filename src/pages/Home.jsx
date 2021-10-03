@@ -1,5 +1,5 @@
 //GLOBAL
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Segment, Header, Dimmer, Loader, Form, Icon } from 'semantic-ui-react'
 
 //LOCAL
@@ -12,8 +12,7 @@ const Home = () => {
   //local states
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { todos, overlay, pagination, methods } = useTodo();
-
+  const { todos, loading, pagination, page, methods } = useTodo();
 
   // Event hendlers
   function updateTitle({ target }) {
@@ -49,15 +48,15 @@ const Home = () => {
   }
 
   //Pagination todo
-  async function paginate(id) {
-    await methods.paginate(id);
-    await methods.loadTodo();
+  const onPageChange = async (_, { activePage }) => {
+    await methods.onPageChange(activePage - 1);
   }
 
+  useEffect(() => methods.loadTodo(), [page])
   return (
 
-    <Dimmer.Dimmable as={Segment} dimmed={overlay}>
-      <Dimmer active={overlay} inverted>
+    <Dimmer.Dimmable as={Segment} dimmed={loading}>
+      <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
       <Form>
@@ -96,7 +95,7 @@ const Home = () => {
           </Header>}
 
       <Segment basic textAlign={"center"}>
-        <PaginationModal pagination={pagination} paginate={paginate} />
+        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
 
     </Dimmer.Dimmable>

@@ -5,7 +5,7 @@ import api from '../lib/api';
 
 // Defines
 const TodoContex = createContext();
-const LIMIT = 10;
+const LIMIT = 3;
 
 // React hook
 const useTodo = () => {
@@ -18,34 +18,32 @@ const useTodo = () => {
 }
 
 
-`SELECT * FORM posts WHERE status='DONE' LIMIT 10;`
 
 const TodoProvider = (props) => {
   // State
   const [todos, setTodos] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState({ page: 0, total: null, limit: LIMIT });
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
-  const [overlay, setOverlay] = useState(false)
 
 
 
   // Helpers
 
   //LoadTodo
-  async function loadTodo() {
-    setOverlay(true);
+  const loadTodo = async () => {
+    setLoading(true);
     try {
-      const { data, page, limit, total } = await api
-        .fetchPosts({ page: pagination.page, limit: pagination.limit });
+      const { data, limit, total } = await api.fetchPosts({...pagination, page});
 
       setTodos(data);
-      setPagination({ page, limit, total });
+      setPagination({  limit, total });
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load posts', { error });
       setError({ isError: true, message: error.message });
     } finally {
-      setOverlay(false);
+      setLoading(false);
     }
   }
 
@@ -85,16 +83,34 @@ const TodoProvider = (props) => {
     setPagination({ page: page, total: null, limit: LIMIT })
   }
 
+  // Pagination
+
+  async function onPageChange(page) {
+    setPage(page);
+  }
 
 
 
   // Logic
   useEffect(() => loadTodo(), [])
+  useEffect(() => loadTodo(), [page]);
 
   // Export
-  const methods = { createTodo, loadTodo, doneTodo, removeTodo, paginate };
+  const methods = {
+    createTodo,
+    loadTodo,
+    doneTodo,
+    removeTodo,
+    paginate,
+    onPageChange 
+  };
   return <TodoContex.Provider value={{
-    todos, overlay, pagination, error, methods, pagination
+    todos,
+    loading,
+    pagination,
+    error,
+    methods,
+    pagination
   }} {...props} />
 }
 

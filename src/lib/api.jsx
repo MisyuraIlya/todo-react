@@ -41,9 +41,8 @@ async function fetchPosts({ page, limit }) {
   const start = page * limit;
   const end = start + limit;
   const data = posts
-    .filter(({ status }) => status === 'IN PROGRESS')
-    .slice(start, end)
-  return delay({ page, limit, total: posts.length, data }, 2000);
+    .filter(({ status }) => status === 'IN PROGRESS');
+  return delay({ limit, total: data.length, data: data.slice(start, end) }, 1000);
 }
 
 async function removeTodo(id) {
@@ -52,7 +51,6 @@ async function removeTodo(id) {
 }
 async function addPosts(title, description) {
   posts.push({ id: uuidv4() , name: title, date: moment().format('DD.MM.YYYY'), description, status:"IN PROGRESS" })
-  console.log(posts)
 }
 
 async function doneTodo(postid) {

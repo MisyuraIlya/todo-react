@@ -21,7 +21,7 @@ const useHistory = () => {
 
 const HistoryProvider = (props) => {
   //state
-  const [overlay, setOverlay] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(0);
   const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
@@ -29,7 +29,7 @@ const HistoryProvider = (props) => {
 
   //Helpers
   const loadHistory = async () => {
-    setOverlay(true);
+    setLoading(true);
     try {
       const { limit, total, data } = await api.fetchHistory({...pagination, page});
 
@@ -39,7 +39,7 @@ const HistoryProvider = (props) => {
       console.error('[state/history/loadHistory] Failed to load posts', { error });
       setError({ isError: true, message: error.message });
     } finally {
-      setOverlay(false);
+      setLoading(false);
     }
   }
 
@@ -56,7 +56,7 @@ const HistoryProvider = (props) => {
     loadHistory
   };
   const value = {
-    overlay,
+    loading,
     history,
     pagination,
     error,
