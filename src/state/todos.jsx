@@ -78,7 +78,7 @@ const TodoProvider = (props) => {
     } catch (error) {
       console.error('[state/todo/removeTodo] Failed to Remove Todo', { error });
       setError({ isError: true, message: error.message });
-    } 
+    }
   }
 
   const paginate = async (page) => {
@@ -92,9 +92,9 @@ const TodoProvider = (props) => {
   useEffect(() => loadTodo(), [])
 
   // Export
-  const methods = { createTodo, loadTodo, doneTodo, removeTodo, paginate};
+  const methods = { createTodo, loadTodo, doneTodo, removeTodo, paginate };
   return <TodoContex.Provider value={{
-    todos, overlay, pagination, error, methods, pagination 
+    todos, overlay, pagination, error, methods, pagination
   }} {...props} />
 }
 

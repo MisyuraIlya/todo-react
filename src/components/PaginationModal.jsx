@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pagination } from 'semantic-ui-react'
-const PaginationModal = ({pagination,paginate}) => {
+const PaginationModal = ({ pagination, paginate }) => {
 
 
   // const onChange = (e, pageInfo) => {
@@ -14,7 +14,7 @@ const PaginationModal = ({pagination,paginate}) => {
       // activePage={pagination.page+1}
       // onPageChange={}
       boundaryRange={0}
-      defaultActivePage={pagination.page+1}
+      defaultActivePage={pagination.page + 1}
       ellipsisItem={null}
       firstItem={null}
       lastItem={null}

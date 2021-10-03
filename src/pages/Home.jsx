@@ -96,7 +96,7 @@ const Home = () => {
           </Header>}
 
       <Segment basic textAlign={"center"}>
-        <PaginationModal pagination={pagination} paginate={paginate}/>
+        <PaginationModal pagination={pagination} paginate={paginate} />
       </Segment>
 
     </Dimmer.Dimmable>
