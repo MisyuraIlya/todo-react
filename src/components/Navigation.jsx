@@ -1,21 +1,37 @@
 // Global
 import React, { useState } from 'react'
-import { Menu, Container, Dropdown, Button, Header } from 'semantic-ui-react'
+import { Menu, Container, Dropdown, Button, Header, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useLocation, useRouteMatch } from 'react-router-dom'
-import moment from 'moment'
+// import moment from 'moment'
+import moment from 'moment-timezone';
+
 // Local
 import { ROUTES } from '../lib/enums';
 // Defines
 
+
+const options = [
+  { key: 1, text: 'Israel', value: moment.tz('Asia/Jerusalem').format('h:mm:ss, DD.MM.YYYY') },
+  { key: 2, text: 'Vladivastok', value: moment.tz('Asia/Vladivostok').format('h:mm:ss, DD.MM.YYYY') },
+  { key: 3, text: 'New York', value: moment.tz('America/New_York').format('h:mm:ss, DD.MM.YYYY') },
+]
+
 const Navigation = () => {
   const location = useLocation();
+  const [timeZone, setTimeZone] = useState(options.value)
+  const [nameZone, setNameZone] = useState(options.text)
+  let time = moment().format('h:mm:ss, DD.MM.YYYY');
+  let [currentTime, changeTime] = useState(options.value)
+
   
-  let time = moment().format('h:mm:ss, DD.MM.YYYY' );
-  let [currentTime, changeTime] = useState(time)
+  function handleChange(e, { text,value }) {
+    setTimeZone(value)
+
+  }
 
   function checkTime() {
-    time = moment().format('h:mm:ss, DD.MM.YYYY' );
+    time = moment().format('h:mm:ss, DD.MM.YYYY');
     changeTime(time);
   }
   setInterval(checkTime, 1000);
@@ -49,19 +65,21 @@ const Navigation = () => {
         >
           {ROUTES.ABOUT.name}
         </Menu.Item>
-        
+
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Header as='h5' onChange={checkTime}>{currentTime}</Header>
+            <Header as='h5' onChange={checkTime}>{timeZone}</Header>
           </Menu.Item>
-          <Dropdown item text='Time Zone'>
-            <Dropdown.Menu>
-              <Dropdown.Item>ISRAEL</Dropdown.Item>
-              <Dropdown.Item>MOSCOW </Dropdown.Item>
-              <Dropdown.Item>NEW YORK</Dropdown.Item>
-            </Dropdown.Menu>
+          
+          <Dropdown
+            item
+            text={nameZone}
+            onChange={handleChange}
+            options={options}
+            placeholder='Choose a Zone'
+            value={timeZone} 
+          >
           </Dropdown>
-
           <Menu.Item>
             <Button primary>Sign Up</Button>
           </Menu.Item>
