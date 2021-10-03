@@ -81,6 +81,10 @@ const TodoProvider = (props) => {
     } 
   }
 
+  const paginate = async (page) => {
+    setPagination({ page: page, total: null, limit: LIMIT })
+  }
+
 
 
 
@@ -88,8 +92,10 @@ const TodoProvider = (props) => {
   useEffect(() => loadTodo(), [])
 
   // Export
-  const methods = { createTodo, loadTodo, doneTodo, removeTodo};
-  return <TodoContex.Provider value={{ todos, overlay, pagination, error, methods }} {...props} />
+  const methods = { createTodo, loadTodo, doneTodo, removeTodo, paginate};
+  return <TodoContex.Provider value={{
+    todos, overlay, pagination, error, methods, pagination 
+  }} {...props} />
 }
 
 export { useTodo, TodoProvider };

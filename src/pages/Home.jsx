@@ -12,7 +12,7 @@ const Home = () => {
   //local states
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { todos, overlay, methods } = useTodo();
+  const { todos, overlay, pagination, methods } = useTodo();
 
 
   // Event hendlers
@@ -48,6 +48,11 @@ const Home = () => {
     await methods.loadTodo();
   }
 
+  //Pagination todo
+  async function paginate(id) {
+    await methods.paginate(id);
+    await methods.loadTodo();
+  }
 
   return (
 
@@ -91,7 +96,7 @@ const Home = () => {
           </Header>}
 
       <Segment basic textAlign={"center"}>
-        <PaginationModal />
+        <PaginationModal pagination={pagination} paginate={paginate}/>
       </Segment>
 
     </Dimmer.Dimmable>
