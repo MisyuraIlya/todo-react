@@ -23,8 +23,6 @@ const Home = () => {
     setDescription(target.value);
   }
 
-
-
   // Create Todo
   async function createTodo() {
     await methods.createTodo(title, description);
@@ -54,7 +52,6 @@ const Home = () => {
 
   useEffect(() => methods.loadTodo(), [page])
   return (
-
     <Dimmer.Dimmable as={Segment} dimmed={loading}>
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
@@ -76,26 +73,25 @@ const Home = () => {
         <Form.Button primary onClick={createTodo}>Add ToDo</Form.Button>
       </Form>
 
-      {
-        //card to component
-        todos.length ?
-          todos.map(({ id, name, date, description }) =>
-            <HomeCards
-              key={id}
-              id={id}
-              name={name}
-              date={date}
-              description={description}
-              donePost={() => doneTodo(id, name, description)}
-              removePost={() => removeTodo(id)} />
-          ) :
-          <Header as='h2'>
-            <Icon name='pencil alternate' />
-            <Header.Content>No posts found!</Header.Content>
-          </Header>}
+      {todos.length ?
+        todos.map(({ id, name, date, description }) =>
+          <HomeCards
+            key={id}
+            id={id}
+            name={name}
+            date={date}
+            description={description}
+            donePost={() => doneTodo(id, name, description)}
+            removePost={() => removeTodo(id)} />
+        ) :
+        <Header as='h2'>
+          <Icon name='pencil alternate' />
+          <Header.Content>No posts found!</Header.Content>
+        </Header>}
 
       <Segment basic textAlign={"center"}>
-        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
+        {/* FIX ME IM BROKEN! */}
+        {/* <PaginationModal {...pagination} page={page} onPageChange={onPageChange} /> */}
       </Segment>
 
     </Dimmer.Dimmable>

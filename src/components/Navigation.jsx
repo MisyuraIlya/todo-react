@@ -1,40 +1,36 @@
 // Global
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, Container, Dropdown, Button, Header, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useLocation, useRouteMatch } from 'react-router-dom'
-// import moment from 'moment'
 import moment from 'moment-timezone';
 
 // Local
-import { ROUTES } from '../lib/enums';
+import { ROUTES, TIME_ZONES, DATE_TIME_FORMAT } from '../lib/enums';
 // Defines
+const CLOCK_UPDATE = 1000;
 
+const timezoneOptions = Object
+  .entries(TIME_ZONES)
+  .map(([key, value], index) => ({key: index, text: value.name, value: key}));
 
-const options = [
-  { key: 1, text: 'Israel', value: moment.tz('Asia/Jerusalem').format('h:mm:ss, DD.MM.YYYY') },
-  { key: 2, text: 'Vladivastok', value: moment.tz('Asia/Vladivostok').format('h:mm:ss, DD.MM.YYYY') },
-  { key: 3, text: 'New York', value: moment.tz('America/New_York').format('h:mm:ss, DD.MM.YYYY') },
-]
-
+// Defines
 const Navigation = () => {
   const location = useLocation();
-  const [timeZone, setTimeZone] = useState(options.value)
-  const [nameZone, setNameZone] = useState(options.text)
-  let time = moment().format('h:mm:ss, DD.MM.YYYY');
-  let [currentTime, changeTime] = useState(options.value)
+  const [timeZone, setTimeZone] = useState(TIME_ZONES.ISRAEL.zone);
+  const [nameZone, setTimeZoneName] = useState(TIME_ZONES.ISRAEL.name);
+  const [currentTime, setTime] = useState(null);
 
-  
-  function handleChange(e, { text,value }) {
-    setTimeZone(value)
+  const handleTimezoneChange = (key) => {
+    setTimeZone(TIME_ZONES[key].zone);
+    setTimeZoneName(TIME_ZONES[key].name);
+  };
 
-  }
-
-  function checkTime() {
-    time = moment().format('h:mm:ss, DD.MM.YYYY');
-    changeTime(time);
-  }
-  setInterval(checkTime, 1000);
+  // Hooks
+  useEffect(() => {
+    const intervalId = setInterval(() => setTime(moment().tz(timeZone).format(DATE_TIME_FORMAT)), CLOCK_UPDATE);
+    return () => clearInterval(intervalId);
+  }, [timeZone]);
 
   return (
     <Menu >
@@ -67,19 +63,19 @@ const Navigation = () => {
         </Menu.Item>
 
         <Menu.Menu position='right'>
-          <Menu.Item>
-            <Header as='h5' onChange={checkTime}>{timeZone}</Header>
-          </Menu.Item>
+
           
           <Dropdown
             item
             text={nameZone}
-            onChange={handleChange}
-            options={options}
+            onChange={(_, {value}) => handleTimezoneChange(value)}
+            options={timezoneOptions}
             placeholder='Choose a Zone'
             value={timeZone} 
-          >
-          </Dropdown>
+          />
+          <Menu.Item>
+            <Header as='h5'>{currentTime}</Header>
+          </Menu.Item>
           <Menu.Item>
             <Button primary>Sign Up</Button>
           </Menu.Item>
