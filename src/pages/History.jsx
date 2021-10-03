@@ -1,5 +1,5 @@
 //GLOBAL
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Segment, Header, Dimmer, Loader, Icon } from 'semantic-ui-react'
 
 //LOCAL
@@ -9,7 +9,13 @@ import { useHistory } from '../state/history';
 
 
 const History = () => {
-  const { overlay, history } = useHistory();
+  const { overlay, history, pagination, page,  methods} = useHistory();
+
+  const onPageChange = async (_, { activePage }) => {
+    await methods.onPageChange(activePage - 1);
+  }
+
+  useEffect(() => methods.loadHistory(), [page])
 
   return (
     <Dimmer.Dimmable as={Segment} dimmed={overlay}>
@@ -25,7 +31,7 @@ const History = () => {
           <Header.Content>No History posts found!</Header.Content>
         </Header>}
       <Segment basic textAlign={"center"}>
-        <PaginationModal />
+        <PaginationModal {...pagination} page={page} onPageChange={onPageChange}/>
       </Segment>
     </Dimmer.Dimmable>
   );

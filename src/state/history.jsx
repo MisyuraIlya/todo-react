@@ -6,7 +6,7 @@ import api from '../lib/api';
 
 // Defines
 const HistoryContext = createContext();
-const LIMIT = 10;
+const LIMIT = 3;
 
 //React hook
 
@@ -21,19 +21,20 @@ const useHistory = () => {
 
 const HistoryProvider = (props) => {
   //state
-  const [overlay, setOverlay] = useState(false)
-  const [history, setHistory] = useState([])
-  const [pagination, setPagination] = useState({ page: 0, total: null, limit: LIMIT });
+  const [overlay, setOverlay] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [page, setPage] = useState(0);
+  const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
 
-
   //Helpers
-  async function loadHistory() {
+  const loadHistory = async () => {
     setOverlay(true);
     try {
-      const { page, limit, total, data } = await api.fetchHistory({ page: pagination.page, limit: pagination.limit });
-      setHistory(data)
-      setPagination({ page, limit, total });
+      const { limit, total, data } = await api.fetchHistory({...pagination, page});
+
+      setHistory(data);
+      setPagination({ limit, total });
     } catch (error) {
       console.error('[state/history/loadHistory] Failed to load posts', { error });
       setError({ isError: true, message: error.message });
@@ -42,10 +43,28 @@ const HistoryProvider = (props) => {
     }
   }
 
-  useEffect(() => loadHistory(), [])
+  async function onPageChange(page) {
+    setPage(page);
+  }
+
+  useEffect(() => loadHistory(), []);
+  useEffect(() => loadHistory(), [page]);
 
 
-  return (<HistoryContext.Provider value={{ overlay, history, pagination, error }} {...props} />);
+  const methods = {
+    onPageChange,
+    loadHistory
+  };
+  const value = {
+    overlay,
+    history,
+    pagination,
+    error,
+    page,
+    methods
+  };
+
+  return (<HistoryContext.Provider value={value} {...props} />);
 };
 
 export { useHistory, HistoryProvider };
