@@ -1,14 +1,24 @@
 // Global
-import React from 'react'
-import { Menu, Container } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { Menu, Container, Dropdown, Button, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useLocation, useRouteMatch } from 'react-router-dom'
+import moment from 'moment'
 // Local
 import { ROUTES } from '../lib/enums';
 // Defines
 
 const Navigation = () => {
   const location = useLocation();
+  
+  let time = moment().format('h:mm:ss, DD.MM.YYYY' );
+  let [currentTime, changeTime] = useState(time)
+
+  function checkTime() {
+    time = moment().format('h:mm:ss, DD.MM.YYYY' );
+    changeTime(time);
+  }
+  setInterval(checkTime, 1000);
 
   return (
     <Menu >
@@ -39,6 +49,23 @@ const Navigation = () => {
         >
           {ROUTES.ABOUT.name}
         </Menu.Item>
+        
+        <Menu.Menu position='right'>
+          <Menu.Item>
+            <Header as='h5' onChange={checkTime}>{currentTime}</Header>
+          </Menu.Item>
+          <Dropdown item text='Time Zone'>
+            <Dropdown.Menu>
+              <Dropdown.Item>ISRAEL</Dropdown.Item>
+              <Dropdown.Item>MOSCOW </Dropdown.Item>
+              <Dropdown.Item>NEW YORK</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Menu.Item>
+            <Button primary>Sign Up</Button>
+          </Menu.Item>
+        </Menu.Menu>
 
       </Container>
     </Menu>
