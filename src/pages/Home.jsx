@@ -15,16 +15,16 @@ const Home = () => {
   const { todos, loading, pagination, page, methods } = useTodo();
 
   // Event hendlers
-  function updateTitle({ target }) {
+  const updateTitle = ({ target }) => {
     setTitle(target.value);
   }
 
-  function updateDescription({ target }) {
+  const updateDescription = ({ target }) => {
     setDescription(target.value);
   }
 
   // Create Todo
-  async function createTodo() {
+  const createTodo = async () => {
     await methods.createTodo(title, description);
     await methods.loadTodo();
     setDescription('');
@@ -33,14 +33,14 @@ const Home = () => {
 
 
   // Done Todo
-  async function doneTodo(id, name, description) {
+  const doneTodo = async(id, name, description) => {
     await methods.doneTodo(id, name, description);
     await methods.loadTodo();
   }
 
 
   // Remove Todo
-  async function removeTodo(id) {
+  const removeTodo = async(id) => {
     await methods.removeTodo(id);
     await methods.loadTodo();
   }
@@ -91,7 +91,7 @@ const Home = () => {
 
       <Segment basic textAlign={"center"}>
         {/* FIX ME IM BROKEN! */}
-        {/* <PaginationModal {...pagination} page={page} onPageChange={onPageChange} /> */}
+        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
 
     </Dimmer.Dimmable>

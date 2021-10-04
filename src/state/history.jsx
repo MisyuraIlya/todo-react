@@ -43,7 +43,7 @@ const HistoryProvider = (props) => {
     }
   }
 
-  async function onPageChange(page) {
+  const onPageChange = async (page) => {
     setPage(page);
   }
 

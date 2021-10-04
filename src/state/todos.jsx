@@ -35,12 +35,12 @@ const TodoProvider = (props) => {
   const loadTodo = async () => {
     setLoading(true);
     try {
-      const { data, limit, total } = await api.fetchPosts({...pagination, page});
+      const { data, limit, total } = await api.fetchTodos({...pagination, page});
 
       setTodos(data);
       setPagination({  limit, total });
     } catch (error) {
-      console.error('[state/todo/loadTodo] Failed to load posts', { error });
+      console.error('[state/todo/loadTodo] Failed to load todos', { error });
       setError({ isError: true, message: error.message });
     } finally {
       setLoading(false);
@@ -48,11 +48,11 @@ const TodoProvider = (props) => {
   }
 
   //CreateTodo
-  async function createTodo(title, description) {
+  const createTodo = async (title, description) => {
     try {
-      await api.addPosts(title, description);
+      await api.addTodos(title, description);
     } catch (error) {
-      console.error('[state/todo/createPost] Failed to load posts', { error });
+      console.error('[state/todo/createPost] Failed to load todos', { error });
       setError({ isError: true, message: error.message });
     }
   }
@@ -85,7 +85,7 @@ const TodoProvider = (props) => {
 
   // Pagination
 
-  async function onPageChange(page) {
+  const onPageChange = async (page) => {
     setPage(page);
   }
 
