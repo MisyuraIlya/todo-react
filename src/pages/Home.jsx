@@ -1,71 +1,59 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Segment, Header, Dimmer, Loader, Image, Form, Icon } from 'semantic-ui-react'
-import api from '../lib/api';
+//GLOBAL
+import React, { useState, useEffect } from 'react';
+import { Segment, Header, Dimmer, Loader, Form, Icon } from 'semantic-ui-react'
+
+//LOCAL
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
-import { useFetchedPosts } from '../hooks/useFetch';
-import LoadingContext from '../state/Context';
-
+import { useTodo } from '../state/todos';
 
 const Home = () => {
-  
-  const [overlay, setOverlay] = useState(false)
-  const [post, setPost] = useState({ title: '', description: '' })
-  const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  const {loading, setLoading} = useContext(LoadingContext)
-  async function loadPosts() {
-    setOverlay(true);
-    setLoading(true);
-    try {
-      const { page, limit, total, data } = await useFetchedPosts(0,5);
-      setPosts(data)
 
-    } catch (error) {
-      console.log('find error', error)
+  //local states
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const { todos, loading, pagination, page, methods } = useTodo();
 
-    } finally {
-      setLoading(false);
-      setOverlay(false);
-    }
+  // Event hendlers
+  function updateTitle({ target }) {
+    setTitle(target.value);
   }
 
-  useEffect(() => loadPosts(), [])
-  const removePost = async (id) => {
-    try {
-      await api.removePost(id);
-    } catch (error) {
-      console.log('Found error', error)
-    } finally {
-    }
-    await loadPosts();
+  function updateDescription({ target }) {
+    setDescription(target.value);
   }
 
-  const createPost = async () => {
-    try {
-      await api.addPosts(post.title, post.description);
-    } catch (error) {
-      console.log('Found error', error)
-    } finally {
-      setPost({ title: '', description: '' })
-    }
-    await loadPosts();
+  // Create Todo
+  async function createTodo() {
+    await methods.createTodo(title, description);
+    await methods.loadTodo();
+    setDescription('');
+    setTitle('');
   }
 
-  const donePost = async (id, name, description) => {
-    try {
-      const tmp = await api.donePost(id, name, description);
-      console.log(tmp);
-    } catch (error) {
-      console.log('Found error', error)
-    }
-    await loadPosts();
+
+  // Done Todo
+  async function doneTodo(id, name, description) {
+    await methods.doneTodo(id, name, description);
+    await methods.loadTodo();
   }
 
+
+  // Remove Todo
+  async function removeTodo(id) {
+    await methods.removeTodo(id);
+    await methods.loadTodo();
+  }
+
+  //Pagination todo
+  const onPageChange = async (_, { activePage }) => {
+    await methods.onPageChange(activePage - 1);
+  }
+
+  useEffect(() => methods.loadTodo(), [page])
   return (
-
-    <Dimmer.Dimmable as={Segment} dimmed={overlay}>
-      <Dimmer active={overlay} inverted>
+    <Dimmer.Dimmable as={Segment} dimmed={loading}>
+      <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
       <Form>
@@ -74,37 +62,36 @@ const Home = () => {
             fluid
             label='Title'
             placeholder='Title'
-            value={post.title}
-            onChange={e => setPost({ ...post, title: e.target.value })} />
+            value={title}
+            onChange={updateTitle} />
         </Form.Group>
         <Form.TextArea
           label='Description'
           placeholder='Tell more about what need to do...'
-          value={post.description}
-          onChange={e => setPost({ ...post, description: e.target.value })} />
-        <Form.Button primary onClick={createPost}>Add ToDo</Form.Button>
+          value={description}
+          onChange={updateDescription} />
+        <Form.Button primary onClick={createTodo}>Add ToDo</Form.Button>
       </Form>
 
-      {
-        //card to component
-        posts.length ?
-          posts.map(({ id, name, date, description }) =>
-            <HomeCards
-              key={id}
-              id={id}
-              name={name}
-              date={date}
-              description={description}
-              donePost={() => donePost(id, name, description)}
-              removePost={() => removePost(id)} />
-          ) :
-          <Header as='h2'>
-            <Icon name='pencil alternate' />
-            <Header.Content>No posts found!</Header.Content>
-          </Header>}
+      {todos.length ?
+        todos.map(({ id, name, date, description }) =>
+          <HomeCards
+            key={id}
+            id={id}
+            name={name}
+            date={date}
+            description={description}
+            donePost={() => doneTodo(id, name, description)}
+            removePost={() => removeTodo(id)} />
+        ) :
+        <Header as='h2'>
+          <Icon name='pencil alternate' />
+          <Header.Content>No posts found!</Header.Content>
+        </Header>}
 
       <Segment basic textAlign={"center"}>
-        <PaginationModal />
+        {/* FIX ME IM BROKEN! */}
+        {/* <PaginationModal {...pagination} page={page} onPageChange={onPageChange} /> */}
       </Segment>
 
     </Dimmer.Dimmable>

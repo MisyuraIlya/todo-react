@@ -1,43 +1,24 @@
 //GLOBAL
-import React, { useState, useEffect } from 'react';
-import { Segment, Card, Header, Dimmer, Loader, Image, Icon } from 'semantic-ui-react'
-import moment from 'moment'
+import React, {useEffect} from 'react';
+import { Segment, Header, Dimmer, Loader, Icon } from 'semantic-ui-react'
 
 //LOCAL
-import api from '../lib/api';
 import PaginationModal from '../components/PaginationModal';
 import HistoryCard from '../components/HistoryCard';
+import { useHistory } from '../state/history';
 
 
 const History = () => {
-  const [overlay, setOverlay] = useState(false)
-  const [history, setHistory] = useState([])
-  const [loading, setLoading] = useState(false);
-
-
-  async function loadHistory() {
-    setOverlay(true);
-    setLoading(true);
-    try {
-      const { page, limit, total, data } = await api.fetchHistory({ page: 0, limit: 5 });
-      setHistory(data)
-
-    } catch (error) {
-      console.log('find error', error)
-
-    } finally {
-      setLoading(false);
-      setOverlay(false);
-    }
+  const { loading, history, pagination, page,  methods} = useHistory();
+  const onPageChange = async (_, { activePage }) => {
+    await methods.onPageChange(activePage - 1);
   }
 
-  useEffect(() => loadHistory(), [])
-
-
+  useEffect(() => methods.loadHistory(), [page])
 
   return (
-    <Dimmer.Dimmable as={Segment} dimmed={overlay}>
-      <Dimmer active={overlay} inverted>
+    <Dimmer.Dimmable as={Segment} dimmed={loading}>
+      <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
       {history.length ?
@@ -49,7 +30,7 @@ const History = () => {
           <Header.Content>No History posts found!</Header.Content>
         </Header>}
       <Segment basic textAlign={"center"}>
-        <PaginationModal />
+        <PaginationModal {...pagination} page={page} onPageChange={onPageChange}/>
       </Segment>
     </Dimmer.Dimmable>
   );
