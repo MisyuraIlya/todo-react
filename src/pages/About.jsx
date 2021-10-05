@@ -6,7 +6,7 @@ const About = () => {
 
   return (
     <Segment>
-        asdad
+        About
     </Segment>
   );
 };

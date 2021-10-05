@@ -12,7 +12,7 @@ const CLOCK_UPDATE = 1000;
 
 const timezoneOptions = Object
   .entries(TIME_ZONES)
-  .map(([key, value], index) => ({key: index, text: value.name, value: key}));
+  .map(([key, value], index) => ({ key: index, text: value.name, value: key }));
 
 // Defines
 const Navigation = () => {
@@ -64,14 +64,14 @@ const Navigation = () => {
 
         <Menu.Menu position='right'>
 
-          
+
           <Dropdown
             item
             text={nameZone}
-            onChange={(_, {value}) => handleTimezoneChange(value)}
+            onChange={(_, { value }) => handleTimezoneChange(value)}
             options={timezoneOptions}
             placeholder='Choose a Zone'
-            value={timeZone} 
+            value={timeZone}
           />
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>

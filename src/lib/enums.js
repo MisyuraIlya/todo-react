@@ -36,6 +36,6 @@ export const DATE_TIME_FORMAT = 'HH:mm:ss, DD.MM.YYYY';
 
 
 export const TODO_STATUS = {
-  DONE:'DONE',
-  ACTIVE:'ACTIVE',
+  DONE: 'DONE',
+  ACTIVE: 'ACTIVE',
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import {  DATE_TIME_FORMAT } from '../lib/enums';
-const HomeCards = ({ id, name, date, description ,donePost , removePost }) => {
+const HomeCards = ({ name, date, description ,donePost , removePost }) => {
   return (
     <Card fluid>
       <Card.Content>
