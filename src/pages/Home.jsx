@@ -13,7 +13,6 @@ const Home = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { todos, loading, pagination, page, methods } = useTodo();
-
   // Event hendlers
   const updateTitle = ({ target }) => {
     setTitle(target.value);
@@ -91,7 +90,7 @@ const Home = () => {
 
       <Segment basic textAlign={"center"}>
         {/* FIX ME IM BROKEN! */}
-        {/* <PaginationModal {...pagination} page={page} onPageChange={onPageChange} /> */}
+        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
 
     </Dimmer.Dimmable>

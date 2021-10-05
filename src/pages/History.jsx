@@ -10,6 +10,7 @@ import { useHistory } from '../state/history';
 
 const History = () => {
   const { loading, history, pagination, page,  methods} = useHistory();
+  
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }

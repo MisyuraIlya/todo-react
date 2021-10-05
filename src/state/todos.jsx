@@ -35,7 +35,7 @@ const TodoProvider = (props) => {
   const loadTodo = async () => {
     setLoading(true);
     try {
-      const { data, limit, total } = await api.read({...pagination, page, status:"IN PROGRESS"});
+      const { limit, total, data } = await api.read({...pagination, page, status:"IN PROGRESS"});
       setTodos(data);
       setPagination({  limit, total });
     } catch (error) {
@@ -59,7 +59,7 @@ const TodoProvider = (props) => {
 
   //Done LOGIC
 
-  const doneTodo = async (id, name, description, status) => {
+  const doneTodo = async (id) => {
     try {
       await api.update(id, {status:"DONE"});
     } catch (error) {
@@ -78,17 +78,9 @@ const TodoProvider = (props) => {
     }
   }
 
-  const paginate = async (page) => {
-    setPagination({ page: page, total: null, limit: LIMIT })
-  }
-
-  // Pagination
-
   const onPageChange = async (page) => {
     setPage(page);
   }
-
-
 
   // Logic
   useEffect(() => loadTodo(), [])
@@ -100,7 +92,6 @@ const TodoProvider = (props) => {
     loadTodo,
     doneTodo,
     removeTodo,
-    paginate,
     onPageChange 
   };
   return <TodoContex.Provider value={{
@@ -109,7 +100,7 @@ const TodoProvider = (props) => {
     pagination,
     error,
     methods,
-    pagination
+    page,
   }} {...props} />
 }
 
