@@ -32,9 +32,9 @@ const Home = () => {
   }
 
 
-  // Done Todo
-  const doneTodo = async(id, name, description) => {
-    await methods.doneTodo(id, name, description);
+  // Update Todo
+  const update = async(id, name, description, status) => {
+    await methods.doneTodo(id, name, description, status);
     await methods.loadTodo();
   }
 
@@ -74,14 +74,14 @@ const Home = () => {
       </Form>
 
       {todos.length ?
-        todos.map(({ id, name, date, description }) =>
+        todos.map(({ id, name, date, description, status }) =>
           <HomeCards
             key={id}
             id={id}
             name={name}
             date={date}
             description={description}
-            donePost={() => doneTodo(id, name, description)}
+            donePost={() => update(id, name, description, status)}
             removePost={() => removeTodo(id)} />
         ) :
         <Header as='h2'>
@@ -91,7 +91,7 @@ const Home = () => {
 
       <Segment basic textAlign={"center"}>
         {/* FIX ME IM BROKEN! */}
-        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
+        {/* <PaginationModal {...pagination} page={page} onPageChange={onPageChange} /> */}
       </Segment>
 
     </Dimmer.Dimmable>

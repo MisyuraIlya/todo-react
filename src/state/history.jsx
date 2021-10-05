@@ -31,7 +31,7 @@ const HistoryProvider = (props) => {
   const loadHistory = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await api.fetchHistory({...pagination, page});
+      const { limit, total, data } = await api.read({...pagination, page, status:"DONE"});
 
       setHistory(data);
       setPagination({ limit, total });
