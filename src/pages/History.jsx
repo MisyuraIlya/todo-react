@@ -17,7 +17,13 @@ const History = () => {
   useEffect(() => methods.loadHistory(), [page])
 
   const historyElement = history.map(({ id, name, date, description }) =>
-    <HistoryCard key={id} id={id} name={name} date={date} description={description} />
+    <HistoryCard
+      key={id}
+      id={id}
+      name={name}
+      date={date}
+      description={description}
+    />
   )
 
   const missingElement = <Header as='h2'>
@@ -30,7 +36,7 @@ const History = () => {
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
-      {history.length ? historyElement : missingElement} 
+      {history.length ? historyElement : missingElement}
       <Segment basic textAlign={'center'}>
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>

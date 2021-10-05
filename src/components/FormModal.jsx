@@ -1,6 +1,6 @@
 import React from 'react';
-import {Form} from 'semantic-ui-react'
-const FormModal = ({title,description,updateTitle,updateDescription,createTodo}) => {
+import { Form } from 'semantic-ui-react'
+const FormModal = ({ title, description, updateTitle, updateDescription, createTodo }) => {
   return (
     <Form>
       <Form.Group widths='equal'>
