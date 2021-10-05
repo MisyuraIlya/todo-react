@@ -47,6 +47,21 @@ const Home = () => {
 
   useEffect(() => methods.loadTodo(), [page])
 
+  const todoElements = todos
+    .map(({ id, name, date, description, status }) => <HomeCards
+      key={id}
+      id={id}
+      name={name}
+      date={date}
+      description={description}
+      donePost={() => update(id, name, description, status)}
+      removePost={() => removeTodo(id)} />
+    )
+  const missingElement = <Header as='h2'>
+    <Icon name='pencil alternate' />
+    <Header.Content>No posts found!</Header.Content>
+  </Header>
+
   return (
     <Dimmer.Dimmable as={Segment} dimmed={loading}>
       <Dimmer active={loading} inverted>
@@ -68,24 +83,8 @@ const Home = () => {
           onChange={updateDescription} />
         <Form.Button primary onClick={createTodo}>Add ToDo</Form.Button>
       </Form>
-
-      {todos.length ?
-        todos.map(({ id, name, date, description, status }) =>
-          <HomeCards
-            key={id}
-            id={id}
-            name={name}
-            date={date}
-            description={description}
-            donePost={() => update(id, name, description, status)}
-            removePost={() => removeTodo(id)} />
-        ) :
-        <Header as='h2'>
-          <Icon name='pencil alternate' />
-          <Header.Content>No posts found!</Header.Content>
-        </Header>}
-
-      <Segment basic textAlign={"center"}>
+      {todos.length ? todoElements: missingElement}
+      <Segment basic textAlign={'center'}>
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
     </Dimmer.Dimmable>

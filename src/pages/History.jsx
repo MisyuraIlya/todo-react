@@ -29,7 +29,7 @@ const History = () => {
           <Icon name='pencil alternate' />
           <Header.Content>No History posts found!</Header.Content>
         </Header>}
-      <Segment basic textAlign={"center"}>
+      <Segment basic textAlign={'center'}>
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
     </Dimmer.Dimmable>

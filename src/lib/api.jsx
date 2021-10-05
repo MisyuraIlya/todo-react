@@ -4,35 +4,35 @@ import { DATE_TIME_FORMAT } from '../lib/enums';
 
 let todos = [
   {
-    id: "1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb",
+    id: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
     name: 'Coding',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
-    id: "ce4ab3c5-d1bb-4289-8750-e11e5d291b5e",
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
     name: 'Read book',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
-    id: "ce4ab3c5-d1bb-4289-8750-e11e5d291b5z",
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5z',
     name: 'Training',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
     status: 'DONE',
   },
   {
-    id: "ce4ab3c5-d1bb-4289-8750-e11e5d291b5y",
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5y',
     name: 'RUN',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
     status: 'IN PROGRESS',
   },
   {
-    id: "ce4ab3c5-d1bb-4289-8750-e11e5d291b5g",
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5g',
     name: 'play',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
@@ -54,7 +54,7 @@ const createTodos = async (name, description) => {
     id: uuidv4(),
     name,
     date: moment().format(DATE_TIME_FORMAT),
-    description, status: "IN PROGRESS"
+    description, status: 'IN PROGRESS'
   }
   // todos = [...todos,todo]
   todos.push(todo) // todos = [...todos, todo]
