@@ -13,11 +13,8 @@ const useTodo = () => {
   if (!context) {
     throw new Error('Can not run without "TodoProvider"');
   }
-
   return context;
 }
-
-
 
 const TodoProvider = (props) => {
   // State
@@ -27,17 +24,14 @@ const TodoProvider = (props) => {
   const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
 
-
-
   // Helpers
 
-  //LoadTodo
   const loadTodo = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await api.read({...pagination, page, status:"IN PROGRESS"});
+      const { limit, total, data } = await api.read({ ...pagination, page, status: "IN PROGRESS" });
       setTodos(data);
-      setPagination({  limit, total });
+      setPagination({ limit, total });
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load todos', { error });
       setError({ isError: true, message: error.message });
@@ -46,7 +40,6 @@ const TodoProvider = (props) => {
     }
   }
 
-  //CreateTodo
   const createTodo = async (title, description) => {
     try {
       await api.createTodos(title, description);
@@ -56,19 +49,15 @@ const TodoProvider = (props) => {
     }
   }
 
-
-  //Done LOGIC
-
   const doneTodo = async (id) => {
     try {
-      await api.update(id, {status:"DONE"});
+      await api.update(id, { status: "DONE" });
     } catch (error) {
       console.error('[state/todo/doneTodo] Failed to load Todo', { error });
       setError({ isError: true, message: error.message });
     }
   }
 
-  //Remove LOGIC
   const removeTodo = async (id) => {
     try {
       await api.removeTodo(id);
@@ -92,7 +81,7 @@ const TodoProvider = (props) => {
     loadTodo,
     doneTodo,
     removeTodo,
-    onPageChange 
+    onPageChange
   };
   return <TodoContex.Provider value={{
     todos,

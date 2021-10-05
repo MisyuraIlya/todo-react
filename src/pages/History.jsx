@@ -1,16 +1,15 @@
-//GLOBAL
-import React, {useEffect} from 'react';
+// GLOBAL
+import React, { useEffect } from 'react';
 import { Segment, Header, Dimmer, Loader, Icon } from 'semantic-ui-react'
 
-//LOCAL
+// LOCAL
 import PaginationModal from '../components/PaginationModal';
 import HistoryCard from '../components/HistoryCard';
 import { useHistory } from '../state/history';
 
-
 const History = () => {
-  const { loading, history, pagination, page,  methods} = useHistory();
-  
+  const { loading, history, pagination, page, methods } = useHistory();
+
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }
@@ -31,7 +30,7 @@ const History = () => {
           <Header.Content>No History posts found!</Header.Content>
         </Header>}
       <Segment basic textAlign={"center"}>
-        <PaginationModal {...pagination} page={page} onPageChange={onPageChange}/>
+        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
     </Dimmer.Dimmable>
   );

@@ -1,14 +1,14 @@
-//Global
+// Global
 import { createContext, useState, useContext, useEffect } from 'react';
 
-//Local
+// Local
 import api from '../lib/api';
 
 // Defines
 const HistoryContext = createContext();
 const LIMIT = 3;
 
-//React hook
+// React hook
 
 const useHistory = () => {
   const context = useContext(HistoryContext)
@@ -20,19 +20,18 @@ const useHistory = () => {
 }
 
 const HistoryProvider = (props) => {
-  //state
+  // state
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(0);
   const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
 
-  //Helpers
+  // Helpers
   const loadHistory = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await api.read({...pagination, page, status:"DONE"});
-
+      const { limit, total, data } = await api.read({ ...pagination, page, status: "DONE" });
       setHistory(data);
       setPagination({ limit, total });
     } catch (error) {
@@ -50,7 +49,7 @@ const HistoryProvider = (props) => {
   useEffect(() => loadHistory(), []);
   useEffect(() => loadHistory(), [page]);
 
-
+  // Exports
   const methods = {
     onPageChange,
     loadHistory

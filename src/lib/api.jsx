@@ -1,9 +1,6 @@
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
-
-// import todos from './todo-list';
-import {  DATE_TIME_FORMAT } from '../lib/enums';
-
+import { DATE_TIME_FORMAT } from '../lib/enums';
 
 let todos = [
   {
@@ -48,18 +45,16 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-
-
 /* methods
   1. create
 */
 
 const createTodos = async (name, description) => {
-  const todo = { 
+  const todo = {
     id: uuidv4(),
     name,
     date: moment().format(DATE_TIME_FORMAT),
-    description, status: "IN PROGRESS" 
+    description, status: "IN PROGRESS"
   }
   // todos = [...todos,todo]
   todos.push(todo) // todos = [...todos, todo]
@@ -82,7 +77,7 @@ const update = (postid, fields) => {
 
 const removeTodo = async (id) => {
   console.log(id)
-  todos = todos.filter(({ id: todosID }) => id !== todosID) ;
+  todos = todos.filter(({ id: todosID }) => id !== todosID);
   return delay({ data: true }, 1000);
 }
 
@@ -90,13 +85,13 @@ const removeTodo = async (id) => {
   4. read  
 */
 
-function read({status, page, limit }) {
+function read({ status, page, limit }) {
   const start = page * limit;
   const end = start + limit;
   const data = todos
-    .filter(({status: s}) => !status || s === status)
+    .filter(({ status: s }) => !status || s === status)
     .slice(start, end);
-  return delay({page, limit, total:todos.length, data}, 1000);
+  return delay({ page, limit, total: todos.length, data }, 1000);
 }
 //------------------------------------------------------------
 
