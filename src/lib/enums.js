@@ -33,3 +33,9 @@ export const TIME_ZONES = {
 };
 
 export const DATE_TIME_FORMAT = 'HH:mm:ss, DD.MM.YYYY';
+
+
+export const TODO_STATUS = {
+  DONE:'DONE',
+  ACTIVE:'ACTIVE',
+}

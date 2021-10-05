@@ -2,7 +2,7 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 // Local
 import api from '../lib/api';
-
+import { TODO_STATUS } from '../lib/enums';
 // Defines
 const TodoContex = createContext();
 const LIMIT = 3;
@@ -29,7 +29,7 @@ const TodoProvider = (props) => {
   const loadTodo = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await api.read({ ...pagination, page, status: "IN PROGRESS" });
+      const { limit, total, data } = await api.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
       setTodos(data);
       setPagination({ limit, total });
     } catch (error) {
@@ -51,7 +51,7 @@ const TodoProvider = (props) => {
 
   const doneTodo = async (id) => {
     try {
-      await api.update(id, { status: "DONE" });
+      await api.update(id, { status: TODO_STATUS.DONE });
     } catch (error) {
       console.error('[state/todo/doneTodo] Failed to load Todo', { error });
       setError({ isError: true, message: error.message });
