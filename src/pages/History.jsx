@@ -30,7 +30,7 @@ const History = () => {
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
-      {history.length ? historyElement : missingElement}
+      {history.length ? historyElement : missingElement} 
       <Segment basic textAlign={'center'}>
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
