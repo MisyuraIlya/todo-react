@@ -47,3 +47,8 @@ export const TODO_STATUS = {
   DONE: 'DONE',
   ACTIVE: 'ACTIVE',
 }
+
+export const PERMISSION = {
+  ADMIN: 'admin',
+  REGULAR: 'regular'
+}
