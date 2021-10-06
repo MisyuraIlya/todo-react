@@ -12,6 +12,8 @@ import About from './pages/About';
 import Error from './pages/Error';
 import { TodoProvider } from './state/todos';
 import { HistoryProvider } from './state/history';
+import Signin from './pages/Signin';
+import Login from './pages/Login';
 
 
 const App = () => {
@@ -23,7 +25,7 @@ const App = () => {
         <HistoryProvider>
           <Navigation/>
 
-          <Container>
+          <Container style={{width:'50em'}}>
             <Switch>
               <Route exact path={ROUTES.HOME.path}>
                 <Home/>
@@ -35,6 +37,14 @@ const App = () => {
 
               <Route exact path={ROUTES.ABOUT.path}>
                 <About/>
+              </Route>
+
+              <Route exact path={ROUTES.SINGIN.path}>
+                <Signin/>
+              </Route>
+
+              <Route exact path={ROUTES.LOGIN.path}>
+                <Login/>
               </Route>
 
               <Route path={ROUTES.ERROR.path}>

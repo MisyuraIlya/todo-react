@@ -11,6 +11,14 @@ export const ROUTES = {
     path: '/about',
     name: 'About'
   },
+  SINGIN:{
+    path: '/singin',
+    name: 'Signin'
+  },
+  LOGIN:{
+    path: '/login',
+    name: 'Login'
+  },
   ERROR: {
     path: '/error',
     name: 'Error'

@@ -77,7 +77,10 @@ const Navigation = () => {
             <Header as='h5'>{currentTime}</Header>
           </Menu.Item>
           <Menu.Item>
-            <Button primary>Sign Up</Button>
+            <Button primary as={Link} to={ROUTES.SINGIN.path} >Sign in</Button>
+          </Menu.Item>
+          <Menu.Item>
+            <Button primary as={Link} to={ROUTES.LOGIN.path} >Log in</Button>
           </Menu.Item>
         </Menu.Menu>
 
