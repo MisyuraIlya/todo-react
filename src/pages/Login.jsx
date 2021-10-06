@@ -1,6 +1,7 @@
 // GLOBAL
 import React, { useState } from 'react';
 import LoginComponent from '../components/LoginComponent';
+import { useHistory } from 'react-router-dom'
 // LOCAL
 import accounts from '../lib/accounts'
 
@@ -10,6 +11,7 @@ const Login = () => {
   const [details, setDetails] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const history = useHistory()
 
   const handleLogin = async () => {
     const result = accounts.filter(tmp => tmp.email === details.email)
@@ -25,7 +27,7 @@ const Login = () => {
     try {
       setError('')
       setLoading(true)
-      console.log('logged')
+      history.push('/')
     } catch {
       setError('Faild to login')
     } finally {
