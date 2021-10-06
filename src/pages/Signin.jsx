@@ -1,13 +1,14 @@
-import React from 'react';
-import { Segment, Form, Button, Divider } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { ROUTES } from '../lib/enums';
+import React, { useState } from 'react';
+import { Segment } from 'semantic-ui-react';
 import SigninComponent from '../components/SigninComponent';
 
-const Signin = () => {
+const Signin = ({}) => {
+
+  const [details,setDetails] = useState({name:'',lastname:'', email:'', password1:'',password2:''})
+  
   return (
     <Segment>
-      <SigninComponent/>
+      <SigninComponent details={details} setDetails={setDetails}/>
     </Segment>
   );
 };

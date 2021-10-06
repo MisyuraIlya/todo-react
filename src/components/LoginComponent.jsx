@@ -3,11 +3,11 @@ import { Segment, Form, Button, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../lib/enums';
 
-const LoginComponent = () => {
+const LoginComponent = ({details,setDetails}) => {
   return (
     <Form unstackable>
-      <Form.Input label='Email' placeholder='Email' />
-      <Form.Input label='Passowrd' placeholder='Password' />
+      <Form.Input label='Email' placeholder='Email' onChange={e => setDetails({...details, email:e.target.value})} value={details.email}/>
+      <Form.Input label='Passowrd' placeholder='Password' onChange={e => setDetails({...details, password:e.target.value})} value={details.password}/>
       <Form.Checkbox label='Remember me' />
       <Button type='submit' primary fluid>Log in</Button>
       <Divider />
