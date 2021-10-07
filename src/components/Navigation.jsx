@@ -4,6 +4,8 @@ import { Menu, Container, Dropdown, Button, Header, Segment } from 'semantic-ui-
 import { Link } from 'react-router-dom';
 import { useLocation, useRouteMatch } from 'react-router-dom'
 import moment from 'moment-timezone';
+import Cookies from 'js-cookie'
+
 
 // Local
 import { ROUTES, TIME_ZONES, DATE_TIME_FORMAT } from '../lib/enums';
@@ -21,17 +23,36 @@ const Navigation = () => {
   const [nameZone, setTimeZoneName] = useState(TIME_ZONES.ISRAEL.name);
   const [currentTime, setTime] = useState(null);
 
+
+  const user = Cookies.get('user')
+  console.log(user)
+
+
   const handleTimezoneChange = (key) => {
     setTimeZone(TIME_ZONES[key].zone);
     setTimeZoneName(TIME_ZONES[key].name);
   };
 
+  const cookieRemove = () => {
+    Cookies.remove('user')
+  }
   // Hooks
   useEffect(() => {
     const intervalId = setInterval(() => setTime(moment().tz(timeZone).format(DATE_TIME_FORMAT)), CLOCK_UPDATE);
     return () => clearInterval(intervalId);
   }, [timeZone]);
 
+  const authBar =
+    <Menu.Item>
+      <Button primary as={Link} to={ROUTES.SINGIN.path} style={{ marginLeft: '0.9em' }}>Sign in</Button>
+      <Button primary as={Link} to={ROUTES.LOGIN.path} style={{ marginLeft: '0.9em' }}>Log in</Button>
+    </Menu.Item>
+
+  const cookieBar =
+    <Menu.Item>
+      <Header as='h5' style={{ marginTop: '0.8em' }}>Welcome {user}</Header>
+      <Button primary onClick={cookieRemove} style={{ marginLeft: '0.9em' }}>Log out</Button>
+    </Menu.Item>
   return (
     <Menu >
       <Container>
@@ -76,12 +97,7 @@ const Navigation = () => {
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>
           </Menu.Item>
-          <Menu.Item>
-            <Button primary as={Link} to={ROUTES.SINGIN.path} >Sign in</Button>
-          </Menu.Item>
-          <Menu.Item>
-            <Button primary as={Link} to={ROUTES.LOGIN.path} >Log in</Button>
-          </Menu.Item>
+          {user ? cookieBar : authBar}
         </Menu.Menu>
 
       </Container>

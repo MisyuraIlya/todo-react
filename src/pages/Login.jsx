@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import LoginComponent from '../components/LoginComponent';
 import { useHistory } from 'react-router-dom'
+import Cookies from 'js-cookie'
+
 // LOCAL
 import accounts from '../lib/accounts'
 
@@ -27,6 +29,7 @@ const Login = () => {
     try {
       setError('')
       setLoading(true)
+      Cookies.set('user', result[0].name)
       history.push('/')
     } catch {
       setError('Faild to login')
