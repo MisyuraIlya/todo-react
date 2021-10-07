@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Accordion, Icon, List, Checkbox, Label } from 'semantic-ui-react'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../lib/enums';
-const HomeCards = ({ name, date, description, donePost, removePost }) => {
+const HomeCards = ({ name, date, description, donePost, removePost, currentTime }) => {
 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
   const { activeIndex } = isDrop
@@ -20,7 +20,7 @@ const HomeCards = ({ name, date, description, donePost, removePost }) => {
     <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>
-        <Card.Meta>{moment(date, DATE_TIME_FORMAT).utc().format(DATE_TIME_FORMAT)}</Card.Meta>
+        <Card.Meta>{moment(currentTime, DATE_TIME_FORMAT).utc().format(DATE_TIME_FORMAT)}</Card.Meta>
         <Card.Description>{description}
 
         </Card.Description>

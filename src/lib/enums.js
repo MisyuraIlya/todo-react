@@ -52,3 +52,6 @@ export const PERMISSION = {
   ADMIN: 'admin',
   REGULAR: 'regular'
 }
+
+
+export const CLOCK_UPDATE = 1000;

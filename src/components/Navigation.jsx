@@ -1,43 +1,30 @@
 // Global
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Menu, Container, Dropdown, Button, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { useLocation, useRouteMatch } from 'react-router-dom'
-import moment from 'moment-timezone';
+import { useLocation } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-
 // Local
-import { ROUTES, TIME_ZONES, DATE_TIME_FORMAT } from '../lib/enums';
-// Defines
-const CLOCK_UPDATE = 1000;
+import { ROUTES } from '../lib/enums';
+import { useNav } from '../state/navigation'
 
-const timezoneOptions = Object
-  .entries(TIME_ZONES)
-  .map(([key, value], index) => ({ key: index, text: value.name, value: key }));
 
 // Defines
 const Navigation = () => {
+  //states
   const location = useLocation();
-  const [timeZone, setTimeZone] = useState(TIME_ZONES.ISRAEL.zone);
-  const [nameZone, setTimeZoneName] = useState(TIME_ZONES.ISRAEL.name);
-  const [currentTime, setTime] = useState(null);
-
+  const { timeZone, nameZone, currentTime, methods, timezoneOptions } = useNav();
   const user = Cookies.get('user')
 
+  //helpers
   const handleTimezoneChange = (key) => {
-    setTimeZone(TIME_ZONES[key].zone);
-    setTimeZoneName(TIME_ZONES[key].name);
-  };
+    methods.handleTimezoneChange(key);
+  }
 
   const cookieRemove = () => {
     Cookies.remove('user')
   }
-  // Hooks
-  useEffect(() => {
-    const intervalId = setInterval(() => setTime(moment().tz(timeZone).format(DATE_TIME_FORMAT)), CLOCK_UPDATE);
-    return () => clearInterval(intervalId);
-  }, [timeZone]);
 
   const authBar =
     <Menu.Item>
@@ -81,7 +68,6 @@ const Navigation = () => {
         </Menu.Item>
 
         <Menu.Menu position='right'>
-
 
           <Dropdown
             item
