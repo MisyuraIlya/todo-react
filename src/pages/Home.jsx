@@ -79,6 +79,7 @@ const Home = () => {
 
       {todos.length ? todoElements : missingElement}
       <Segment basic textAlign={'center'}>
+        {console.log(pagination)}
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>
     </Dimmer.Dimmable>

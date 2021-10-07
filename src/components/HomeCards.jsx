@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Card, Button, Accordion, Icon, List, Checkbox, Label } from 'semantic-ui-react'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../lib/enums';
-const HomeCards = ({ name, date, description, donePost, removePost, currentTime }) => {
+import { useNav } from '../state/navigation'
 
+const HomeCards = ({ name, description, donePost, removePost }) => {
+
+  // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
+  const { timeZone, currentTime } = useNav();
   const { activeIndex } = isDrop
 
-
+  // helpers
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
     const { activeIndex } = isDrop
@@ -20,7 +24,7 @@ const HomeCards = ({ name, date, description, donePost, removePost, currentTime 
     <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>
-        <Card.Meta>{moment(currentTime, DATE_TIME_FORMAT).utc().format(DATE_TIME_FORMAT)}</Card.Meta>
+        <Card.Meta>{currentTime}</Card.Meta>
         <Card.Description>{description}
 
         </Card.Description>
@@ -44,10 +48,10 @@ const HomeCards = ({ name, date, description, donePost, removePost, currentTime 
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
           <List celled ordered>
-            <List.Item><Checkbox/>  buy milk <Label color='red'><Icon name='delete'/></Label></List.Item>
-            <List.Item><Checkbox/>  buy meet</List.Item>
-            <List.Item><Checkbox/>  buy book</List.Item>
-            <List.Item><Checkbox/>  buy silk</List.Item>
+            <List.Item><Checkbox />  buy milk <Label color='red'><Icon name='delete' /></Label></List.Item>
+            <List.Item><Checkbox />  buy meet</List.Item>
+            <List.Item><Checkbox />  buy book</List.Item>
+            <List.Item><Checkbox />  buy silk</List.Item>
           </List>
         </Accordion.Content>
       </Accordion>

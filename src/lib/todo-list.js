@@ -4,7 +4,7 @@ export default [
     name: 'Coding',
     date: '2021-10-07',
     description: 'Fancy program!',
-    status: 'IN PROGRESS',
+    status: 'ACTIVE',
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
@@ -25,13 +25,13 @@ export default [
     name: 'RUN',
     date: '2021-10-07',
     description: 'Fancy program!',
-    status: 'IN PROGRESS',
+    status: 'ACTIVE',
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5g',
     name: 'play',
     date: '2021-10-07',
     description: 'Fancy program!',
-    status: 'DONE',
+    status: 'ACTIVE',
   }
 ];

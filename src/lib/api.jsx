@@ -1,44 +1,9 @@
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
 import { DATE_TIME_FORMAT, TODO_STATUS } from '../lib/enums';
+import todolists from './todo-list'
 
-let todos = [
-  {
-    id: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
-    name: 'Coding',
-    date: '21:00:00, 27.09.2021',
-    description: 'Fancy program!',
-    status: TODO_STATUS.ACTIVE,
-  },
-  {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
-    name: 'Read book',
-    date: '21:00:00, 27.09.2021',
-    description: 'Fancy program!',
-    status: TODO_STATUS.DONE,
-  },
-  {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5z',
-    name: 'Training',
-    date: '21:00:00, 27.09.2021',
-    description: 'Fancy program!',
-    status: TODO_STATUS.DONE,
-  },
-  {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5y',
-    name: 'RUN',
-    date: '21:00:00, 27.09.2021',
-    description: 'Fancy program!',
-    status: TODO_STATUS.ACTIVE,
-  },
-  {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5g',
-    name: 'play',
-    date: '21:00:00, 27.09.2021',
-    description: 'Fancy program!',
-    status: TODO_STATUS.DONE,
-  }
-];
+let todos = [...todolists]
 
 // Helpers
 const delay = (data, time) => {
