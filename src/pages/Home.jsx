@@ -6,6 +6,7 @@ import { Segment, Header, Dimmer, Loader, Form, Icon } from 'semantic-ui-react'
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
 import { useTodo } from '../state/todos';
+import FormModal from '../components/FormModal';
 
 const Home = () => {
 
@@ -57,6 +58,7 @@ const Home = () => {
       donePost={() => update(id, name, description, status)}
       removePost={() => removeTodo(id)} />
     )
+    
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />
     <Header.Content>No posts found!</Header.Content>
@@ -67,23 +69,15 @@ const Home = () => {
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
-      <Form>
-        <Form.Group widths='equal'>
-          <Form.Input
-            fluid
-            label='Title'
-            placeholder='Title'
-            value={title}
-            onChange={updateTitle} />
-        </Form.Group>
-        <Form.TextArea
-          label='Description'
-          placeholder='Tell more about what need to do...'
-          value={description}
-          onChange={updateDescription} />
-        <Form.Button primary onClick={createTodo}>Add ToDo</Form.Button>
-      </Form>
-      {todos.length ? todoElements: missingElement}
+
+      <FormModal
+        title={title}
+        description={description}
+        updateTitle={updateTitle}
+        updateDescription={updateDescription}
+        createTodo={createTodo} />
+
+      {todos.length ? todoElements : missingElement}
       <Segment basic textAlign={'center'}>
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>

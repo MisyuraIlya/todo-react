@@ -5,7 +5,6 @@ const PaginationModal = ({total, limit, page, onPageChange}) => {
   return (
     <Pagination
       onPageChange={onPageChange}
-      // this if brokean the home page
       defaultActivePage={page + 1}
       totalPages={totalPages}
     />

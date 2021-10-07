@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react'
 import moment from 'moment'
-const HistoryCard = ({ id, name, date, description }) => {
+const HistoryCard = ({ name, date, description }) => {
   return (
     <Card fluid>
       <Card.Content>

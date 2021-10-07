@@ -16,19 +16,27 @@ const History = () => {
 
   useEffect(() => methods.loadHistory(), [page])
 
+  const historyElement = history.map(({ id, name, date, description }) =>
+    <HistoryCard
+      key={id}
+      id={id}
+      name={name}
+      date={date}
+      description={description}
+    />
+  )
+
+  const missingElement = <Header as='h2'>
+    <Icon name='pencil alternate' />
+    <Header.Content>No History posts found!</Header.Content>
+  </Header>
+
   return (
     <Dimmer.Dimmable as={Segment} dimmed={loading}>
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
-      {history.length ?
-        history.map(({ id, name, date, description }) =>
-          <HistoryCard key={id} id={id} name={name} date={date} description={description} />
-        ) :
-        <Header as='h2'>
-          <Icon name='pencil alternate' />
-          <Header.Content>No History posts found!</Header.Content>
-        </Header>}
+      {history.length ? historyElement : missingElement}
       <Segment basic textAlign={'center'}>
         <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
       </Segment>

@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
-import { DATE_TIME_FORMAT } from '../lib/enums';
+import { DATE_TIME_FORMAT, TODO_STATUS } from '../lib/enums';
 
 let todos = [
   {
@@ -8,35 +8,35 @@ let todos = [
     name: 'Coding',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
-    status: 'IN PROGRESS',
+    status: TODO_STATUS.ACTIVE,
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
     name: 'Read book',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
-    status: 'DONE',
+    status: TODO_STATUS.DONE,
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5z',
     name: 'Training',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
-    status: 'DONE',
+    status: TODO_STATUS.DONE,
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5y',
     name: 'RUN',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
-    status: 'IN PROGRESS',
+    status: TODO_STATUS.ACTIVE,
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5g',
     name: 'play',
     date: '21:00:00, 27.09.2021',
     description: 'Fancy program!',
-    status: 'DONE',
+    status: TODO_STATUS.DONE,
   }
 ];
 
@@ -54,7 +54,7 @@ const createTodos = async (name, description) => {
     id: uuidv4(),
     name,
     date: moment().format(DATE_TIME_FORMAT),
-    description, status: 'IN PROGRESS'
+    description, status: TODO_STATUS.ACTIVE
   }
   // todos = [...todos,todo]
   todos.push(todo) // todos = [...todos, todo]
@@ -76,7 +76,6 @@ const update = (postid, fields) => {
 */
 
 const removeTodo = async (id) => {
-  console.log(id)
   todos = todos.filter(({ id: todosID }) => id !== todosID);
   return delay({ data: true }, 1000);
 }
