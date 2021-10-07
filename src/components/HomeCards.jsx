@@ -1,8 +1,21 @@
-import React from 'react';
-import { Card, Button } from 'semantic-ui-react'
+import React, { useState } from 'react';
+import { Card, Button, Accordion, Icon, List, Checkbox, Label } from 'semantic-ui-react'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../lib/enums';
 const HomeCards = ({ name, date, description, donePost, removePost }) => {
+
+  const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
+  const { activeIndex } = isDrop
+
+
+  const handleClick = (e, titleProps) => {
+    const { index } = titleProps
+    const { activeIndex } = isDrop
+    const newIndex = activeIndex === index ? -1 : index
+
+    setIsDrop({ activeIndex: newIndex })
+  }
+
   return (
     <Card fluid>
       <Card.Content>
@@ -20,6 +33,24 @@ const HomeCards = ({ name, date, description, donePost, removePost }) => {
           </Button>
         </div>
       </Card.Content>
+      <Accordion>
+        <Accordion.Title
+          active={activeIndex === 0}
+          index={0}
+          onClick={handleClick}
+        >
+          <Icon name='dropdown' />
+          Sub Todos
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 0}>
+          <List celled ordered>
+            <List.Item><Checkbox/>  buy milk <Label color='red'><Icon name='delete'/></Label></List.Item>
+            <List.Item><Checkbox/>  buy meet</List.Item>
+            <List.Item><Checkbox/>  buy book</List.Item>
+            <List.Item><Checkbox/>  buy silk</List.Item>
+          </List>
+        </Accordion.Content>
+      </Accordion>
     </Card>
   );
 };

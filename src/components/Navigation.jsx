@@ -1,6 +1,6 @@
 // Global
 import React, { useState, useEffect } from 'react'
-import { Menu, Container, Dropdown, Button, Header, Segment } from 'semantic-ui-react'
+import { Menu, Container, Dropdown, Button, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useLocation, useRouteMatch } from 'react-router-dom'
 import moment from 'moment-timezone';
@@ -23,10 +23,7 @@ const Navigation = () => {
   const [nameZone, setTimeZoneName] = useState(TIME_ZONES.ISRAEL.name);
   const [currentTime, setTime] = useState(null);
 
-
   const user = Cookies.get('user')
-  console.log(user)
-
 
   const handleTimezoneChange = (key) => {
     setTimeZone(TIME_ZONES[key].zone);
