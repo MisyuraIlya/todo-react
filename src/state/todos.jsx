@@ -42,7 +42,7 @@ const TodoProvider = (props) => {
 
   const createTodo = async (title, description) => {
     try {
-      await api.createTodos(title, description);
+      await api.create(title, description);
     } catch (error) {
       console.error('[state/todo/createPost] Failed to load todos', { error });
       setError({ isError: true, message: error.message });
@@ -60,7 +60,7 @@ const TodoProvider = (props) => {
 
   const removeTodo = async (id) => {
     try {
-      await api.removeTodo(id);
+      await api.remove(id);
     } catch (error) {
       console.error('[state/todo/removeTodo] Failed to Remove Todo', { error });
       setError({ isError: true, message: error.message });

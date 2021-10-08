@@ -34,7 +34,7 @@ const Navigation = () => {
 
   const cookieBar =
     <Menu.Item>
-      <Header as='h5' >Welcome {user}</Header>
+      {/* <Header as='h5' >Welcome {user}</Header> */}
       <Button primary onClick={cookieRemove} style={{ marginLeft: '0.9em' }}>Log out</Button>
     </Menu.Item>
   return (

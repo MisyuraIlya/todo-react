@@ -2,7 +2,7 @@ export default [
   {
     id: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
     name: 'Coding',
-    date: '2021-10-07',
+    date: '',
     description: 'Fancy program!',
     status: 'ACTIVE',
   },
@@ -23,14 +23,14 @@ export default [
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5y',
     name: 'RUN',
-    date: '2021-10-07',
+    date: '',
     description: 'Fancy program!',
     status: 'ACTIVE',
   },
   {
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5g',
     name: 'play',
-    date: '2021-10-07',
+    date: '',
     description: 'Fancy program!',
     status: 'ACTIVE',
   }
