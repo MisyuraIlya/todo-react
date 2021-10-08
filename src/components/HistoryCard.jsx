@@ -7,7 +7,6 @@ const HistoryCard = ({ name, date, description }) => {
     <Card fluid>
       <Card.Content>
         <Card.Header>{name}</Card.Header>
-        {console.log(date)}
         <Card.Meta>{moment(date, DATE_TIME_FORMAT).format(DATE_TIME_FORMAT)}</Card.Meta>
         <Card.Description>{description}
         </Card.Description>
