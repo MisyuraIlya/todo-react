@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Accordion, Icon, List, Checkbox, Label } from 'semantic-ui-react'
+import { Card, Button, Accordion, Icon, List, Checkbox, Label, Divider, Menu, Input, Header, Segment, Image, Modal, Form } from 'semantic-ui-react'
 import { useNav } from '../state/navigation'
 
 const HomeCards = ({ name, description, donePost, removePost }) => {
@@ -21,12 +21,30 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
   return (
     <Card fluid>
       <Card.Content>
+        <Header floated='right'>sub Todos 3/3</Header>
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{currentTime}</Card.Meta>
-        <Card.Description>{description}
+        <Modal
+          size='mini'
+          trigger={<Button icon labelPosition='left' floated='right'>
+            <Icon name='add' />
+            sub Todo
+          </Button>}
+          header='Reminder!'
+          content={<Form>
+            <Form.Field inline>
+              <label style={{marginLeft:'3em'}}>Sub Todo</label>
+              <Input placeholder='First name' />
+            </Form.Field>
+          </Form>}
+          actions={['Close', { key: 'done', content: 'add', positive: true }]}
+        />
 
-        </Card.Description>
+        <Card.Description>{description}</Card.Description>
       </Card.Content>
+
+
+
       <Card.Content extra>
         <div className='ui two buttons'>
           <Button basic color='green' onClick={donePost}>Done
@@ -45,12 +63,44 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
           Sub Todos
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
-          <List celled ordered>
-            <List.Item><Checkbox />  buy milk <Label color='red'><Icon name='delete' /></Label></List.Item>
-            <List.Item><Checkbox />  buy meet</List.Item>
-            <List.Item><Checkbox />  buy book</List.Item>
-            <List.Item><Checkbox />  buy silk</List.Item>
-          </List>
+
+          <Segment size='mini' style={{ margin: '1em 3em 0em 3em' }}>
+            <Menu secondary>
+              <Menu.Item>
+                <Header as='h4'>Buy milk</Header>
+              </Menu.Item>
+              <Menu.Item position='right'>
+                <Button icon='delete' color='red' style={{ marginRight: '0.5em' }} />
+                <Button icon='check' color='green' />
+              </Menu.Item>
+            </Menu>
+          </Segment>
+
+          <Segment size='mini' piled style={{ margin: '1em 3em 0em 3em' }}>
+            <Menu secondary>
+              <Menu.Item>
+                <Header as='h4'>Buy milk</Header>
+              </Menu.Item>
+              <Menu.Item position='right'>
+                <Button icon='delete' color='red' style={{ marginRight: '0.5em' }} />
+                <Button icon='check' color='green' />
+              </Menu.Item>
+            </Menu>
+          </Segment>
+
+          <Segment size='mini' piled style={{ marginLeft: '2em', margin: '1em 3em 0em 3em' }}>
+            <Menu secondary>
+              <Menu.Item>
+                <Header as='h4'>Buy milk</Header>
+              </Menu.Item>
+              <Menu.Item position='right'>
+                <Button icon='delete' color='red' style={{ marginRight: '0.5em' }} />
+                <Button icon='check' color='green' />
+              </Menu.Item>
+            </Menu>
+          </Segment>
+
+
         </Accordion.Content>
       </Accordion>
     </Card>
