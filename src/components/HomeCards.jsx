@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Button, Accordion, Icon, List, Checkbox, Label } from 'semantic-ui-react'
-import moment from 'moment'
-import { DATE_TIME_FORMAT } from '../lib/enums';
 import { useNav } from '../state/navigation'
 
 const HomeCards = ({ name, description, donePost, removePost }) => {
 
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
-  const { timeZone, currentTime } = useNav();
+  const { currentTime } = useNav();
   const { activeIndex } = isDrop
 
   // helpers

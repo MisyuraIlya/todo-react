@@ -1,7 +1,6 @@
 import React from 'react';
 import { Pagination } from 'semantic-ui-react'
 const PaginationModal = ({ total, limit, page, onPageChange }) => {
-  console.log(total,limit)
   const totalPages = Math.ceil(total / limit);
   return (
     <Pagination

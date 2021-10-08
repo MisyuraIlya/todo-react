@@ -11,11 +11,11 @@ export const ROUTES = {
     path: '/about',
     name: 'About'
   },
-  SINGIN:{
+  SINGIN: {
     path: '/singin',
     name: 'Signin'
   },
-  LOGIN:{
+  LOGIN: {
     path: '/login',
     name: 'Login'
   },

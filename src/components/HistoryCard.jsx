@@ -2,7 +2,10 @@ import React from 'react';
 import { Card } from 'semantic-ui-react'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../lib/enums';
+
 const HistoryCard = ({ name, date, description }) => {
+
+
   return (
     <Card fluid>
       <Card.Content>

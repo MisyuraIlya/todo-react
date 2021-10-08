@@ -17,7 +17,6 @@ const timezoneOptions = Object
   .entries(TIME_ZONES)
   .map(([key, value], index) => ({ key: index, text: value.name, value: key }));
 
-
 const NavigationProvider = (props) => {
 
   //states
@@ -39,13 +38,11 @@ const NavigationProvider = (props) => {
     return () => clearInterval(intervalId);
   }, [timeZone]);
 
-    
+
   // Export
   const methods = {
     handleTimezoneChange,
   };
-
-
 
   return <NavContex.Provider value={{
     timeZone,

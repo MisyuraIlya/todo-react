@@ -1,6 +1,6 @@
 //GLOBAL
 import React, { useState, useEffect } from 'react';
-import { Segment, Header, Dimmer, Loader, Form, Icon } from 'semantic-ui-react'
+import { Segment, Header, Dimmer, Loader, Icon } from 'semantic-ui-react'
 
 //LOCAL
 import PaginationModal from '../components/PaginationModal';

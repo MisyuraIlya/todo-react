@@ -9,7 +9,6 @@ import Cookies from 'js-cookie'
 import { ROUTES } from '../lib/enums';
 import { useNav } from '../state/navigation'
 
-
 // Defines
 const Navigation = () => {
   //states

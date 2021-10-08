@@ -17,7 +17,12 @@ const create = async (name, description) => {
     date: moment().format(DATE_TIME_FORMAT),
     description, status: TODO_STATUS.ACTIVE
   }
-  todos = [...todos,todo]
+  todos = [...todos, todo]
+}
+
+const remove = async (id) => {
+  todos = todos.filter(({ id: todosID }) => id !== todosID);
+  return delay({ data: true }, 200);
 }
 
 const update = (postid, fields) => {
@@ -27,12 +32,7 @@ const update = (postid, fields) => {
   return delay({ data: true }, 200);
 }
 
-const remove = async (id) => {
-  todos = todos.filter(({ id: todosID }) => id !== todosID);
-  return delay({ data: true }, 200);
-}
-
-const read = async ({ status, page, limit })  => {
+const read = async ({ status, page, limit }) => {
   const start = page * limit;
   const end = start + limit;
   const data = todos

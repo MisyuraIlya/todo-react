@@ -22,17 +22,13 @@ const Login = () => {
       return setError('One of the inputs didnt sent')
     }
 
-    if (result[0].password == details.password) {
-    } else {
-      return setError('There is wrong password of email')
-    }
     try {
       setError('')
       setLoading(true)
       Cookies.set('user', result[0].name)
       history.push('/')
     } catch {
-      setError('Faild to login')
+      setError('email or password were wrong')
     } finally {
       setLoading(false)
       setDetails({ email: '', password: '' })

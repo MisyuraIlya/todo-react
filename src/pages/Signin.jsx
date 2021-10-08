@@ -6,17 +6,15 @@ import SigninComponent from '../components/SigninComponent';
 import accounts from '../lib/accounts'
 import { PERMISSION } from '../lib/enums';
 
-
-console.log(accounts)
 const Signin = ({ }) => {
 
   // local states
   const [details, setDetails] = useState({ name: '', lastname: '', email: '', password1: '', password2: '' })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const [loading, setLoading] = useState('')
+  const [loading, setLoading] = useState(false)
   const [checkbox, setCheckbox] = useState(false)
-  
+
   const createAccount = async () => {
 
     if (details.password1 !== details.password2) {

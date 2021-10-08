@@ -55,10 +55,10 @@ const SigninComponent = ({ details, setDetails, createAccount, error, loading, s
           onChange={e => setDetails({ ...details, password2: e.target.value })}
           value={details.password2} />
 
-        <Form.Checkbox label='I agree to the Terms and Conditions'  onChange={(_,data) => setCheckbox(data.checked)}/>
+        <Form.Checkbox label='I agree to the Terms and Conditions' onChange={(_, data) => setCheckbox(data.checked)} />
 
         <Button type='submit' primary fluid onClick={createAccount}>Sign In</Button>
-        
+
         <Divider />
         <Button type='submit' fluid as={Link} to={ROUTES.LOGIN.path} >Alreay i have account</Button>
       </Form>
