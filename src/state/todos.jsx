@@ -1,8 +1,9 @@
 // Global
 import { createContext, useState, useContext, useEffect } from 'react';
+import moment from 'moment-timezone';
 // Local
 import api from '../lib/api';
-import { TODO_STATUS } from '../lib/enums';
+import { TODO_STATUS, DATE_TIME_FORMAT } from '../lib/enums';
 // Defines
 const TodoContex = createContext();
 const LIMIT = 3;
@@ -51,7 +52,7 @@ const TodoProvider = (props) => {
 
   const doneTodo = async (id) => {
     try {
-      await api.update(id, { status: TODO_STATUS.DONE });
+      await api.update(id, { status: TODO_STATUS.DONE , date:moment().format(DATE_TIME_FORMAT )});
     } catch (error) {
       console.error('[state/todo/doneTodo] Failed to load Todo', { error });
       setError({ isError: true, message: error.message });
