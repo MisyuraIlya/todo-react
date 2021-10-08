@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // LOCAL
 import { ROUTES } from '../lib/enums';
 
-const SigninComponent = ({ details, setDetails, createAccount, error, loading, success, checkbox, setCheckbox }) => {
+const SigninComponent = ({ details, setDetails, createAccount, error, loading, success, setCheckbox }) => {
   return (
     <Dimmer.Dimmable as={Segment} dimmed={loading}>
       <Dimmer active={loading} inverted>
@@ -55,7 +55,7 @@ const SigninComponent = ({ details, setDetails, createAccount, error, loading, s
           onChange={e => setDetails({ ...details, password2: e.target.value })}
           value={details.password2} />
 
-        <Form.Checkbox label='I agree to the Terms and Conditions' />
+        <Form.Checkbox label='I agree to the Terms and Conditions'  onChange={(_,data) => setCheckbox(data.checked)}/>
 
         <Button type='submit' primary fluid onClick={createAccount}>Sign In</Button>
         

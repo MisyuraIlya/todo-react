@@ -15,7 +15,7 @@ const Signin = ({ }) => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState('')
-  const [checkbox, setCheckbox] = useState(true)
+  const [checkbox, setCheckbox] = useState(false)
   
   const createAccount = async () => {
 
@@ -59,6 +59,7 @@ const Signin = ({ }) => {
       error={error}
       success={success}
       loading={loading}
+      setCheckbox={setCheckbox}
     />
   );
 };
