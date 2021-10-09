@@ -52,7 +52,7 @@ const TodoProvider = (props) => {
 
   const doneTodo = async (id) => {
     try {
-      await api.update(id, { status: TODO_STATUS.DONE , date:moment().format(DATE_TIME_FORMAT )});
+      await api.update(id, { status: TODO_STATUS.DONE, date: moment().format(DATE_TIME_FORMAT) });
     } catch (error) {
       console.error('[state/todo/doneTodo] Failed to load Todo', { error });
       setError({ isError: true, message: error.message });

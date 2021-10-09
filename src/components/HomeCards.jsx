@@ -33,7 +33,7 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
           header='Reminder!'
           content={<Form>
             <Form.Field inline>
-              <label style={{marginLeft:'3em'}}>Sub Todo</label>
+              <label style={{ marginLeft: '3em' }}>Sub Todo</label>
               <Input placeholder='First name' />
             </Form.Field>
           </Form>}
