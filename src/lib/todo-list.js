@@ -28,8 +28,24 @@ export default [
     status: 'ACTIVE',
   },
   {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5g',
-    name: 'play',
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5q',
+    name: 'train',
+    date: '',
+    description: 'Fancy program!',
+    status: 'ACTIVE',
+  }
+  ,
+  {
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
+    name: 'eat',
+    date: '',
+    description: 'Fancy program!',
+    status: 'ACTIVE',
+  }
+  ,
+  {
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5t',
+    name: 'sleep',
     date: '',
     description: 'Fancy program!',
     status: 'ACTIVE',

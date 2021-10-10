@@ -35,10 +35,11 @@ const update = (postid, fields) => {
 const read = async ({ status, page, limit }) => {
   const start = page * limit;
   const end = start + limit;
+  const total = todos.filter(({ status: s }) => !status || s === status )
   const data = todos
     .filter(({ status: s }) => !status || s === status)
     .slice(start, end);
-  return delay({ page, limit, total: todos.length, data }, 200);
+  return delay({ page, limit, total: total.length, data }, 200);
 }
 //------------------------------------------------------------
 

@@ -58,7 +58,7 @@ const Home = () => {
       donePost={() => update(id, name, description, status)}
       removePost={() => removeTodo(id)} />
     )
-    
+
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />
     <Header.Content>No posts found!</Header.Content>
