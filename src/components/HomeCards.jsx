@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Accordion, Icon, List, Checkbox, Label, Divider, Menu, Input, Header, Segment, Image, Modal, Form } from 'semantic-ui-react'
+import { Card, Button, Accordion, Icon, List, Checkbox, Label, Divider, Menu, Input, Header, Segment, Image, Modal, Form, Progress } from 'semantic-ui-react'
 import { useNav } from '../state/navigation'
+import FormModal from './FormModal';
 
 const HomeCards = ({ name, description, donePost, removePost }) => {
 
@@ -24,23 +25,15 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
         <Header floated='right'>sub Todos 3/3</Header>
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{currentTime}</Card.Meta>
-        <Modal
-          size='mini'
-          trigger={<Button icon labelPosition='left' floated='right'>
-            <Icon name='add' />
-            sub Todo
-          </Button>}
-          header='Reminder!'
-          content={<Form>
-            <Form.Field inline>
-              <label style={{ marginLeft: '3em' }}>Sub Todo</label>
-              <Input placeholder='First name' />
-            </Form.Field>
-          </Form>}
-          actions={['Close', { key: 'done', content: 'add', positive: true }]}
-        />
-
+        <Progress value='0' total='5' progress='ratio' />
         <Card.Description>{description}</Card.Description>
+        <Header as='h3'>SubTodos</Header>
+        <List bulleted>
+          <List.Item>Buy milk</List.Item>
+          <List.Item>BuY meet</List.Item>
+          <List.Item>Buy vodka</List.Item>
+        </List>
+
       </Card.Content>
 
 
@@ -52,57 +45,24 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
           <Button basic color='red' onClick={removePost}>Delete
           </Button>
         </div>
+        <Accordion>
+          <Accordion.Title
+            active={activeIndex === 0}
+            index={0}
+            onClick={handleClick}
+          >
+            <Button basic color='blue' fluid  >Add new subtodos
+            </Button>
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 0}>
+
+
+            <FormModal />
+
+          </Accordion.Content>
+        </Accordion>
       </Card.Content>
-      <Accordion>
-        <Accordion.Title
-          active={activeIndex === 0}
-          index={0}
-          onClick={handleClick}
-        >
-          <Icon name='dropdown' />
-          Sub Todos
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
 
-          <Segment size='mini' style={{ margin: '1em 3em 0em 3em' }}>
-            <Menu secondary>
-              <Menu.Item>
-                <Header as='h4'>Buy milk</Header>
-              </Menu.Item>
-              <Menu.Item position='right'>
-                <Button icon='delete' color='red' style={{ marginRight: '0.5em' }} />
-                <Button icon='check' color='green' />
-              </Menu.Item>
-            </Menu>
-          </Segment>
-
-          <Segment size='mini' piled style={{ margin: '1em 3em 0em 3em' }}>
-            <Menu secondary>
-              <Menu.Item>
-                <Header as='h4'>Buy milk</Header>
-              </Menu.Item>
-              <Menu.Item position='right'>
-                <Button icon='delete' color='red' style={{ marginRight: '0.5em' }} />
-                <Button icon='check' color='green' />
-              </Menu.Item>
-            </Menu>
-          </Segment>
-
-          <Segment size='mini' piled style={{ marginLeft: '2em', margin: '1em 3em 0em 3em' }}>
-            <Menu secondary>
-              <Menu.Item>
-                <Header as='h4'>Buy milk</Header>
-              </Menu.Item>
-              <Menu.Item position='right'>
-                <Button icon='delete' color='red' style={{ marginRight: '0.5em' }} />
-                <Button icon='check' color='green' />
-              </Menu.Item>
-            </Menu>
-          </Segment>
-
-
-        </Accordion.Content>
-      </Accordion>
     </Card>
   );
 };

@@ -1,6 +1,6 @@
 //GLOBAL
 import React, { useState, useEffect } from 'react';
-import { Segment, Header, Dimmer, Loader, Icon } from 'semantic-ui-react'
+import { Segment, Header, Dimmer, Loader, Icon, Accordion, Button } from 'semantic-ui-react'
 
 //LOCAL
 import PaginationModal from '../components/PaginationModal';
@@ -64,18 +64,49 @@ const Home = () => {
     <Header.Content>No posts found!</Header.Content>
   </Header>
 
+
+
+  //  accordion states
+  // states 
+  const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
+  const { activeIndex } = isDrop
+
+  // helpers
+  const handleClick = (e, titleProps) => {
+    const { index } = titleProps
+    const { activeIndex } = isDrop
+    const newIndex = activeIndex === index ? -1 : index
+
+    setIsDrop({ activeIndex: newIndex })
+  }
+
   return (
     <Dimmer.Dimmable as={Segment} dimmed={loading}>
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
+      <Accordion>
+        <Accordion.Title
+          active={activeIndex === 0}
+          index={0}
+          onClick={handleClick}
+        >
+          <Button  primary fluid  >Add new Todo 
+          </Button>
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 0}>
 
-      <FormModal
-        title={title}
-        description={description}
-        updateTitle={updateTitle}
-        updateDescription={updateDescription}
-        createTodo={createTodo} />
+
+          <FormModal
+            title={title}
+            description={description}
+            updateTitle={updateTitle}
+            updateDescription={updateDescription}
+            createTodo={createTodo} />
+
+        </Accordion.Content>
+      </Accordion>
+
 
       {todos.length ? todoElements : missingElement}
       <Segment basic textAlign={'center'}>
