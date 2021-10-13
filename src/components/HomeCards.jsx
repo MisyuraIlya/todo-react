@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Accordion, Icon, List, Checkbox, Label, Divider, Menu, Input, Header, Segment, Image, Modal, Form, Progress } from 'semantic-ui-react'
+import { Card, Button, Accordion, Icon, List, Checkbox, Label, Divider, Menu, Input, Header, Segment, Image, Modal, Form, Progress, Confirm, Table } from 'semantic-ui-react'
 import { useNav } from '../state/navigation'
 import FormModal from './FormModal';
 
@@ -19,13 +19,21 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
     setIsDrop({ activeIndex: newIndex })
   }
 
+  // confirm state
+  const [confirmDone, setConfirmDone] = useState({ openDone: false })
+  const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
+
   return (
     <Card fluid>
       <Card.Content>
         <Header floated='right'>sub Todos 3/3</Header>
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{currentTime}</Card.Meta>
-        <Progress value='0' total='5' progress='ratio' />
+        <Progress percent={100} success>
+          The progress was successful
+        </Progress> 
+        <p>ELSE</p>
+        <Progress value='1' total='5' progress='ratio' />
         <Card.Description>{description}</Card.Description>
         <Header as='h3'>SubTodos</Header>
         <List bulleted>
@@ -40,10 +48,50 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
 
       <Card.Content extra>
         <div className='ui two buttons'>
-          <Button basic color='green' onClick={donePost}>Done
+          <Button basic color='green' /*onClick={donePost}*/ onClick={() => setConfirmDone({ openDone: true })}>Done
           </Button>
-          <Button basic color='red' onClick={removePost}>Delete
+          <Confirm
+            header='You really Done?'
+            content={
+              <Segment>
+                <Table basic>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell>Name</Table.HeaderCell>
+                      <Table.HeaderCell>Status</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.Cell>Buy Milk</Table.Cell>
+                      <Table.Cell><Checkbox /></Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell>Buy meet</Table.Cell>
+                      <Table.Cell><Checkbox /></Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell>Buy Vodka</Table.Cell>
+                      <Table.Cell><Checkbox /></Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table>
+              </Segment>
+            }
+            open={confirmDone.openDone}
+            onCancel={() => setConfirmDone({ openDone: false })}
+            onConfirm={() => setConfirmDone({ openDone: false })}
+          />
+          <Button basic color='red' /*onClick={removePost} */ onClick={() => setConfirmDelete({ openDelete: true })}>Delete
           </Button>
+          <Confirm
+            header='You really wich to delete?'
+            content='You really wich to delete?'
+            open={confirmDelete.openDelete}
+            onCancel={() => setConfirmDelete({ openDelete: false })}
+            onConfirm={() => setConfirmDelete({ openDelete: false })}
+          />
         </div>
         <Accordion>
           <Accordion.Title
