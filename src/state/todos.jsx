@@ -20,6 +20,7 @@ const useTodo = () => {
 const TodoProvider = (props) => {
   // State
   const [todos, setTodos] = useState([]);
+  const [subTodo, setSubTodo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
@@ -31,7 +32,11 @@ const TodoProvider = (props) => {
     setLoading(true);
     try {
       const { limit, total, data } = await api.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
+      const subData  = await api.readSub('1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb');
+      // console.log(subData.data)
+      // console.log(data)
       setTodos(data);
+      setSubTodo(subData.data);
       setPagination({ limit, total });
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load todos', { error });
@@ -72,8 +77,8 @@ const TodoProvider = (props) => {
     setPage(page);
   }
 
+
   // Logic
-  useEffect(() => loadTodo(), [])
   useEffect(() => loadTodo(), [page]);
 
   // Export
@@ -82,7 +87,7 @@ const TodoProvider = (props) => {
     loadTodo,
     doneTodo,
     removeTodo,
-    onPageChange
+    onPageChange,
   };
   return <TodoContex.Provider value={{
     todos,
@@ -91,6 +96,7 @@ const TodoProvider = (props) => {
     error,
     methods,
     page,
+    subTodo,
   }} {...props} />
 }
 

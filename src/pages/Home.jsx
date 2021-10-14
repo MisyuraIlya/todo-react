@@ -14,7 +14,7 @@ const Home = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { todos, loading, pagination, page, methods } = useTodo();
+  const { todos, subTodo, loading, pagination, page, methods, } = useTodo();
 
   // Event hendlers
   const updateTitle = ({ target }) => {
@@ -47,15 +47,19 @@ const Home = () => {
   }
 
   // subs helps
-
   useEffect(() => methods.loadTodo(), [page])
 
+  // console.log(subTodo)
+  // subTodo.map((e) => console.log(e))
+  // console.log(todos)
+  // const subElements = subTodo
   const todoElements = todos
     .map(({ id, name, date, description, status }) => <HomeCards
       key={id}
       id={id}
       name={name}
       date={date}
+      subTodo={subTodo}
       description={description}
       donePost={() => update(id, name, description, status)}
       removePost={() => removeTodo(id)} />
@@ -93,7 +97,7 @@ const Home = () => {
           index={0}
           onClick={handleClick}
         >
-          <Button  primary fluid  >Add new Todo 
+          <Button primary fluid  >Add new Todo
           </Button>
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>

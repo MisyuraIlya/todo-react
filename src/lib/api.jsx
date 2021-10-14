@@ -2,7 +2,9 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
 import { DATE_TIME_FORMAT, TODO_STATUS } from '../lib/enums';
 import todolists from './todo-list'
+import subtodoslists from './todos-sub'
 
+let subtodos = [...subtodoslists]
 let todos = [...todolists]
 
 // Helpers
@@ -43,11 +45,17 @@ const read = async ({ status, page, limit }) => {
 }
 //------------------------------------------------------------
 
+const readSub = async (id) => {
+  const data = subtodos.filter(({ parentID }) => id === parentID);
+  // console.log(data)
+  return delay({ data }, 200);
+}
 const api = {
   create,
   remove,
   update,
   read,
+  readSub,
 };
 
 export default api;

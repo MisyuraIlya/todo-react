@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Button, Accordion, Icon, List, Checkbox, Label, Divider, Menu, Input, Header, Segment, Image, Modal, Form, Progress, Confirm, Table } from 'semantic-ui-react'
+import { Card, Button, Accordion, List, Checkbox, Header, Segment, Progress, Confirm, Table } from 'semantic-ui-react'
 import { useNav } from '../state/navigation'
 import FormModal from './FormModal';
 
-const HomeCards = ({ name, description, donePost, removePost }) => {
+const HomeCards = ({ name, description, donePost, removePost, subTodo }) => {
 
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
@@ -20,7 +20,7 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
   }
 
   // confirm state
-  const [confirmDone, setConfirmDone] = useState({ openDone: false })
+
   const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
 
   return (
@@ -36,9 +36,9 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
         <Card.Description>{description}</Card.Description>
         <Header as='h3'>SubTodos</Header>
         <List >
-          <List.Item><Checkbox label='Make my profile visible' /></List.Item>
-          <List.Item><Checkbox label='Make my profile visible' /></List.Item>
-          <List.Item><Checkbox label='Make my profile visible' /></List.Item>
+          {subTodo.map(({ subtodo }) =>
+            <List.Item><Checkbox label={subtodo} /></List.Item>
+          )}
         </List>
 
       </Card.Content>
@@ -48,39 +48,6 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
       <Card.Content extra>
         <div className='ui three buttons'>
           <Button basic color='green' onClick={donePost}>Done</Button>
-          <Confirm
-            header='You really Done?'
-            content={
-              <Segment>
-                <Table basic>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>Name</Table.HeaderCell>
-                      <Table.HeaderCell>Status</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>
-                    <Table.Row>
-                      <Table.Cell>Buy Milk</Table.Cell>
-                      <Table.Cell><Checkbox /></Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                      <Table.Cell>Buy meet</Table.Cell>
-                      <Table.Cell><Checkbox /></Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                      <Table.Cell>Buy Vodka</Table.Cell>
-                      <Table.Cell><Checkbox /></Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                </Table>
-              </Segment>
-            }
-            open={confirmDone.openDone}
-            onCancel={() => setConfirmDone({ openDone: false })}
-            onConfirm={() => setConfirmDone({ openDone: false })}
-          />
           <Button basic color='red' /*onClick={removePost} */ onClick={() => setConfirmDelete({ openDelete: true })}>Delete
           </Button>
           <Confirm
@@ -88,9 +55,9 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
             content='You really wich to delete?'
             open={confirmDelete.openDelete}
             onCancel={() => setConfirmDelete({ openDelete: false })}
-            onConfirm={() => setConfirmDelete({ openDelete: false })}
+            onConfirm={() => removePost()}
           />
-          <Button basic color='blue'  onClick={handleClick}  active={activeIndex === 0}
+          <Button basic color='blue' onClick={handleClick} active={activeIndex === 0}
             index={0} >Add new subtodos
           </Button>
         </div>
