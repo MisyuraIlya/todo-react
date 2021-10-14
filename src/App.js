@@ -12,7 +12,7 @@ import About from './pages/About';
 import Error from './pages/Error';
 import { TodoProvider } from './state/todos';
 import { HistoryProvider } from './state/history';
-import { NavigationProvider } from './state/navigation';
+import { NavigationProvider } from './state/time-zone';
 import Signin from './pages/Signin';
 import Login from './pages/Login';
 

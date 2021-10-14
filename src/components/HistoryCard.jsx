@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Header, Accordion, Segment, Icon, Menu, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../lib/enums';
-import { useNav } from '../state/navigation';
+import { useNav } from '../state/time-zone';
 
 const HistoryCard = ({ name, date, description }) => {
 

@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 
 // Local
 import { ROUTES } from '../lib/enums';
-import { useNav } from '../state/navigation'
+import { useNav } from '../state/time-zone'
 
 // Defines
 const Navigation = () => {
