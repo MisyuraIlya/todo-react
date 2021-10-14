@@ -3,7 +3,7 @@ import { Card, Button, Accordion, List, Checkbox, Header, Segment, Progress, Con
 import { useNav } from '../state/time-zone'
 import FormModal from './FormModal';
 
-const HomeCards = ({ name, description, donePost, removePost, subTodo }) => {
+const HomeCards = ({ title, description, donePost, removePost, subTodo }) => {
 
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
@@ -26,7 +26,7 @@ const HomeCards = ({ name, description, donePost, removePost, subTodo }) => {
   return (
     <Card fluid>
       <Card.Content>
-        <Card.Header>{name}</Card.Header>
+        <Card.Header>{title}</Card.Header>
         <Card.Meta>{currentTime}</Card.Meta>
         <Progress percent={100} success size='small'>
           The progress was successful

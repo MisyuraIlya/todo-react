@@ -32,8 +32,8 @@ const Home = () => {
     setTitle('');
   }
 
-  const update = async (id, name, description, status) => {
-    await methods.doneTodo(id, name, description, status);
+  const update = async (id, title, description, status) => {
+    await methods.doneTodo(id, title, description, status);
     await methods.loadTodo();
   }
 
@@ -50,14 +50,14 @@ const Home = () => {
   useEffect(() => methods.loadTodo(), [page])
 
   const todoElements = todos
-    .map(({ id, name, date, description, status }) => <HomeCards
+    .map(({ id, title, date, description, status }) => <HomeCards
       key={id}
       id={id}
-      name={name}
+      title={title}
       date={date}
       subTodo={subTodo}
       description={description}
-      donePost={() => update(id, name, description, status)}
+      donePost={() => update(id, title, description, status)}
       removePost={() => removeTodo(id)} />
     )
 

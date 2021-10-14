@@ -16,7 +16,6 @@ const useNav = () => {
 const timezoneOptions = Object
   .entries(TIME_ZONES)
   .map(([key, value], index) => ({ key: index, text: value.name, value: key }));
-console.log(timezoneOptions)
 const NavigationProvider = (props) => {
 
   //states

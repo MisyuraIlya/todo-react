@@ -2,7 +2,7 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 
 // Local
-import api from '../lib/api';
+import apiTodo from '../lib/apiTodo';
 import { TODO_STATUS } from '../lib/enums';
 // Defines
 const HistoryContext = createContext();
@@ -31,7 +31,7 @@ const HistoryProvider = (props) => {
   const loadHistory = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await api.read({ ...pagination, page, status: TODO_STATUS.DONE });
+      const { limit, total, data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.DONE });
       setHistory(data);
       setPagination({ limit, total });
     } catch (error) {

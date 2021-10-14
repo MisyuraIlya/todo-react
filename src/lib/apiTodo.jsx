@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
-import { DATE_TIME_FORMAT, TODO_STATUS } from '../lib/enums';
+import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
 import todolists from './todo-list'
 import subtodoslists from './todos-sub'
 
@@ -12,10 +12,10 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const create = async (name, description) => {
+const create = async (title, description) => {
   const todo = {
     id: uuidv4(),
-    name,
+    title,
     date: moment().format(DATE_TIME_FORMAT),
     description, status: TODO_STATUS.ACTIVE
   }
@@ -47,11 +47,11 @@ const read = async ({ status, page, limit, id }) => {
 }
 //------------------------------------------------------------
 
-const api = {
+const apiTodo = {
   create,
   remove,
   update,
   read,
 };
 
-export default api;
+export default apiTodo;
