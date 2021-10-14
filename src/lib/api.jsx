@@ -34,28 +34,24 @@ const update = (postid, fields) => {
   return delay({ data: true }, 200);
 }
 
-const read = async ({ status, page, limit }) => {
+const read = async ({ status, page, limit, id }) => {
   const start = page * limit;
   const end = start + limit;
-  const total = todos.filter(({ status: s }) => !status || s === status )
+  const total = todos.filter(({ status: s }) => !status || s === status)
   const data = todos
     .filter(({ status: s }) => !status || s === status)
     .slice(start, end);
-  return delay({ page, limit, total: total.length, data }, 200);
+  const dataSub = subtodos.filter(({ parentID }) => id === parentID);
+  // console.log(dataSub)
+  return delay({ page, limit, total: total.length, data, dataSub }, 200);
 }
 //------------------------------------------------------------
 
-const readSub = async (id) => {
-  const data = subtodos.filter(({ parentID }) => id === parentID);
-  // console.log(data)
-  return delay({ data }, 200);
-}
 const api = {
   create,
   remove,
   update,
   read,
-  readSub,
 };
 
 export default api;

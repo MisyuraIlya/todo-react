@@ -49,10 +49,6 @@ const Home = () => {
   // subs helps
   useEffect(() => methods.loadTodo(), [page])
 
-  // console.log(subTodo)
-  // subTodo.map((e) => console.log(e))
-  // console.log(todos)
-  // const subElements = subTodo
   const todoElements = todos
     .map(({ id, name, date, description, status }) => <HomeCards
       key={id}
@@ -70,9 +66,6 @@ const Home = () => {
     <Header.Content>No posts found!</Header.Content>
   </Header>
 
-
-
-  //  accordion states
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
   const { activeIndex } = isDrop
@@ -102,7 +95,6 @@ const Home = () => {
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
 
-
           <FormModal
             title={title}
             description={description}
@@ -112,7 +104,6 @@ const Home = () => {
 
         </Accordion.Content>
       </Accordion>
-
 
       {todos.length ? todoElements : missingElement}
       <Segment basic textAlign={'center'}>

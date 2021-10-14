@@ -31,12 +31,9 @@ const TodoProvider = (props) => {
   const loadTodo = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await api.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
-      const subData  = await api.readSub('1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb');
-      // console.log(subData.data)
-      // console.log(data)
+      const { limit, total, data, dataSub } = await api.read({ ...pagination, page, status: TODO_STATUS.ACTIVE, id: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb' });
       setTodos(data);
-      setSubTodo(subData.data);
+      setSubTodo(dataSub);
       setPagination({ limit, total });
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load todos', { error });
@@ -76,7 +73,6 @@ const TodoProvider = (props) => {
   const onPageChange = async (page) => {
     setPage(page);
   }
-
 
   // Logic
   useEffect(() => loadTodo(), [page]);

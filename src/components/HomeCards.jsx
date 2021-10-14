@@ -42,9 +42,6 @@ const HomeCards = ({ name, description, donePost, removePost, subTodo }) => {
         </List>
 
       </Card.Content>
-
-
-
       <Card.Content extra>
         <div className='ui three buttons'>
           <Button basic color='green' onClick={donePost}>Done</Button>
@@ -72,7 +69,6 @@ const HomeCards = ({ name, description, donePost, removePost, subTodo }) => {
           </Accordion.Content>
         </Accordion>
       </Card.Content>
-
     </Card>
   );
 };
