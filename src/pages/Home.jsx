@@ -46,6 +46,8 @@ const Home = () => {
     await methods.onPageChange(activePage - 1);
   }
 
+  // subs helps
+
   useEffect(() => methods.loadTodo(), [page])
 
   const todoElements = todos

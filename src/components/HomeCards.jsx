@@ -26,20 +26,19 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
   return (
     <Card fluid>
       <Card.Content>
-        <Header floated='right'>sub Todos 3/3</Header>
         <Card.Header>{name}</Card.Header>
         <Card.Meta>{currentTime}</Card.Meta>
-        <Progress percent={100} success>
+        <Progress percent={100} success size='small'>
           The progress was successful
-        </Progress> 
+        </Progress>
         <p>ELSE</p>
-        <Progress value='1' total='5' progress='ratio' />
+        <Progress value='1' total='5' progress='ratio' size='small' />
         <Card.Description>{description}</Card.Description>
         <Header as='h3'>SubTodos</Header>
-        <List bulleted>
-          <List.Item>Buy milk</List.Item>
-          <List.Item>BuY meet</List.Item>
-          <List.Item>Buy vodka</List.Item>
+        <List >
+          <List.Item><Checkbox label='Make my profile visible' /></List.Item>
+          <List.Item><Checkbox label='Make my profile visible' /></List.Item>
+          <List.Item><Checkbox label='Make my profile visible' /></List.Item>
         </List>
 
       </Card.Content>
@@ -47,9 +46,8 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
 
 
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green' /*onClick={donePost}*/ onClick={() => setConfirmDone({ openDone: true })}>Done
-          </Button>
+        <div className='ui three buttons'>
+          <Button basic color='green' onClick={donePost}>Done</Button>
           <Confirm
             header='You really Done?'
             content={
@@ -92,21 +90,18 @@ const HomeCards = ({ name, description, donePost, removePost }) => {
             onCancel={() => setConfirmDelete({ openDelete: false })}
             onConfirm={() => setConfirmDelete({ openDelete: false })}
           />
+          <Button basic color='blue'  onClick={handleClick}  active={activeIndex === 0}
+            index={0} >Add new subtodos
+          </Button>
         </div>
         <Accordion>
           <Accordion.Title
             active={activeIndex === 0}
             index={0}
-            onClick={handleClick}
           >
-            <Button basic color='blue' fluid  >Add new subtodos
-            </Button>
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
-
-
             <FormModal />
-
           </Accordion.Content>
         </Accordion>
       </Card.Content>

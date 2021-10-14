@@ -26,44 +26,6 @@ const HistoryCard = ({ name, date, description }) => {
         <Card.Description>{description}
         </Card.Description>
       </Card.Content>
-      <Accordion>
-        <Accordion.Title
-          active={activeIndex === 0}
-          index={0}
-          onClick={handleClick}
-        >
-          <Icon name='dropdown' />
-          Sub Todos
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
-
-          <Segment secondary size='mini' style={{ margin: '1em 3em 0em 3em' }}>
-            <Menu secondary>
-              <Menu.Item>
-                <Header as='h4'>Buy milk</Header>
-              </Menu.Item>
-            </Menu>
-          </Segment>
-
-          <Segment secondary size='mini' piled style={{ margin: '1em 3em 0em 3em' }}>
-            <Menu secondary>
-              <Menu.Item>
-                <Header as='h4'>Buy milk</Header>
-              </Menu.Item>
-            </Menu>
-          </Segment>
-
-          <Segment secondary size='mini' piled style={{ marginLeft: '2em', margin: '1em 3em 0em 3em' }}>
-            <Menu secondary>
-              <Menu.Item>
-                <Header as='h4'>Buy milk</Header>
-              </Menu.Item>
-            </Menu>
-          </Segment>
-
-
-        </Accordion.Content>
-      </Accordion>
     </Card>
   );
 };
