@@ -74,7 +74,6 @@ const Navigation = () => {
             onChange={(_, { value }) => handleTimezoneChange(value)}
             options={timezoneOptions}
             placeholder='Choose a Zone'
-            value={timeZone}
           />
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>
