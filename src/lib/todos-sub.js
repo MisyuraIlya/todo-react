@@ -2,31 +2,49 @@ export default [
   {
     id: '1',
     parentID: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
-    subtodo: 'buy milk'
+    created: '2021-10-14T17:10:20Z',
+    ended: null ,
+    description: 'Buy milk!',
+    status: 'ACTIVE',
   },
   {
     id: '2',
     parentID: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
-    subtodo: 'buy meet'
+    created: '2021-10-14T17:10:20Z',
+    ended: null ,
+    description: 'Buy meet!',
+    status: 'ACTIVE',
   },
   {
     id: '3',
     parentID: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
-    subtodo: 'buy vodka'
+    created: '2021-10-14T17:10:20Z',
+    ended: null ,
+    description: 'Buy vodka!',
+    status: 'ACTIVE',
   },
   {
     id: '4',
-    parentID: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
-    subtodo: 'bench press'
+    parentID: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5y',
+    created: '2021-10-14T17:10:20Z',
+    ended: null ,
+    description: 'Buy water!',
+    status: 'ACTIVE',
   },
   {
     id: '5',
-    parentID: '1cea0bfe-4e2a-4038-b3fc-5d3a83f1fefb',
-    subtodo: 'squat'
+    parentID: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5y',
+    created: '2021-10-14T17:10:20Z',
+    ended: null ,
+    description: 'Buy banan!',
+    status: 'ACTIVE',
   },
   {
     id: '6',
-    parentID: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
-    subtodo: 'death lift'
+    parentID: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5q',
+    created: '2021-10-14T17:10:20Z',
+    ended: null ,
+    description: 'Buy apple!',
+    status: 'ACTIVE',
   },
 ];

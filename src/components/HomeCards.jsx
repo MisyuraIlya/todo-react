@@ -36,8 +36,8 @@ const HomeCards = ({ title, description, donePost, removePost, subTodo }) => {
         <Card.Description>{description}</Card.Description>
         <Header as='h3'>SubTodos</Header>
         <List >
-          {subTodo.map(({ subtodo }) =>
-            <List.Item><Checkbox label={subtodo} /></List.Item>
+          {subTodo.map(({ description }) =>
+            <List.Item><Checkbox label={description} /></List.Item>
           )}
         </List>
 

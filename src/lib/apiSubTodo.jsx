@@ -7,11 +7,10 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const read = async ({ id }) => {
-
-  const dataSub = subtodos.filter(({ parentID }) => id === parentID);
-  // console.log(dataSub)
-  return delay({ dataSub }, 200);
+const read = async (x) => {
+  const data = subtodos.filter((y) => y.parentID === x.id)
+  console.log('1',data)
+  return delay({ data }, 200);
 }
 
 const apiSubTodo = {
@@ -19,3 +18,10 @@ const apiSubTodo = {
 };
 
 export default apiSubTodo;
+
+/*
+filter((id) => {
+console.log(id);
+return id
+})
+*/

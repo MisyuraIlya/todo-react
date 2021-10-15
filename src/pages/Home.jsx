@@ -15,7 +15,7 @@ const Home = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { todos, subTodo, loading, pagination, page, methods, } = useTodo();
-
+  // console.log('this is ', subTodo)
   // Event hendlers
   const updateTitle = ({ target }) => {
     setTitle(target.value);
@@ -48,18 +48,20 @@ const Home = () => {
 
   // subs helps
   useEffect(() => methods.loadTodo(), [page])
-
+  // useEffect(() => )
   const todoElements = todos
     .map(({ id, title, date, description, status }) => <HomeCards
       key={id}
       id={id}
       title={title}
       date={date}
-      subTodo={subTodo}
+      subTodo={subTodo.filter(({parentID}) => parentID === id)}
       description={description}
       donePost={() => update(id, title, description, status)}
       removePost={() => removeTodo(id)} />
     )
+  console.log('bbb', subTodo.filter(({parentID}) => parentID))
+  console.log('aaa',todoElements)
 
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />
