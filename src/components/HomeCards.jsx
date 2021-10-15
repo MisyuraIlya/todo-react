@@ -3,7 +3,7 @@ import { Card, Button, Accordion, List, Checkbox, Header, Segment, Progress, Con
 import { useNav } from '../state/time-zone'
 import FormModal from './FormModal';
 
-const HomeCards = ({ title, description, donePost, removePost, subTodo }) => {
+const HomeCards = ({ title, description, donePost, removePost, subTodo, setSubCheck }) => {
 
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
@@ -32,12 +32,13 @@ const HomeCards = ({ title, description, donePost, removePost, subTodo }) => {
           The progress was successful
         </Progress>
         <p>ELSE</p>
-        <Progress value='1' total='5' progress='ratio' size='small' />
+        <Progress value='1' total={subTodo.length} progress='ratio' size='small' />
         <Card.Description>{description}</Card.Description>
         <Header as='h3'>SubTodos</Header>
         <List >
-          {subTodo.map(({ description }) =>
-            <List.Item><Checkbox label={description} /></List.Item>
+          {/* {console.log('a',subTodo.length)} */}
+          {subTodo.map(({ id, description }) =>
+            <List.Item><Checkbox label={description} onChange={(_, data) => console.log(data.checked,id)}/></List.Item>
           )}
         </List>
 
@@ -45,7 +46,7 @@ const HomeCards = ({ title, description, donePost, removePost, subTodo }) => {
       <Card.Content extra>
         <div className='ui three buttons'>
           <Button basic color='green' onClick={donePost}>Done</Button>
-          <Button basic color='red' /*onClick={removePost} */ onClick={() => setConfirmDelete({ openDelete: true })}>Delete
+          <Button basic color='red' /*onClick={removePost} */ onClick={() => setSubCheck({ openDelete: true })}>Delete
           </Button>
           <Confirm
             header='You really wich to delete?'

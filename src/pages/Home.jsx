@@ -15,6 +15,7 @@ const Home = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { todos, subTodo, loading, pagination, page, methods, } = useTodo();
+  const [subCheck, setSubCheck] = useState(false)
   // console.log('this is ', subTodo)
   // Event hendlers
   const updateTitle = ({ target }) => {
@@ -55,13 +56,15 @@ const Home = () => {
       id={id}
       title={title}
       date={date}
-      subTodo={subTodo.filter(({parentID}) => parentID === id)}
+      subTodo={subTodo.filter(({ parentID }) => parentID === id)}
       description={description}
       donePost={() => update(id, title, description, status)}
-      removePost={() => removeTodo(id)} />
+      removePost={() => removeTodo(id)}
+      setSubCheck={setSubCheck}
+    />
     )
-  console.log('bbb', subTodo.filter(({parentID}) => parentID))
-  console.log('aaa',todoElements)
+  console.log('bbb', subTodo.filter(({ parentID }) => parentID))
+  console.log('aaa', todoElements)
 
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />
