@@ -15,7 +15,9 @@ const HomeCards = ({
 
   subCreate,
   subDescription,
-  updateSubDescription
+  updateSubDescription,
+
+  removeSubTodo
 }) => {
 
   // states 
@@ -27,7 +29,6 @@ const HomeCards = ({
 
   const editHandler = () => {
     setEdit(current => !current)
-    console.log(edit) // is false 
   }
 
   // helpers
@@ -76,7 +77,7 @@ const HomeCards = ({
               {
                 edit !== false
                 
-                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini'/></List.Content>
+                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() =>removeSubTodo(id)}/></List.Content>
 
                   : null
               }

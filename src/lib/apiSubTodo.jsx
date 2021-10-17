@@ -35,10 +35,16 @@ const update = (subId, fields) => {
   return declareTypeAlias({ data: true }, 200);
 }
 
+const remove = async (id) => {
+  subtodos = subtodos.filter(({id: subtodosId}) => id !== subtodosId);
+  return delay({data: true}, 200);
+}
+
 const apiSubTodo = {
   read,
   update,
-  create
+  create,
+  remove
 };
 
 export default apiSubTodo;

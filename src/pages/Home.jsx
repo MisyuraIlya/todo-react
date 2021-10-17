@@ -67,6 +67,11 @@ const Home = () => {
     await methods.loadTodo();
     setSubDescription('');
   }
+
+  const removeSubTodo = async (id) => {
+    await methods.removeSubTodo(id);
+    await methods.loadTodo();
+  }
   // subs helps
   useEffect(() => methods.loadTodo(), [page])
   // useEffect(() => )
@@ -87,6 +92,8 @@ const Home = () => {
       subCreate={subCreate}
       subDescription={subDescription}
       updateSubDescription={updateSubDescription}
+
+      removeSubTodo={removeSubTodo}
     />
     )
 

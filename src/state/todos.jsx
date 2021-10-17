@@ -111,6 +111,15 @@ const TodoProvider = (props) => {
     }
   }
 
+  const removeSubTodo = async(id) => {
+    try {
+      await apiSubTodo.remove(id);
+    } catch (error) {
+      console.error('[state/todo/removeSubTodo] Failed to removeSubTodo', { error });
+      setError({ isError: true, message: error.message });
+    }
+  }
+
   // Logic
   useEffect(() => loadTodo(), [page]);
 
@@ -123,6 +132,7 @@ const TodoProvider = (props) => {
     onPageChange,
     doneSubUpdate,
     createSubTodo,
+    removeSubTodo,
   };
   return <TodoContex.Provider value={{
     todos,
