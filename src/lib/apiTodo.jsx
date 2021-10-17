@@ -16,8 +16,9 @@ const create = async (title, description) => {
   const todo = {
     id: uuidv4(),
     title,
-    date: moment().format(DATE_TIME_FORMAT),
-    description, status: TODO_STATUS.ACTIVE
+    created: moment().format(DATE_TIME_FORMAT),
+    description,
+    status: TODO_STATUS.ACTIVE
   }
   todos = [...todos, todo]
 }

@@ -16,6 +16,9 @@ const Home = () => {
   const [description, setDescription] = useState('');
   const { todos, subTodo, loading, pagination, page, methods, } = useTodo();
   const [subCheck, setSubCheck] = useState(false)
+
+  const [subDescription, setSubDescription] = useState('');
+
   // console.log('this is ', subTodo)
   // Event hendlers
   const updateTitle = ({ target }) => {
@@ -47,24 +50,45 @@ const Home = () => {
     await methods.onPageChange(activePage - 1);
   }
 
+  // 
+
+  const subUpdate = async (id, status) => {
+    await methods.doneSubUpdate(id, status);
+    await methods.loadTodo();
+  }
+
+  const updateSubDescription = ({ target }) => {
+    setSubDescription(target.value)
+  }
+
+  const subCreate = async (id) => {
+    console.log(id)
+    await methods.createSubTodo(subDescription);
+    await methods.loadTodo();
+    setSubDescription('');
+  }
   // subs helps
   useEffect(() => methods.loadTodo(), [page])
   // useEffect(() => )
   const todoElements = todos
-    .map(({ id, title, date, description, status }) => <HomeCards
+    .map(({ id, title, ended, description, status }) => <HomeCards
       key={id}
       id={id}
       title={title}
-      date={date}
+      ended={ended}
       subTodo={subTodo.filter(({ parentID }) => parentID === id)}
       description={description}
       donePost={() => update(id, title, description, status)}
       removePost={() => removeTodo(id)}
       setSubCheck={setSubCheck}
+      status={status}
+      subUpdate={subUpdate}
+
+      subCreate={subCreate}
+      subDescription={subDescription}
+      updateSubDescription={updateSubDescription}
     />
     )
-  console.log('bbb', subTodo.filter(({ parentID }) => parentID))
-  console.log('aaa', todoElements)
 
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />

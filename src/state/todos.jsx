@@ -33,9 +33,9 @@ const TodoProvider = (props) => {
     setLoading(true);
     try {
       const { limit, total, data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
-      const tmp = data.map(({id}) => apiSubTodo.read({id}))
+      const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
       const datasub = await Promise.all(tmp)
-      const add = datasub.map(({data}) => data).reduce((a,b) => {return a.concat(b)}, [])
+      const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])
       setTodos(data);
       setSubTodo(add);
       setPagination({ limit, total });
@@ -47,9 +47,9 @@ const TodoProvider = (props) => {
     }
   }
   const getSubTodosByParentId = (parentId) => {
-    return subTodo.filter(({parentId: id}) => id === parentId)
+    return subTodo.filter(({ parentId: id }) => id === parentId)
   }
-  
+
   // console.log('sub',subTodo)
 
   const createTodo = async (title, description) => {
@@ -83,6 +83,34 @@ const TodoProvider = (props) => {
     setPage(page);
   }
 
+  //---------------------------------
+  const doneSubUpdate = async (id, status) => {
+    if (status === true) {
+      try {
+        await apiSubTodo.update(id, { status: TODO_STATUS.DONE, ended: moment().format(DATE_TIME_FORMAT) })
+      } catch (error) {
+        console.error('[state/todo/doneSubUpdate] Failed to load Todo', { error });
+        setError({ isError: true, message: error.message });
+      }
+    } else {
+      try {
+        await apiSubTodo.update(id, { status: TODO_STATUS.ACTIVE, created: moment().format(DATE_TIME_FORMAT), ended: null })
+      } catch (error) {
+        console.error('[state/todo/doneSubUpdate] Failed to load Todo', { error });
+        setError({ isError: true, message: error.message });
+      }
+    }
+  }
+
+  const createSubTodo = async (id,subDescription) => {
+    try {
+      await apiSubTodo.create(id,subDescription);
+    } catch (error) {
+      console.error('[state/todo/createSubTodo] Failed to load createSubTodo11', { error });
+      setError({ isError: true, message: error.message }); 
+    }
+  }
+
   // Logic
   useEffect(() => loadTodo(), [page]);
 
@@ -93,6 +121,8 @@ const TodoProvider = (props) => {
     doneTodo,
     removeTodo,
     onPageChange,
+    doneSubUpdate,
+    createSubTodo,
   };
   return <TodoContex.Provider value={{
     todos,
