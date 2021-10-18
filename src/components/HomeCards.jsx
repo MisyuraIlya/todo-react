@@ -82,13 +82,12 @@ const HomeCards = ({
       <Card.Content extra>
         <div className='ui three buttons'>
           <Button basic color='green' onClick={donePost}>Done</Button>
-          <Button basic color='red' /*onClick={removePost} */ onClick={() => setSubCheck({ openDelete: true })}>Delete
-          </Button>
+          <Button basic color='red'  onClick={ open = () => setConfirmDelete({ open: true })}>Delete</Button>
           <Confirm
             header='You really wich to delete?'
             content='You really wich to delete?'
-            open={confirmDelete.openDelete}
-            onCancel={() => setConfirmDelete({ openDelete: false })}
+            open={confirmDelete.open}
+            onCancel={() => setConfirmDelete({ open: false })}
             onConfirm={() => removePost()}
           />
           <Button basic color='blue' onClick={handleClick} active={activeIndex === 0}

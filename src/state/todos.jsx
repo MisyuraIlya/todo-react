@@ -70,7 +70,7 @@ const TodoProvider = (props) => {
 
   const removeTodo = async (id) => {
     try {
-      await api.remove(id);
+      await apiTodo.remove(id);
     } catch (error) {
       console.error('[state/todo/removeTodo] Failed to Remove Todo', { error });
       setError({ isError: true, message: error.message });
