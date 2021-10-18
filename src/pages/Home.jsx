@@ -69,11 +69,12 @@ const Home = () => {
   useEffect(() => methods.loadTodo(), [page])
 
   const todoElements = todos
-    .map(({ id, title, ended, description, status }) => <HomeCards
+    .map(({ id, title, created, ended, description, status }) => <HomeCards
       key={id}
       id={id}
       title={title}
       ended={ended}
+      created={created}
       subTodo={subTodo.filter(({ parentID }) => parentID === id)}
       description={description}
       donePost={() => update(id, title, description, status)}

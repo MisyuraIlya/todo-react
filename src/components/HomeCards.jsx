@@ -1,8 +1,10 @@
 //GLOBAL
 import React, { useState } from 'react';
 import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon } from 'semantic-ui-react'
+import moment from 'moment'
 //LOCAL
 import { useNav } from '../state/time-zone'
+import { DATE_TIME_FORMAT } from '../lib/enums';
 
 
 const HomeCards = ({
@@ -11,12 +13,12 @@ const HomeCards = ({
   description,
   donePost, removePost,
   subTodo,
-  setSubCheck,
   subUpdate,
   subCreate,
   subDescription,
   updateSubDescription,
-  removeSubTodo
+  removeSubTodo,
+  created
 }) => {
 
   // states 
@@ -25,7 +27,8 @@ const HomeCards = ({
   const [edit, setEdit] = useState(false)
   const { currentTime } = useNav();
   const { activeIndex } = isDrop
-
+  
+  const { timeZone } = useNav();
   const totalCnt = subTodo.length
   const doneCnt = subTodo.filter(({ status }) => status === 'DONE').length;
 
@@ -44,12 +47,12 @@ const HomeCards = ({
   return (
     <Card fluid>
       <Card.Content>
-        <Card.Header>{title}</Card.Header>
-        <Card.Meta>{currentTime}</Card.Meta>
+        <Card.Header>Title: {title}</Card.Header>
+        <Card.Meta>Current time {moment(created, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
         <Progress value={doneCnt} total={subTodo.length} success={totalCnt === doneCnt} progress='ratio' size='small'  />
-        <Card.Description>{description}</Card.Description>
-        <Button icon floated='right' onClick={editHandler}>
-          <Icon name='edit outline' />
+        <Card.Description>Description todo: {description}</Card.Description>
+        <Button icon floated='right' onClick={editHandler} color='blue'>
+          <Icon name='edit outline'/>
         </Button>
         <Header as='h3' textAlign='left'>
           Sub todos
@@ -65,7 +68,7 @@ const HomeCards = ({
               }
               {ended !== null
                 ? <List.Content floated='right'>
-                  <Label as='h5'>{ended}</Label>
+                  <Label as='h5'>Ended in {ended}</Label>
                 </List.Content>
                 : null
               }
