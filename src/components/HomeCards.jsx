@@ -41,8 +41,6 @@ const HomeCards = ({
     setEdit(current => !current)
   }
 
-
-
   return (
     <Card fluid>
       <Card.Content>
@@ -57,9 +55,9 @@ const HomeCards = ({
           Sub todos
         </Header>
         <List >
-          {subTodo.map(({ id, subDescription, ended }) =>
+          {subTodo.map(({ id, subDescription, ended, status }) =>
             <List.Item>
-              <Checkbox label={subDescription} onChange={(_, data) => subUpdate(id, data.checked)} style={{ marginBottom: '0.9em' }} />
+              <Checkbox label={subDescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked)} style={{ marginBottom: '0.9em' }} />
               {
                 edit !== false
                   ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id)} /></List.Content>
