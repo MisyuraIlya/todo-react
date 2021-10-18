@@ -13,7 +13,7 @@ const SubForm = ({ subCreate, subDescription, updateSubDescription }) => {
           onChange={updateSubDescription}
         />
       </Form.Group>
-      <Form.Button primary onClick={subCreate}>Add </Form.Button>
+      <Form.Button primary onClick={() => subCreate(id)}>Add </Form.Button>
     </Form>
   );
 };

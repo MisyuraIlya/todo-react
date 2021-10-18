@@ -6,6 +6,7 @@ import { useNav } from '../state/time-zone'
 
 
 const HomeCards = ({
+  id,
   title,
   description,
   donePost, removePost,
@@ -47,11 +48,7 @@ const HomeCards = ({
       <Card.Content>
         <Card.Header>{title}</Card.Header>
         <Card.Meta>{currentTime}</Card.Meta>
-        {
-          totalCnt === doneCnt
-            ? <Progress percent={100} success size='small'>The progress was successful</Progress>
-            : <Progress value={doneCnt} total={subTodo.length} progress='ratio' size='small' />
-        }
+        <Progress value={doneCnt} total={subTodo.length} success={totalCnt === doneCnt} progress='ratio' size='small'  />
         <Card.Description>{description}</Card.Description>
         <Button icon floated='right' onClick={editHandler}>
           <Icon name='edit outline' />
@@ -63,17 +60,18 @@ const HomeCards = ({
           {subTodo.map(({ id, subDescription, ended }) =>
             <List.Item>
               <Checkbox label={subDescription} onChange={(_, data) => subUpdate(id, data.checked)} style={{ marginBottom: '0.9em' }} />
+              {
+                edit !== false
+                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id)} /></List.Content>
+                  : null
+              }
               {ended !== null
                 ? <List.Content floated='right'>
                   <Label as='h5'>{ended}</Label>
                 </List.Content>
                 : null
               }
-              {
-                edit !== false
-                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id)} /></List.Content>
-                  : null
-              }
+
             </List.Item>
           )}
         </List>
@@ -111,7 +109,7 @@ const HomeCards = ({
                   onChange={updateSubDescription}
                 />
               </Form.Group>
-              <Form.Button primary onClick={subCreate}>Add </Form.Button>
+              <Form.Button primary onClick={() => subCreate(id,subDescription)}>Add </Form.Button>
             </Form>
           </Accordion.Content>
         </Accordion>

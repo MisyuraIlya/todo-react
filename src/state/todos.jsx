@@ -99,9 +99,9 @@ const TodoProvider = (props) => {
     }
   }
 
-  const createSubTodo = async (id, subDescription) => {
+  const createSubTodo = async (id,subDescription) => {
     try {
-      await apiSubTodo.create(id, subDescription);
+      await apiSubTodo.create(id,subDescription);
     } catch (error) {
       console.error('[state/todo/createSubTodo] Failed to load createSubTodo11', { error });
       setError({ isError: true, message: error.message });

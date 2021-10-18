@@ -23,7 +23,7 @@ const HistoryCard = ({ title, ended, description, subTodo }) => {
             <List.Item as='li' style={{ marginTop: '10px' }}>
               {subDescription}
               <List.Content floated='right'>
-                <p>{ended}</p>
+                <p>{moment(ended, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</p>
               </List.Content>
             </List.Item>
           )}

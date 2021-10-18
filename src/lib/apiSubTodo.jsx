@@ -13,10 +13,10 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const create = async (subDescription) => {
+const create = async (id,subDescription) => {
   const subTodo = {
     id: uuidv4(),
-    // parentId: id,
+    parentID: id,
     created: moment().format(DATE_TIME_FORMAT),
     ended: null,
     subDescription,
