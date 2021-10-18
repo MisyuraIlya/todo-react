@@ -96,6 +96,8 @@ const HomeCards = ({
           <Accordion.Title
             active={activeIndex === 0}
             index={0}
+            icon=''
+            style={{cursor:'default'}}
           >
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
