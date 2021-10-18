@@ -1,7 +1,9 @@
+//GLOBAL
 import React, { useState } from 'react';
-import { Card, Button, Accordion, List, Checkbox, Header, Segment, Progress, Confirm, Table, Label, Form, Icon } from 'semantic-ui-react'
+import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon } from 'semantic-ui-react'
+//LOCAL
 import { useNav } from '../state/time-zone'
-import SubForm from './SubForm';
+
 
 const HomeCards = ({
   title,
@@ -9,42 +11,37 @@ const HomeCards = ({
   donePost, removePost,
   subTodo,
   setSubCheck,
-  status,
   subUpdate,
-  ended,
-
   subCreate,
   subDescription,
   updateSubDescription,
-
   removeSubTodo
 }) => {
 
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
+  const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
+  const [edit, setEdit] = useState(false)
   const { currentTime } = useNav();
   const { activeIndex } = isDrop
-  const [edit, setEdit] = useState(false)
-  console.log(edit)
 
-  const editHandler = () => {
-    setEdit(current => !current)
-  }
+  const totalCnt = subTodo.length
+  const doneCnt = subTodo.filter(({ status }) => status === 'DONE').length;
 
   // helpers
-  const handleClick = (e, titleProps) => {
+  const handleClick = (titleProps) => {
     const { index } = titleProps
     const { activeIndex } = isDrop
     const newIndex = activeIndex === index ? -1 : index
     setIsDrop({ activeIndex: newIndex })
   }
 
-  // confirm state
+  const editHandler = () => {
+    setEdit(current => !current)
+  }
 
-  const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
 
-  const totalCnt = subTodo.length
-  const doneCnt = subTodo.filter(({ status }) => status === 'DONE').length;
+
   return (
     <Card fluid>
       <Card.Content>
@@ -56,18 +53,16 @@ const HomeCards = ({
             : <Progress value={doneCnt} total={subTodo.length} progress='ratio' size='small' />
         }
         <Card.Description>{description}</Card.Description>
-
         <Button icon floated='right' onClick={editHandler}>
           <Icon name='edit outline' />
         </Button>
         <Header as='h3' textAlign='left'>
           Sub todos
         </Header>
-
         <List >
           {subTodo.map(({ id, subDescription, ended }) =>
             <List.Item>
-              <Checkbox label={subDescription} onChange={(_, data) => subUpdate(id, data.checked)} style={{marginBottom:'0.9em'}}/>
+              <Checkbox label={subDescription} onChange={(_, data) => subUpdate(id, data.checked)} style={{ marginBottom: '0.9em' }} />
               {ended !== null
                 ? <List.Content floated='right'>
                   <Label as='h5'>{ended}</Label>
@@ -76,9 +71,7 @@ const HomeCards = ({
               }
               {
                 edit !== false
-                
-                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() =>removeSubTodo(id)}/></List.Content>
-
+                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id)} /></List.Content>
                   : null
               }
             </List.Item>

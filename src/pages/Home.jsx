@@ -1,7 +1,6 @@
 //GLOBAL
 import React, { useState, useEffect } from 'react';
 import { Segment, Header, Dimmer, Loader, Icon, Accordion, Button } from 'semantic-ui-react'
-
 //LOCAL
 import PaginationModal from '../components/PaginationModal';
 import HomeCards from '../components/HomeCards';
@@ -11,15 +10,12 @@ import FormModal from '../components/FormModal';
 const Home = () => {
 
   //local states
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { todos, subTodo, loading, pagination, page, methods, } = useTodo();
   const [subCheck, setSubCheck] = useState(false)
-
   const [subDescription, setSubDescription] = useState('');
 
-  // console.log('this is ', subTodo)
   // Event hendlers
   const updateTitle = ({ target }) => {
     setTitle(target.value);
@@ -50,8 +46,6 @@ const Home = () => {
     await methods.onPageChange(activePage - 1);
   }
 
-  // 
-
   const subUpdate = async (id, status) => {
     await methods.doneSubUpdate(id, status);
     await methods.loadTodo();
@@ -72,9 +66,8 @@ const Home = () => {
     await methods.removeSubTodo(id);
     await methods.loadTodo();
   }
-  // subs helps
   useEffect(() => methods.loadTodo(), [page])
-  // useEffect(() => )
+
   const todoElements = todos
     .map(({ id, title, ended, description, status }) => <HomeCards
       key={id}
@@ -88,11 +81,9 @@ const Home = () => {
       setSubCheck={setSubCheck}
       status={status}
       subUpdate={subUpdate}
-
       subCreate={subCreate}
       subDescription={subDescription}
       updateSubDescription={updateSubDescription}
-
       removeSubTodo={removeSubTodo}
     />
     )

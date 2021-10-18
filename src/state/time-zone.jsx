@@ -1,6 +1,9 @@
+//GLOBAL
 import { createContext, useState, useContext, useEffect } from 'react';
-import { ROUTES, TIME_ZONES, DATE_TIME_FORMAT, CLOCK_UPDATE } from '../lib/enums';
 import moment from 'moment-timezone';
+
+//LOCAL
+import { TIME_ZONES, DATE_TIME_FORMAT, CLOCK_UPDATE } from '../lib/enums';
 //Defines
 const NavContex = createContext();
 
@@ -24,14 +27,12 @@ const NavigationProvider = (props) => {
   const [currentTime, setTime] = useState(null);
 
   // Helpers
-
   const handleTimezoneChange = (key) => {
     setTimeZone(TIME_ZONES[key].zone);
     setTimeZoneName(TIME_ZONES[key].name);
   };
 
   // Logic 
-
   useEffect(() => {
     const intervalId = setInterval(() => setTime(moment().tz(timeZone).format(DATE_TIME_FORMAT)), CLOCK_UPDATE);
     return () => clearInterval(intervalId);

@@ -50,8 +50,6 @@ const TodoProvider = (props) => {
     return subTodo.filter(({ parentId: id }) => id === parentId)
   }
 
-  // console.log('sub',subTodo)
-
   const createTodo = async (title, description) => {
     try {
       await apiTodo.create(title, description);
@@ -63,7 +61,7 @@ const TodoProvider = (props) => {
 
   const doneTodo = async (id) => {
     try {
-      await apiTodo.update(id, { status: TODO_STATUS.DONE, date: moment().format(DATE_TIME_FORMAT) });
+      await apiTodo.update(id, { status: TODO_STATUS.DONE, ended: moment().format(DATE_TIME_FORMAT) });
     } catch (error) {
       console.error('[state/todo/doneTodo] Failed to load Todo', { error });
       setError({ isError: true, message: error.message });
@@ -83,7 +81,6 @@ const TodoProvider = (props) => {
     setPage(page);
   }
 
-  //---------------------------------
   const doneSubUpdate = async (id, status) => {
     if (status === true) {
       try {
@@ -102,16 +99,16 @@ const TodoProvider = (props) => {
     }
   }
 
-  const createSubTodo = async (id,subDescription) => {
+  const createSubTodo = async (id, subDescription) => {
     try {
-      await apiSubTodo.create(id,subDescription);
+      await apiSubTodo.create(id, subDescription);
     } catch (error) {
       console.error('[state/todo/createSubTodo] Failed to load createSubTodo11', { error });
-      setError({ isError: true, message: error.message }); 
+      setError({ isError: true, message: error.message });
     }
   }
 
-  const removeSubTodo = async(id) => {
+  const removeSubTodo = async (id) => {
     try {
       await apiSubTodo.remove(id);
     } catch (error) {

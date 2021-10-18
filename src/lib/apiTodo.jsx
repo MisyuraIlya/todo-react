@@ -1,5 +1,7 @@
+//GLOBAL
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
+//LOCAL
 import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
 import todolists from './todo-list'
 import subtodoslists from './todos-sub'
@@ -43,7 +45,6 @@ const read = async ({ status, page, limit, id }) => {
     .filter(({ status: s }) => !status || s === status)
     .slice(start, end);
   const dataSub = subtodos.filter(({ parentID }) => id === parentID);
-  // console.log(dataSub)
   return delay({ page, limit, total: total.length, data, dataSub }, 200);
 }
 //------------------------------------------------------------

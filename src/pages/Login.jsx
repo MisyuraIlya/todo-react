@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import LoginComponent from '../components/LoginComponent';
 import { useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
-
 // LOCAL
 import accounts from '../lib/accounts'
 
@@ -17,7 +16,6 @@ const Login = () => {
 
   const handleLogin = async () => {
     const result = accounts.filter(tmp => tmp.email === details.email)
-
     if (details.email == '' || details.password == '') {
       return setError('One of the inputs didnt sent')
     }

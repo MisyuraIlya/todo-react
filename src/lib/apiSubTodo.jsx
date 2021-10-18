@@ -1,8 +1,11 @@
+//GLOBAL
 import { declareTypeAlias } from '@babel/types';
-import subtodoslists from './todos-sub'
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
+//LOCAL
 import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
+import subtodoslists from './todos-sub'
+
 let subtodos = [...subtodoslists]
 
 // Helpers
@@ -23,8 +26,8 @@ const create = async (subDescription) => {
   console.log(subtodos)
 }
 
-const read = async (x) => {
-  const data = subtodos.filter((y) => y.parentID === x.id)
+const read = async (subid) => {
+  const data = subtodos.filter((y) => y.parentID === subid.id)
   return delay({ data }, 200);
 }
 
@@ -36,8 +39,8 @@ const update = (subId, fields) => {
 }
 
 const remove = async (id) => {
-  subtodos = subtodos.filter(({id: subtodosId}) => id !== subtodosId);
-  return delay({data: true}, 200);
+  subtodos = subtodos.filter(({ id: subtodosId }) => id !== subtodosId);
+  return delay({ data: true }, 200);
 }
 
 const apiSubTodo = {
@@ -49,9 +52,3 @@ const apiSubTodo = {
 
 export default apiSubTodo;
 
-/*
-filter((id) => {
-console.log(id);
-return id
-})
-*/

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react'
-const SubForm = ({subCreate, subDescription, updateSubDescription}) => {
-  
+const SubForm = ({ subCreate, subDescription, updateSubDescription }) => {
+
   return (
     <Form>
       <Form.Group widths='equal'>

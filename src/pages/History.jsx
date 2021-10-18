@@ -8,7 +8,7 @@ import HistoryCard from '../components/HistoryCard';
 import { useHistory } from '../state/history';
 
 const History = () => {
-  const { loading, history, pagination, page, methods } = useHistory();
+  const { loading, subTodo, history, pagination, page, methods } = useHistory();
 
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
@@ -16,13 +16,14 @@ const History = () => {
 
   useEffect(() => methods.loadHistory(), [page])
 
-  const historyElement = history.map(({ id, name, date, description }) =>
+  const historyElement = history.map(({ id, title, ended, description }) =>
     <HistoryCard
       key={id}
       id={id}
-      name={name}
-      date={date}
+      title={title}
+      ended={ended}
       description={description}
+      subTodo={subTodo.filter(({ parentID }) => parentID === id)}
     />
   )
 

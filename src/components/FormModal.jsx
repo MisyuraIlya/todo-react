@@ -1,3 +1,4 @@
+// GLOBAL
 import React from 'react';
 import { Form } from 'semantic-ui-react'
 const FormModal = ({ title, description, updateTitle, updateDescription, createTodo }) => {
