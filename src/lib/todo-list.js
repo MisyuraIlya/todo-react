@@ -9,8 +9,8 @@ export default [
     status: 'ACTIVE',
   },
   {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
-    F: 'Read book',
+    id: 'ce4ab3c5-d1bb-4289-8710-e11e5d291b5e',
+    title: 'Read book',
     created: '2021-10-13T17:10:20Z',
     ended: '2021-10-13T17:10:20Z',
     description: 'Fancy program!',
@@ -33,7 +33,7 @@ export default [
     status: 'ACTIVE',
   },
   {
-    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5q',
+    id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5a',
     title: 'train',
     created: '2021-10-09T17:10:20Z',
     ended: null,
@@ -45,9 +45,9 @@ export default [
     id: 'ce4ab3c5-d1bb-4289-8750-e11e5d291b5e',
     title: 'eat',
     created: '2021-10-07T17:10:20Z',
-    ended: null,
+    ended: '2021-10-07T17:10:20Z',
     description: 'Fancy program!',
-    status: 'ACTIVE',
+    status: 'DONE',
   }
   ,
   {
