@@ -29,7 +29,7 @@ const HomeCards = ({
   const doneCnt = subTodo.filter(({ status }) => status === 'DONE').length;
 
   // helpers
-  const handleClick = (titleProps) => {
+  const handleClick = (e, titleProps) => {
     const { index } = titleProps
     const { activeIndex } = isDrop
     const newIndex = activeIndex === index ? -1 : index
