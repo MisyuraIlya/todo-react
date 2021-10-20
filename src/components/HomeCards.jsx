@@ -1,6 +1,6 @@
 //GLOBAL
 import React, { useState } from 'react';
-import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon, Divider } from 'semantic-ui-react'
+import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon, Divider, Loader, Dimmer } from 'semantic-ui-react'
 import moment from 'moment'
 //LOCAL
 import { useNav } from '../state/time-zone'
@@ -25,7 +25,6 @@ const HomeCards = ({
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
   const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
   const [edit, setEdit] = useState(false)
-  const { currentTime } = useNav();
   const { activeIndex } = isDrop
 
   const { timeZone } = useNav();
@@ -47,14 +46,16 @@ const HomeCards = ({
   return (
     <Card fluid>
       <Card.Content>
-        <Card.Header>Title: {title}</Card.Header>
+        <Card.Header textAlign='left'>Title: {title}</Card.Header>
+        <Loader active inline='right' size='small'/>
+        
         <Card.Meta>Current time {moment(created, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
-        <Progress value={doneCnt} total={subTodo.length} success={totalCnt === doneCnt} progress='ratio' size='small'  />
+        <Progress value={doneCnt} total={subTodo.length} success={totalCnt === doneCnt} progress='ratio' size='small' />
         <Card.Description>Description todo: {description}</Card.Description>
         <Divider />
 
         <Button icon floated='right' onClick={editHandler} color='blue'>
-          <Icon name='edit outline'/>
+          <Icon name='edit outline' />
         </Button>
         <Header as='h3' textAlign='left'>
           Sub todos
@@ -64,15 +65,16 @@ const HomeCards = ({
             <List.Item>
               <Checkbox label={subDescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked)} style={{ marginBottom: '0.9em' }} />
               {
-                edit !== false
+                !edit
                   ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id)} /></List.Content>
                   : null
               }
-              {ended !== null
-                ? <List.Content floated='right'>
-                  <Label as='h5'>Ended in {ended}</Label>
-                </List.Content>
-                : null
+              {
+                ended !== null
+                  ? <List.Content floated='right'>
+                    <Label as='h5'>Ended in {ended}</Label>
+                  </List.Content>
+                  : null
               }
 
             </List.Item>
@@ -83,7 +85,7 @@ const HomeCards = ({
       <Card.Content extra>
         <div className='ui three buttons'>
           <Button basic color='green' onClick={donePost}>Done</Button>
-          <Button basic color='red'  onClick={ open = () => setConfirmDelete({ open: true })}>Delete</Button>
+          <Button basic color='red' onClick={open = () => setConfirmDelete({ open: true })}>Delete</Button>
           <Confirm
             header='You really wich to delete?'
             content='You really wich to delete?'
@@ -100,7 +102,7 @@ const HomeCards = ({
             active={activeIndex === 0}
             index={0}
             icon=''
-            style={{cursor:'default'}}
+            style={{ cursor: 'default' }}
           >
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
@@ -114,7 +116,7 @@ const HomeCards = ({
                   onChange={updateSubDescription}
                 />
               </Form.Group>
-              <Form.Button primary onClick={() => subCreate(id,subDescription)}>Add </Form.Button>
+              <Form.Button primary onClick={() => subCreate(id, subDescription)}>Add </Form.Button>
             </Form>
           </Accordion.Content>
         </Accordion>
