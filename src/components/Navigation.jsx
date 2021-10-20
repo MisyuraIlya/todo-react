@@ -1,37 +1,41 @@
 // Global
-import React, { useState, useEffect } from 'react'
-import { Menu, Container, Dropdown, Button, Header, Segment } from 'semantic-ui-react'
+import React from 'react'
+import { Menu, Container, Dropdown, Button, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { useLocation, useRouteMatch } from 'react-router-dom'
-import moment from 'moment-timezone';
+import { useLocation } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 // Local
-import { ROUTES, TIME_ZONES, DATE_TIME_FORMAT } from '../lib/enums';
-// Defines
-const CLOCK_UPDATE = 1000;
-
-const timezoneOptions = Object
-  .entries(TIME_ZONES)
-  .map(([key, value], index) => ({ key: index, text: value.name, value: key }));
+import { ROUTES } from '../lib/enums';
+import { useNav } from '../state/time-zone'
 
 // Defines
 const Navigation = () => {
+  //states
   const location = useLocation();
-  const [timeZone, setTimeZone] = useState(TIME_ZONES.ISRAEL.zone);
-  const [nameZone, setTimeZoneName] = useState(TIME_ZONES.ISRAEL.name);
-  const [currentTime, setTime] = useState(null);
+  const { timeZone, nameZone, currentTime, methods, timezoneOptions } = useNav();
+  const user = Cookies.get('user')
 
+  //helpers
   const handleTimezoneChange = (key) => {
-    setTimeZone(TIME_ZONES[key].zone);
-    setTimeZoneName(TIME_ZONES[key].name);
-  };
+    methods.handleTimezoneChange(key);
+  }
 
-  // Hooks
-  useEffect(() => {
-    const intervalId = setInterval(() => setTime(moment().tz(timeZone).format(DATE_TIME_FORMAT)), CLOCK_UPDATE);
-    return () => clearInterval(intervalId);
-  }, [timeZone]);
+  const cookieRemove = () => {
+    Cookies.remove('user')
+  }
 
+  const authBar =
+    <Menu.Item>
+      <Button primary as={Link} to={ROUTES.SINGIN.path} style={{ marginLeft: '0.9em' }}>Sign in</Button>
+      <Button primary as={Link} to={ROUTES.LOGIN.path} style={{ marginLeft: '0.9em' }}>Log in</Button>
+    </Menu.Item>
+
+  const cookieBar =
+    <Menu.Item>
+      {/* <Header as='h5' >Welcome {user}</Header> */}
+      <Button primary onClick={cookieRemove} style={{ marginLeft: '0.9em' }}>Log out</Button>
+    </Menu.Item>
   return (
     <Menu >
       <Container>
@@ -64,21 +68,17 @@ const Navigation = () => {
 
         <Menu.Menu position='right'>
 
-
           <Dropdown
             item
             text={nameZone}
             onChange={(_, { value }) => handleTimezoneChange(value)}
             options={timezoneOptions}
             placeholder='Choose a Zone'
-            value={timeZone}
           />
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>
           </Menu.Item>
-          <Menu.Item>
-            <Button primary>Sign Up</Button>
-          </Menu.Item>
+          {user ? cookieBar : authBar}
         </Menu.Menu>
 
       </Container>

@@ -11,6 +11,14 @@ export const ROUTES = {
     path: '/about',
     name: 'About'
   },
+  SINGIN: {
+    path: '/singin',
+    name: 'Signin'
+  },
+  LOGIN: {
+    path: '/login',
+    name: 'Login'
+  },
   ERROR: {
     path: '/error',
     name: 'Error'
@@ -32,10 +40,18 @@ export const TIME_ZONES = {
   },
 };
 
-export const DATE_TIME_FORMAT = 'HH:mm:ss, DD.MM.YYYY';
+export const DATE_TIME_FORMAT = 'HH:mm, DD.MM.YYYY';
 
 
 export const TODO_STATUS = {
   DONE: 'DONE',
   ACTIVE: 'ACTIVE',
 }
+
+export const PERMISSION = {
+  ADMIN: 'admin',
+  REGULAR: 'regular'
+}
+
+
+export const CLOCK_UPDATE = 1000;

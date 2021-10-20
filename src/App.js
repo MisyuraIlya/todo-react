@@ -12,6 +12,9 @@ import About from './pages/About';
 import Error from './pages/Error';
 import { TodoProvider } from './state/todos';
 import { HistoryProvider } from './state/history';
+import { NavigationProvider } from './state/time-zone';
+import Signin from './pages/Signin';
+import Login from './pages/Login';
 
 
 const App = () => {
@@ -21,29 +24,39 @@ const App = () => {
     <BrowserRouter>
       <TodoProvider>
         <HistoryProvider>
-          <Navigation/>
+          <NavigationProvider>
+            <Navigation/>
 
-          <Container>
-            <Switch>
-              <Route exact path={ROUTES.HOME.path}>
-                <Home/>
-              </Route>
+            <Container style={{width:'50em'}}>
+              <Switch>
+                <Route exact path={ROUTES.HOME.path}>
+                  <Home/>
+                </Route>
 
-              <Route exact path={ROUTES.HISTORY.path}>
-                <History/>
-              </Route>
+                <Route exact path={ROUTES.HISTORY.path}>
+                  <History/>
+                </Route>
 
-              <Route exact path={ROUTES.ABOUT.path}>
-                <About/>
-              </Route>
+                <Route exact path={ROUTES.ABOUT.path}>
+                  <About/>
+                </Route>
 
-              <Route path={ROUTES.ERROR.path}>
-                <Error/>
-              </Route>
+                <Route exact path={ROUTES.SINGIN.path}>
+                  <Signin/>
+                </Route>
 
-              <Redirect to={ROUTES.ERROR.path}/>
-            </Switch>
-          </Container>
+                <Route exact path={ROUTES.LOGIN.path}>
+                  <Login/>
+                </Route>
+
+                <Route path={ROUTES.ERROR.path}>
+                  <Error/>
+                </Route>
+
+                <Redirect to={ROUTES.ERROR.path}/>
+              </Switch>
+            </Container>
+          </NavigationProvider>
         </HistoryProvider>
       </TodoProvider>
     </BrowserRouter>
