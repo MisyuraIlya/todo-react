@@ -12,7 +12,7 @@ const Home = () => {
   //local states
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { todos, subTodo, loading, pagination, page, methods, } = useTodo();
+  const { todos, subTodo, loading, pagination, page,subLoading,  methods, } = useTodo();
   const [subCheck, setSubCheck] = useState(false)
   const [subDescription, setSubDescription] = useState('');
 
@@ -48,7 +48,7 @@ const Home = () => {
 
   const subUpdate = async (id, status) => {
     await methods.doneSubUpdate(id, status);
-    await methods.loadTodo();
+    await methods.loadSubTodo();
   }
 
   const updateSubDescription = ({ target }) => {
@@ -58,14 +58,16 @@ const Home = () => {
   const subCreate = async (id,subDescription) => {
     console.log(subDescription)
     await methods.createSubTodo(id,subDescription);
-    await methods.loadTodo();
+    await methods.loadSubTodo();
     setSubDescription('');
   }
 
   const removeSubTodo = async (id) => {
     await methods.removeSubTodo(id);
-    await methods.loadTodo();
+    await methods.loadSubTodo();
   }
+
+  useEffect(() => methods.loadSubTodo(), [page]);
   useEffect(() => methods.loadTodo(), [page])
 
   const todoElements = todos
@@ -86,6 +88,7 @@ const Home = () => {
       subDescription={subDescription}
       updateSubDescription={updateSubDescription}
       removeSubTodo={removeSubTodo}
+      subLoading={subLoading}
     />
     )
 

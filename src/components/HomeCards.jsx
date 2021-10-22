@@ -18,7 +18,8 @@ const HomeCards = ({
   subDescription,
   updateSubDescription,
   removeSubTodo,
-  created
+  created,
+  subLoading
 }) => {
 
   // states 
@@ -47,9 +48,9 @@ const HomeCards = ({
     <Card fluid>
       <Card.Content>
         <Card.Header textAlign='left'>Title: {title}</Card.Header>
-        <Loader active inline='right' size='small'/>
+        <Loader active={subLoading} inline='right' size='small'/>
         
-        <Card.Meta>Current time {moment(created, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
+        <Card.Meta>Created: {moment(created, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
         <Progress value={doneCnt} total={subTodo.length} success={totalCnt === doneCnt} progress='ratio' size='small' />
         <Card.Description>Description todo: {description}</Card.Description>
         <Divider />
