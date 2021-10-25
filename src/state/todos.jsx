@@ -23,6 +23,7 @@ const TodoProvider = (props) => {
   const [todos, setTodos] = useState([]);
   const [subTodo, setSubTodo] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [subLoading, setSubLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
   const [error, setError] = useState({ isError: false, message: '' });
@@ -30,14 +31,15 @@ const TodoProvider = (props) => {
   // Helpers
 
   const loadTodo = async () => {
+    console.log('1')
     setLoading(true);
     try {
       const { limit, total, data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
-      const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
-      const datasub = await Promise.all(tmp)
-      const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])
+      // const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
+      // const datasub = await Promise.all(tmp)
+      // const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])
       setTodos(data);
-      setSubTodo(add);
+      // setSubTodo(add);
       setPagination({ limit, total });
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load todos', { error });
@@ -46,8 +48,25 @@ const TodoProvider = (props) => {
       setLoading(false);
     }
   }
-  const getSubTodosByParentId = (parentId) => {
-    return subTodo.filter(({ parentId: id }) => id === parentId)
+
+  const loadSubTodo = async () => {
+    console.log('2')
+    setSubLoading(true);
+    try {
+      const { data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
+      const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
+      const datasub = await Promise.all(tmp)
+      const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])
+      // setTodos(data);
+      setSubTodo(add);
+      // setPagination({ limit, total });
+    } catch (error) {
+      console.error('[state/todo/loadTodo] Failed to load todos', { error });
+      setError({ isError: true, message: error.message });
+    } finally {
+      setSubLoading(false);
+    }
+
   }
 
   const createTodo = async (title, description) => {
@@ -118,6 +137,7 @@ const TodoProvider = (props) => {
   }
 
   // Logic
+  useEffect(() => loadSubTodo(), [page]);
   useEffect(() => loadTodo(), [page]);
 
   // Export
@@ -130,6 +150,7 @@ const TodoProvider = (props) => {
     doneSubUpdate,
     createSubTodo,
     removeSubTodo,
+    loadSubTodo,
   };
   return <TodoContex.Provider value={{
     todos,
@@ -139,6 +160,7 @@ const TodoProvider = (props) => {
     methods,
     page,
     subTodo,
+    subLoading
   }} {...props} />
 }
 

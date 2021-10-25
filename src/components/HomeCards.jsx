@@ -1,6 +1,6 @@
 //GLOBAL
 import React, { useState } from 'react';
-import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon, Divider, Loader, Dimmer } from 'semantic-ui-react'
+import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon, Divider, Loader, Dimmer, Segment } from 'semantic-ui-react'
 import moment from 'moment'
 //LOCAL
 import { useNav } from '../state/time-zone'
@@ -18,15 +18,16 @@ const HomeCards = ({
   subDescription,
   updateSubDescription,
   removeSubTodo,
-  created
+  created,
+  subLoading
 }) => {
 
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
   const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(true)
   const { activeIndex } = isDrop
-
+  const [localLoading, setLocalLoading] = useState(false)
   const { timeZone } = useNav();
   const totalCnt = subTodo.length
   const doneCnt = subTodo.filter(({ status }) => status === 'DONE').length;
@@ -43,13 +44,26 @@ const HomeCards = ({
     setEdit(current => !current)
   }
 
+  const loader = () => {
+    setLocalLoading(true)
+    setInterval(() => { setLocalLoading(false) }, 1000);
+
+  }
   return (
     <Card fluid>
       <Card.Content>
-        <Card.Header textAlign='left'>Title: {title}</Card.Header>
-        <Loader active inline='right' size='small'/>
-        
-        <Card.Meta>Current time {moment(created, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
+        <Segment basic>
+          <Header as='h2' floated='right'>
+            <Loader active={localLoading} inline='right' size='small' />
+          </Header>
+          <Header as='h2' floated='left'>
+            Title: {title}
+          </Header>
+        </Segment>
+        <br/>
+
+
+        <Card.Meta>Created: {moment(created, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
         <Progress value={doneCnt} total={subTodo.length} success={totalCnt === doneCnt} progress='ratio' size='small' />
         <Card.Description>Description todo: {description}</Card.Description>
         <Divider />
@@ -63,10 +77,10 @@ const HomeCards = ({
         <List >
           {subTodo.map(({ id, subDescription, ended, status }) =>
             <List.Item>
-              <Checkbox label={subDescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked)} style={{ marginBottom: '0.9em' }} />
+              <Checkbox label={subDescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked) && loader(id)} style={{ marginBottom: '0.9em' }} />
               {
                 !edit
-                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id)} /></List.Content>
+                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id) && loader(id)} /></List.Content>
                   : null
               }
               {
@@ -116,7 +130,7 @@ const HomeCards = ({
                   onChange={updateSubDescription}
                 />
               </Form.Group>
-              <Form.Button primary onClick={() => subCreate(id, subDescription)}>Add </Form.Button>
+              <Form.Button primary onClick={() => subCreate(id, subDescription) && loader(id)}>Add </Form.Button>
             </Form>
           </Accordion.Content>
         </Accordion>
