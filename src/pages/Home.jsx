@@ -56,7 +56,6 @@ const Home = () => {
   }
 
   const subCreate = async (id,subDescription) => {
-    console.log(subDescription)
     await methods.createSubTodo(id,subDescription);
     await methods.loadSubTodo();
     setSubDescription('');

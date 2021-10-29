@@ -1,6 +1,6 @@
 //GLOBAL
 import React, { useState } from 'react';
-import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon, Divider, Loader, Dimmer, Segment } from 'semantic-ui-react'
+import { Card, Button, Accordion, List, Checkbox, Header, Progress, Confirm, Label, Form, Icon, Divider, Loader, Segment } from 'semantic-ui-react'
 import moment from 'moment'
 //LOCAL
 import { useNav } from '../state/time-zone'
@@ -54,7 +54,7 @@ const HomeCards = ({
       <Card.Content>
         <Segment basic>
           <Header as='h2' floated='right'>
-            <Loader active={localLoading} inline='right' size='small' />
+            <Loader active={localLoading} inline='centered' floated='right' size='small' />
           </Header>
           <Header as='h2' floated='left'>
             Title: {title}
@@ -76,7 +76,7 @@ const HomeCards = ({
         </Header>
         <List >
           {subTodo.map(({ id, subDescription, ended, status }) =>
-            <List.Item>
+            <List.Item key={id}>
               <Checkbox label={subDescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked) && loader(id)} style={{ marginBottom: '0.9em' }} />
               {
                 !edit

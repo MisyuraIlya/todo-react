@@ -31,7 +31,6 @@ const TodoProvider = (props) => {
   // Helpers
 
   const loadTodo = async () => {
-    console.log('1')
     setLoading(true);
     try {
       const { limit, total, data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
@@ -50,7 +49,6 @@ const TodoProvider = (props) => {
   }
 
   const loadSubTodo = async () => {
-    console.log('2')
     setSubLoading(true);
     try {
       const { data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
@@ -105,14 +103,12 @@ const TodoProvider = (props) => {
       try {
         await apiSubTodo.update(id, { status: TODO_STATUS.DONE, ended: moment().format(DATE_TIME_FORMAT) })
       } catch (error) {
-        console.error('[state/todo/doneSubUpdate] Failed to load Todo', { error });
         setError({ isError: true, message: error.message });
       }
     } else {
       try {
         await apiSubTodo.update(id, { status: TODO_STATUS.ACTIVE, created: moment().format(DATE_TIME_FORMAT), ended: null })
       } catch (error) {
-        console.error('[state/todo/doneSubUpdate] Failed to load Todo', { error });
         setError({ isError: true, message: error.message });
       }
     }
