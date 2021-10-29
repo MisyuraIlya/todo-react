@@ -23,7 +23,6 @@ const create = async (id,subDescription) => {
     status: TODO_STATUS.ACTIVE
   }
   subtodos = [...subtodos, subTodo]
-  console.log(subtodos)
 }
 
 const read = async (subid) => {

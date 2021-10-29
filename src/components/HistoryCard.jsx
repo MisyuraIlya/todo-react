@@ -19,8 +19,8 @@ const HistoryCard = ({ title, ended, description, subTodo }) => {
         </Card.Description>
         <Header>Ended subtodos</Header>
         <List as='ol' >
-          {subTodo.filter(({ status }) => status === TODO_STATUS.DONE).map(({ subDescription, ended }) =>
-            <List.Item as='li' style={{ marginTop: '10px' }}>
+          {subTodo.filter(({ status }) => status === TODO_STATUS.DONE).map(({ id,subDescription, ended }) =>
+            <List.Item as='li' style={{ marginTop: '10px' }} key={id}>
               {subDescription}
               <List.Content floated='right'>
                 <p>{moment(ended, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</p>
@@ -30,8 +30,8 @@ const HistoryCard = ({ title, ended, description, subTodo }) => {
         </List>
         <Header>Not Ended subtodos</Header>
         <List as='ol'>
-          {subTodo.filter(({ status }) => status === TODO_STATUS.ACTIVE).map(({ subDescription }) =>
-            <List.Item as='li'>
+          {subTodo.filter(({ status }) => status === TODO_STATUS.ACTIVE).map(({ id,subDescription }) =>
+            <List.Item as='li' key={id}>
               {subDescription}
             </List.Item>
           )}
