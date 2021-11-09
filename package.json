@@ -6,7 +6,9 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.24.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.1",
@@ -25,8 +27,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "node src/lib/server.js",
-    "devStart":"nodemon src/lib/server.js",
+    "start": "react-scripts start",
+    "dev": "nodemon src/lib/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

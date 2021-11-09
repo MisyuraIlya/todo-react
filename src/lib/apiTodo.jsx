@@ -1,14 +1,19 @@
 //GLOBAL
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid';
+import Axios from 'axios'
 //LOCAL
 import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
 import todolists from './todo-list'
 import subtodoslists from './todos-sub'
 
+
+console.log('1',[...todolists])
+const dataa = Axios.get('http://localhost:8001/todos').then((response) => {console.log(response.data)});
+console.log('2',dataa[1])
+
 let subtodos = [...subtodoslists]
 let todos = [...todolists]
-
 // Helpers
 const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
