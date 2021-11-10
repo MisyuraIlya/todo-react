@@ -8,31 +8,27 @@ import todolists from './todo-list'
 import subtodoslists from './todos-sub'
 
 
-console.log('1',[...todolists])
-const dataa = Axios.get('http://localhost:8001/todos').then((response) => {console.log(response.data)});
-console.log('2',dataa[1])
 
-let subtodos = [...subtodoslists]
-let todos = [...todolists]
-// Helpers
-const delay = (data, time) => {
-  return new Promise((resolve) => setTimeout(() => resolve(data), time));
-}
+
+
+// api url
+const URL = 'http://localhost:8001/';
+  
 
 const create = async (title, description) => {
-  const todo = {
-    id: uuidv4(),
-    title,
-    created: moment().format(DATE_TIME_FORMAT),
-    description,
-    status: TODO_STATUS.ACTIVE
-  }
-  todos = [...todos, todo]
+  // const todo = {
+  //   id: uuidv4(),
+  //   title,
+  //   created: moment().format(DATE_TIME_FORMAT),
+  //   description,
+  //   status: TODO_STATUS.ACTIVE
+  // }
+  // todos = [...todos, todo]
 }
 
 const remove = async (id) => {
-  todos = todos.filter(({ id: todosID }) => id !== todosID);
-  return delay({ data: true }, 200);
+  // todos = todos.filter(({ id: todosID }) => id !== todosID);
+  // return delay({ data: true }, 200);
 }
 
 const update = (postid, fields) => {
@@ -43,6 +39,9 @@ const update = (postid, fields) => {
 }
 
 const read = async ({ status, page, limit, id }) => {
+
+  const response = await fetch(`${url}todos?status=${status}`);
+        
   const start = page * limit;
   const end = start + limit;
   const total = todos.filter(({ status: s }) => !status || s === status)

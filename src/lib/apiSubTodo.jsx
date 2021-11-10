@@ -9,6 +9,8 @@ import subtodoslists from './todos-sub'
 let subtodos = [...subtodoslists]
 
 // Helpers
+console.log(process.env);
+
 const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }

@@ -4,7 +4,7 @@ const app = express();
 var cors = require('cors')
 const mysql = require('mysql');
 const db = mysql.createConnection({
-    host: 'localhost',
+host: 'localhost',
     user: 'root',
     password: 'password',
     database: 'tododb',
@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.urlencoded({extended:true}))
 
 const middleware = (req, res, next) => {
-    //Auth 
+    //Auth sql
     const {title, description} = req.body;
     if (!title || !description){
         return next(new Error('missing title or description'));
@@ -23,9 +23,10 @@ const middleware = (req, res, next) => {
     return next();
 }
 
-app.get('/todos',(req,res) => {
-    const sqlFetch = "SELECT * FROM todolist";
-    db.query(sqlFetch, (err, result) => {
+app.get('/todos',(request, res) => {
+    const {status} = req.query;
+    const sqlFetch = "SELECT * FROM todolist WHERE status=:status";
+    db.query(sqlFetch, {status} (err, result) => {
         if(err) throw err;
         res.send(result)
     })
