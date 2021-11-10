@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "nodemon src/lib/server.js",
+    "dev": "HELLO=server nodemon src/lib/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
