@@ -2,6 +2,7 @@
 import { declareTypeAlias } from '@babel/types';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
+import Axios from 'axios';
 //LOCAL
 import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
 import subtodoslists from './todos-sub'
@@ -13,21 +14,24 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const create = async (id,subDescription) => {
-  const subTodo = {
-    id: uuidv4(),
-    parentID: id,
-    created: moment().format(DATE_TIME_FORMAT),
-    ended: null,
+const create =  (id,subDescription) => {
+
+  Axios.post('http://192.168.1.23:3001/subtodo', {
+    id,
     subDescription,
-    status: TODO_STATUS.ACTIVE
-  }
-  subtodos = [...subtodos, subTodo]
+  })
 }
 
-const read = async (subid) => {
-  const data = subtodos.filter((y) => y.parentID === subid.id)
-  return delay({ data }, 200);
+const read =  (subid) => {
+  return fetch('http://192.168.1.23:3001/subtodo' )
+    .then((response) => {
+      return response.json().then((data) => {
+        console.log(data)
+        return {data};
+      }).catch((err) => {
+        console.log(err);
+      })
+    });
 }
 
 const update = (subId, fields) => {
