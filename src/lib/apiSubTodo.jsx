@@ -2,8 +2,9 @@
 import { declareTypeAlias } from '@babel/types';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
+import Axios from 'axios';
 //LOCAL
-import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
+import { DATE_TIME_FORMAT, TODO_STATUS, API } from './enums';
 import subtodoslists from './todos-sub'
 
 let subtodos = [...subtodoslists]
@@ -13,33 +14,35 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const create = async (id,subDescription) => {
-  const subTodo = {
-    id: uuidv4(),
-    parentID: id,
-    created: moment().format(DATE_TIME_FORMAT),
-    ended: null,
-    subDescription,
-    status: TODO_STATUS.ACTIVE
-  }
-  subtodos = [...subtodos, subTodo]
+const create =  (id,subdescription) => {
+  console.log(id,subdescription)
+  Axios.post(API+`/todos/${id}/subtodos/${subdescription}`, {
+    id,
+    subdescription,
+  })
 }
 
-const read = async (subid) => {
-  const data = subtodos.filter((y) => y.parentID === subid.id)
-  return delay({ data }, 200);
+const read = async () => {
+  // const response = fetch('http://dev.local:3001/subtodo');
+  const responseSubHistory = fetch(API+'/subhistory');
+  // const dataa = (await response).json();
+  // const data = await dataa;
+  const dataaSubHistory = (await responseSubHistory).json();
+  const dataSubHistory = await dataaSubHistory;
+  // console.log(dataSubHistory)
+  // console.log('aa')
+  return {dataSubHistory}
 }
 
-const update = (subId, fields) => {
-  subtodos = subtodos.map(({ id, ...rest }) => id === subId
-    ? { id, ...rest, ...fields }
-    : { id, ...rest });
-  return declareTypeAlias({ data: true }, 200);
+const update = (id, fields) => {
+  console.log(id, fields.status)
+  Axios.put(API+`/subtodos/update/${id}/${fields.status}`)
 }
+
 
 const remove = async (id) => {
-  subtodos = subtodos.filter(({ id: subtodosId }) => id !== subtodosId);
-  return delay({ data: true }, 200);
+  Axios.delete(API+`/subtodos/${id}`)
+
 }
 
 const apiSubTodo = {
@@ -50,4 +53,3 @@ const apiSubTodo = {
 };
 
 export default apiSubTodo;
-

@@ -31,12 +31,14 @@ const HistoryProvider = (props) => {
   const loadHistory = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.DONE });
-      const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
-      const datasub = await Promise.all(tmp)
-      const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])
+      const { data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.DONE });
+      console.log(data)
+      // console.log(dataHistory)  
+      const { dataSubHistory } = await apiSubTodo.read();
+      
+      // console.log(dataSubHistory)
       setHistory(data);
-      setSubTodo(add);
+      setSubTodo(dataSubHistory);
       setPagination({ limit, total });
     } catch (error) {
       console.error('[state/history/loadHistory] Failed to load posts', { error });

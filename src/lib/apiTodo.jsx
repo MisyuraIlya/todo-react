@@ -1,10 +1,10 @@
 //GLOBAL
-import moment from 'moment'
-import { v4 as uuidv4 } from 'uuid';
+import Axios from 'axios';
 //LOCAL
-import { DATE_TIME_FORMAT, TODO_STATUS } from './enums';
 import todolists from './todo-list'
 import subtodoslists from './todos-sub'
+import { DATE_TIME_FORMAT, TODO_STATUS, API } from './enums';
+
 
 let subtodos = [...subtodoslists]
 let todos = [...todolists]
@@ -14,39 +14,42 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const create = async (title, description) => {
-  const todo = {
-    id: uuidv4(),
+const create = (title, description) => {
+  console.log(title)
+  console.log(description)
+  Axios.post(`${API}/todos`, {
     title,
-    created: moment().format(DATE_TIME_FORMAT),
     description,
-    status: TODO_STATUS.ACTIVE
+  })
+}
+
+const remove = (id) => {
+  Axios.delete(`${API}/todos/${id}`)
+
+}
+
+const update = (postid) => {
+  Axios.put(`${API}/todos/${postid}`)
+}
+
+const read = async ({ status, page, id }) => {
+  console.log(status)
+  const response = await fetch(`${API}/todos?status=${status}&page=${page+1}`);
+  const {data ,limit , total } =  await response.json();  
+  const dataSubPromise = data.map((x) => fetch(`${API}/subtodos/${x.id}`).then((x) => x.json()))
+  const dataSubb = await Promise.all(dataSubPromise);
+  const dataSub = dataSubb.map((x) => x).reduce((a, b) => { return a.concat(b) }, [])
+  return {
+    page,
+    limit,
+    total, 
+    data,
+    dataSub
   }
-  todos = [...todos, todo]
 }
 
-const remove = async (id) => {
-  todos = todos.filter(({ id: todosID }) => id !== todosID);
-  return delay({ data: true }, 200);
-}
 
-const update = (postid, fields) => {
-  todos = todos.map(({ id, ...rest }) => id === postid
-    ? { id, ...rest, ...fields }
-    : { id, ...rest })
-  return delay({ data: true }, 200);
-}
-
-const read = async ({ status, page, limit, id }) => {
-  const start = page * limit;
-  const end = start + limit;
-  const total = todos.filter(({ status: s }) => !status || s === status)
-  const data = todos
-    .filter(({ status: s }) => !status || s === status)
-    .slice(start, end);
-  const dataSub = subtodos.filter(({ parentID }) => id === parentID);
-  return delay({ page, limit, total: total.length, data, dataSub }, 200);
-}
+  
 //------------------------------------------------------------
 
 const apiTodo = {

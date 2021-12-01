@@ -21,7 +21,6 @@ const HomeCards = ({
   created,
   subLoading
 }) => {
-
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
   const [confirmDelete, setConfirmDelete] = useState({ openDelete: false })
@@ -75,9 +74,9 @@ const HomeCards = ({
           Sub todos
         </Header>
         <List >
-          {subTodo.map(({ id, subDescription, ended, status }) =>
+          {subTodo.map(({ id, subdescription, ended, status }) =>
             <List.Item key={id}>
-              <Checkbox label={subDescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked) && loader(id)} style={{ marginBottom: '0.9em' }} />
+              <Checkbox label={subdescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked) && loader(id)} style={{ marginBottom: '0.9em' }} />
               {
                 !edit
                   ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id) && loader(id)} /></List.Content>

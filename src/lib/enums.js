@@ -55,3 +55,5 @@ export const PERMISSION = {
 
 
 export const CLOCK_UPDATE = 1000;
+
+export const API = 'http://dev.local:3004/api';
