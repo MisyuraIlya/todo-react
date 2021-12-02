@@ -23,7 +23,7 @@ const History = () => {
       subTodo={subTodo.filter(({ parentid }) => parentid === id)}
     />
   )
-
+  console.log(pagination)
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />
     <Header.Content>No History posts found!</Header.Content>

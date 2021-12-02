@@ -96,7 +96,6 @@ const TodoProvider = (props) => {
   }
 
   const doneSubUpdate = async (id, status) => {
-    console.log(id, status)
     if (status === true) {
       try {
         await apiSubTodo.update(id, { status: TODO_STATUS.DONE, ended: moment().format(DATE_TIME_FORMAT) })

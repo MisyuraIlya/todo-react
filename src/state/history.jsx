@@ -7,7 +7,6 @@ import { TODO_STATUS } from '../lib/enums';
 
 // Defines
 const HistoryContext = createContext();
-const LIMIT = 3;
 
 // React hook
 const useHistory = () => {
@@ -24,15 +23,15 @@ const HistoryProvider = (props) => {
   const [history, setHistory] = useState([]);
   const [subTodo, setSubTodo] = useState([]);
   const [page, setPage] = useState(0);
-  const [pagination, setPagination] = useState({ total: null, limit: LIMIT });
+  const [pagination, setPagination] = useState({ total: null, limit: null });
   const [error, setError] = useState({ isError: false, message: '' });
 
   // Helpers
   const loadHistory = async () => {
     setLoading(true);
     try {
-      const { data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.DONE });
-      // console.log(dataHistory)  
+      const { limit, total, data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.DONE });
+      console.log(data)  
       const { dataSubHistory } = await apiSubTodo.read();
       
       // console.log(dataSubHistory)

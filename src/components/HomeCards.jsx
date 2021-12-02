@@ -30,7 +30,6 @@ const HomeCards = ({
   const { timeZone } = useNav();
   const totalCnt = subTodo.length
   const doneCnt = subTodo.filter(({ status }) => status === 'DONE').length;
-  console.log(created)
   // helpers
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
