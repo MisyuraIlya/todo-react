@@ -107,7 +107,6 @@ const Home = () => {
 
     setIsDrop({ activeIndex: newIndex })
   }
-  console.log(pagination)
   return (
     <Dimmer.Dimmable as={Segment} dimmed={loading}>
       <Dimmer active={loading} inverted>
