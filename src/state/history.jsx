@@ -32,7 +32,6 @@ const HistoryProvider = (props) => {
     setLoading(true);
     try {
       const { data } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.DONE });
-      console.log(data)
       // console.log(dataHistory)  
       const { dataSubHistory } = await apiSubTodo.read();
       

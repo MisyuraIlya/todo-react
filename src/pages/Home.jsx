@@ -15,7 +15,6 @@ const Home = () => {
   const { todos, subTodo, loading, pagination, page,subLoading,  methods, } = useTodo();
   const [subCheck, setSubCheck] = useState(false)
   const [subDescription, setSubDescription] = useState('');
-
   // Event hendlers
   const updateTitle = ({ target }) => {
     setTitle(target.value);
@@ -68,7 +67,7 @@ const Home = () => {
 
   useEffect(() => methods.loadSubTodo(), [page]);
   useEffect(() => methods.loadTodo(), [page])
-
+  const ended = subTodo
   const todoElements = todos
     .map(({ id, title, created, ended, description, status }) => <HomeCards
       key={id}
@@ -76,7 +75,7 @@ const Home = () => {
       title={title}
       ended={ended}
       created={created}
-      subTodo={subTodo.filter(({ parentID }) => parentID === id)}
+      subTodo={subTodo.filter(({ parentid }) => parentid === id)}
       description={description}
       donePost={() => update(id, title, description, status)}
       removePost={() => removeTodo(id)}

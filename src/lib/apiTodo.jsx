@@ -33,7 +33,6 @@ const update = (postid) => {
 }
 
 const read = async ({ status, page, id }) => {
-  console.log(status)
   const response = await fetch(`${API}/todos?status=${status}&page=${page+1}`);
   const {data ,limit , total } =  await response.json();  
   const dataSubPromise = data.map((x) => fetch(`${API}/subtodos/${x.id}`).then((x) => x.json()))

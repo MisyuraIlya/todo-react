@@ -9,13 +9,10 @@ import { useHistory } from '../state/history';
 
 const History = () => {
   const { loading, subTodo, history, pagination, page, methods } = useHistory();
-
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }
-
   useEffect(() => methods.loadHistory(), [page])
-
   const historyElement = history.map(({ id, title, ended, description }) =>
     <HistoryCard
       key={id}
@@ -23,7 +20,7 @@ const History = () => {
       title={title}
       ended={ended}
       description={description}
-      subTodo={subTodo.filter(({ parentID }) => parentID === id)}
+      subTodo={subTodo.filter(({ parentid }) => parentid === id)}
     />
   )
 
