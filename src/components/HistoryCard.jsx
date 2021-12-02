@@ -13,7 +13,7 @@ const HistoryCard = ({ title, ended, description, subTodo }) => {
     <Card fluid>
       <Card.Content>
         <Card.Header>{title}</Card.Header>
-        <Card.Meta>{moment(ended, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
+        <Card.Meta>{moment(ended).tz(timeZone).format(DATE_TIME_FORMAT)}</Card.Meta>
         <Card.Description>{description}
         </Card.Description>
         <Header>Ended subtodos</Header>
