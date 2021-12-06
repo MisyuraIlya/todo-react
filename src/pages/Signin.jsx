@@ -5,6 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import SigninComponent from '../components/SigninComponent';
 import accounts from '../lib/accounts'
 import { PERMISSION } from '../lib/enums';
+import apiAuth from '../lib/apiAuth'
+import Axios from 'axios';
+import {API} from '../lib/enums';
 
 const Signin = ({ }) => {
 
@@ -14,6 +17,24 @@ const Signin = ({ }) => {
   const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
   const [checkbox, setCheckbox] = useState(false)
+
+
+  const create = async (name, lastname, email, password) => {
+    await Axios.post(`${API}/auth/signup`, {
+      name,
+      lastname,
+      email,
+      password
+    }).then((res) => {
+      console.log(res.data)
+      setSuccess(res.data)
+    }).catch(error => {
+      if (error.response) {
+        setError(error.response.data)
+      }
+    })
+  }
+
 
   const createAccount = async () => {
 
@@ -26,20 +47,27 @@ const Signin = ({ }) => {
     }
 
     if (checkbox === false) {
-      return setError('You need to agree with out conditions')
+      return setError('You need to agree with our conditions')
     }
     try {
       setError('')
       setLoading(true)
-      accounts.push({
-        id: uuidv4(),
-        name: details.name,
-        lastname: details.lastname,
-        email: details.email,
-        password: details.password1,
-        permission: PERMISSION.ADMIN
-      })
-      setSuccess('Accout created succsesfuly')
+      // accounts.push({
+      //   id: uuidv4(),
+      //   name: details.name,
+      //   lastname: details.lastname,
+      //   email: details.email,
+      //   password: details.password1,
+      //   permission: PERMISSION.ADMIN
+      // })
+      const name = details.name
+      const lastname = details.lastname
+      const email = details.email
+      const password = details.password1
+      await create(name, lastname, email, password)
+      // console.log('this',name)
+
+      // setSuccess('Accout created succsesfuly')
     } catch {
       setError('faild to create an account')
     } finally {

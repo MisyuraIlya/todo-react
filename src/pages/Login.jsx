@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 // LOCAL
 import accounts from '../lib/accounts'
+import apiAuth from '../lib/apiAuth'
+import Axios from 'axios';
+import {API} from '../lib/enums';
 
 const Login = () => {
 
@@ -13,6 +16,20 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const history = useHistory()
+
+
+  const read = async (email, password) => {
+    await Axios.get(`${API}/auth/signin?email=${email}&password=${password}`).then(res => {
+      console.log(res)
+      console.log(res.status)
+    }).catch(error => {
+      if (error.response) {
+        console.log(error.response.data);
+        setError(error.response.data) 
+      }
+    })
+  }
+
 
   const handleLogin = async () => {
     const result = accounts.filter(tmp => tmp.email === details.email)
@@ -23,10 +40,13 @@ const Login = () => {
     try {
       setError('')
       setLoading(true)
-      Cookies.set('user', result[0].name)
-      history.push('/')
+      // Cookies.set('user', result[0].name)
+      // history.push('/')
+      const email = details.email
+      const password = details.password
+      await read( email, password)
     } catch {
-      setError('email or password were wrong')
+      setError('faild to login')
     } finally {
       setLoading(false)
       setDetails({ email: '', password: '' })
