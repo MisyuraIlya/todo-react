@@ -12,21 +12,32 @@ import {API} from '../lib/enums';
 const Signin = ({ }) => {
 
   // local states
-  const [details, setDetails] = useState({ name: '', lastname: '', email: '', password1: '', password2: '' })
+  const [details, setDetails] = useState({ 
+    name: '', lastname: '', email: '', phone:'',  password1: '', password2: '' 
+  })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
   const [checkbox, setCheckbox] = useState(false)
 
 
-  const create = async (name, lastname, email, password) => {
+  const create = async (name, lastname, email,phone, password) => {
+    console.log(name, lastname, email,phone, password)
     await Axios.post(`${API}/auth/signup`, {
       name,
       lastname,
       email,
+      phone,
       password
     }).then((res) => {
       console.log(res.data)
+      Axios.post(`${API}/send-email/`, {
+        email
+      }).then((response) => {
+        console.log(response)
+      }).catch(error => {
+        console.log('error')
+      })
       setSuccess(res.data)
     }).catch(error => {
       if (error.response) {
@@ -42,7 +53,7 @@ const Signin = ({ }) => {
       return setError('passwords didnt exist')
     }
 
-    if (details.name === '' || details.lastname === '' || details.email === '' || details.password1 === '' || details.password2 === '') {
+    if (details.name === '' || details.lastname === '' || details.email === '' || details.phone === '' || details.password1 === '' || details.password2 === '') {
       return setError('One of the inputs not seted')
     }
 
@@ -63,8 +74,9 @@ const Signin = ({ }) => {
       const name = details.name
       const lastname = details.lastname
       const email = details.email
+      const phone = details.phone
       const password = details.password1
-      await create(name, lastname, email, password)
+      await create(name, lastname, email, phone, password)
       // console.log('this',name)
 
       // setSuccess('Accout created succsesfuly')
@@ -72,7 +84,9 @@ const Signin = ({ }) => {
       setError('faild to create an account')
     } finally {
       setLoading(false)
-      setDetails({ name: '', lastname: '', email: '', password1: '', password2: '' })
+      setDetails({ 
+        name: '', lastname: '', email: '', phone: '',  password1: '', password2: '' 
+      })
     }
 
   }

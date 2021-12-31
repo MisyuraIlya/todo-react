@@ -32,7 +32,7 @@ const TodoProvider = (props) => {
   const loadTodo = async () => {
     setLoading(true);
     try {
-      const { limit, total, data } = await apiTodo.read({ page, status: TODO_STATUS.ACTIVE });
+      const { data, limit, total } = await apiTodo.read({ page, status: TODO_STATUS.ACTIVE });
       // const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
       // const datasub = await Promise.all(tmp)
       // const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])

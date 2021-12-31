@@ -14,24 +14,19 @@ const delay = (data, time) => {
   return new Promise((resolve) => setTimeout(() => resolve(data), time));
 }
 
-const create =  (id,subdescription) => {
-  console.log(id,subdescription)
-  Axios.post(API+`/todos/${id}/subtodos/${subdescription}`, {
+const create =  (id,subDescription) => {
+  console.log(id,subDescription)
+  Axios.post(API+`/todos/${id}/subtodos`, {
     id,
-    subdescription,
+    subDescription,
   })
 }
 
 const read = async () => {
-  // const response = fetch('http://dev.local:3001/subtodo');
-  const responseSubHistory = fetch(API+'/subhistory');
-  // const dataa = (await response).json();
-  // const data = await dataa;
-  const dataaSubHistory = (await responseSubHistory).json();
-  const dataSubHistory = await dataaSubHistory;
-  // console.log(dataSubHistory)
-  // console.log('aa')
-  return {dataSubHistory}
+  const response = await fetch(`${API}/subhistory`);
+  const data = await response.json();
+  const dataSubHistory = data.data
+  return dataSubHistory
 }
 
 const update = (id, fields) => {

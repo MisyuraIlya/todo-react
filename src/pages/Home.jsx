@@ -89,7 +89,7 @@ const Home = () => {
       subLoading={subLoading}
     />
     )
-
+  
   const missingElement = <Header as='h2'>
     <Icon name='pencil alternate' />
     <Header.Content>No posts found!</Header.Content>
