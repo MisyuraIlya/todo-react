@@ -15,6 +15,9 @@ import { HistoryProvider } from './state/history';
 import { NavigationProvider } from './state/time-zone';
 import Signin from './pages/Signin';
 import Login from './pages/Login';
+import ResetPassword from './pages/ResetPassword';
+import { AuthProvider } from './state/auth';
+import NewPassword from './pages/NewPassword';
 
 
 const App = () => {
@@ -25,37 +28,47 @@ const App = () => {
       <TodoProvider>
         <HistoryProvider>
           <NavigationProvider>
-            <Navigation/>
+            <AuthProvider>
+              <Navigation/>
 
-            <Container style={{width:'50em'}}>
-              <Switch>
-                <Route exact path={ROUTES.HOME.path}>
-                  <Home/>
-                </Route>
+              <Container style={{width:'50em'}}>
+                <Switch>
+                  <Route exact path={ROUTES.HOME.path}>
+                    <Home/>
+                  </Route>
 
-                <Route exact path={ROUTES.HISTORY.path}>
-                  <History/>
-                </Route>
+                  <Route exact path={ROUTES.HISTORY.path}>
+                    <History/>
+                  </Route>
 
-                <Route exact path={ROUTES.ABOUT.path}>
-                  <About/>
-                </Route>
+                  <Route exact path={ROUTES.ABOUT.path}>
+                    <About/>
+                  </Route>
 
-                <Route exact path={ROUTES.SINGIN.path}>
-                  <Signin/>
-                </Route>
+                  <Route exact path={ROUTES.SINGIN.path}>
+                    <Signin/>
+                  </Route>
 
-                <Route exact path={ROUTES.LOGIN.path}>
-                  <Login/>
-                </Route>
+                  <Route exact path={ROUTES.LOGIN.path}>
+                    <Login/>
+                  </Route>
 
-                <Route path={ROUTES.ERROR.path}>
-                  <Error/>
-                </Route>
+                  <Route exact path={ROUTES.RESETPASSWORD.path}>
+                    <ResetPassword/>
+                  </Route>
 
-                <Redirect to={ROUTES.ERROR.path}/>
-              </Switch>
-            </Container>
+                  <Route exact path={ROUTES.NEWPASSWORD.path}>
+                    <NewPassword/>
+                  </Route>
+
+                  <Route path={ROUTES.ERROR.path}>
+                    <Error/>
+                  </Route>
+
+                  <Redirect to={ROUTES.ERROR.path}/>
+                </Switch>
+              </Container>
+            </AuthProvider>
           </NavigationProvider>
         </HistoryProvider>
       </TodoProvider>

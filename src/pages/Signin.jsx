@@ -8,6 +8,8 @@ import { PERMISSION } from '../lib/enums';
 import apiAuth from '../lib/apiAuth'
 import Axios from 'axios';
 import {API} from '../lib/enums';
+import { useAuth } from '../state/auth';
+
 
 const Signin = ({ }) => {
 
@@ -15,80 +17,20 @@ const Signin = ({ }) => {
   const [details, setDetails] = useState({ 
     name: '', lastname: '', email: '', phone:'',  password1: '', password2: '' 
   })
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [checkbox, setCheckbox] = useState(false)
-
-
-  const create = async (name, lastname, email,phone, password) => {
-    console.log(name, lastname, email,phone, password)
-    await Axios.post(`${API}/auth/signup`, {
-      name,
-      lastname,
-      email,
-      phone,
-      password
-    }).then((res) => {
-      console.log(res.data)
-      Axios.post(`${API}/send-email/`, {
-        email
-      }).then((response) => {
-        console.log(response)
-      }).catch(error => {
-        console.log('error')
-      })
-      setSuccess(res.data)
-    }).catch(error => {
-      if (error.response) {
-        setError(error.response.data)
-      }
-    })
-  }
-
+  const { loading, success, methodsAuth, error, checkbox, setCheckbox } = useAuth();
 
   const createAccount = async () => {
-
-    if (details.password1 !== details.password2) {
-      return setError('passwords didnt exist')
-    }
-
-    if (details.name === '' || details.lastname === '' || details.email === '' || details.phone === '' || details.password1 === '' || details.password2 === '') {
-      return setError('One of the inputs not seted')
-    }
-
-    if (checkbox === false) {
-      return setError('You need to agree with our conditions')
-    }
-    try {
-      setError('')
-      setLoading(true)
-      // accounts.push({
-      //   id: uuidv4(),
-      //   name: details.name,
-      //   lastname: details.lastname,
-      //   email: details.email,
-      //   password: details.password1,
-      //   permission: PERMISSION.ADMIN
-      // })
-      const name = details.name
-      const lastname = details.lastname
-      const email = details.email
-      const phone = details.phone
-      const password = details.password1
-      await create(name, lastname, email, phone, password)
-      // console.log('this',name)
-
-      // setSuccess('Accout created succsesfuly')
-    } catch {
-      setError('faild to create an account')
-    } finally {
-      setLoading(false)
-      setDetails({ 
-        name: '', lastname: '', email: '', phone: '',  password1: '', password2: '' 
-      })
-    }
-
+    await methodsAuth.createAccount(
+      details.name,
+      details.lastname,
+      details.email,
+      details.phone,
+      details.password1,
+      details.password2
+    )
+    setDetails({ 
+      name: '', lastname: '', email: '', phone: '',  password1: '', password2: '' 
+    })
   }
 
   return (

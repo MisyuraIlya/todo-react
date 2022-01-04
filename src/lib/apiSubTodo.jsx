@@ -23,7 +23,7 @@ const create =  (id,subDescription) => {
 }
 
 const read = async () => {
-  const response = await fetch(`${API}/subhistory`);
+  const response = await fetch(`${API}/subhistory`,{credentials: 'include'});
   const data = await response.json();
   const dataSubHistory = data.data
   return dataSubHistory

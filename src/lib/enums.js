@@ -19,6 +19,14 @@ export const ROUTES = {
     path: '/login',
     name: 'Login'
   },
+  RESETPASSWORD: {
+    path: '/resetpassword',
+    name: 'ResetPassword'
+  },
+  NEWPASSWORD: {
+    path: '/newpassword',
+    name: 'NewPassword'
+  },
   ERROR: {
     path: '/error',
     name: 'Error'

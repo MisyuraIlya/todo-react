@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 // LOCAL
 import { ROUTES } from '../lib/enums';
 
-const LoginComponent = ({ success, details, setDetails, loading, handleLogin, error }) => {
+const ResetPasswordComponent = ({ email, setEmail, loading, handleResetPassword, success ,error}) => {
   return (
-    <Dimmer.Dimmable as={Segment} dimmed={loading}>
+    <Dimmer.Dimmable  as={Segment} dimmed={loading} >
       <Dimmer active={loading} inverted>
         <Loader>Loading</Loader>
       </Dimmer>
@@ -19,28 +19,21 @@ const LoginComponent = ({ success, details, setDetails, loading, handleLogin, er
         />}
         {success && <Message
           success
-          header='Welcome '
+          header='Message '
           content={success}
         />}
         <Form.Input
           label='Email'
           placeholder='Email'
-          onChange={e => setDetails({ ...details, email: e.target.value })}
-          value={details.email} />
-        <Form.Input
-          label='Passowrd'
-          placeholder='Password'
-          onChange={e => setDetails({ ...details, password: e.target.value })}
-          value={details.password} />
-        <Form.Checkbox label='Remember me' />
-        <Button type='submit' primary fluid onClick={handleLogin}>Log in</Button>
+          onChange={e => setEmail( e.target.value )}
+          value={email}
+        />
+        <Button type='submit' primary fluid onClick={handleResetPassword} >Send</Button>
         <Divider/>
-        <Button type='submit' fluid as={Link} to={ROUTES.RESETPASSWORD.path}>Forgot password?</Button>
-        <Divider />
         <Button type='submit' fluid as={Link} to={ROUTES.SINGIN.path}>Dont have an accout?</Button>
       </Form>
     </Dimmer.Dimmable>
   );
 };
 
-export default LoginComponent;
+export default ResetPasswordComponent;

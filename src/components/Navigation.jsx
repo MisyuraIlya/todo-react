@@ -8,22 +8,25 @@ import Cookies from 'js-cookie'
 // Local
 import { ROUTES } from '../lib/enums';
 import { useNav } from '../state/time-zone'
+import { useAuth } from '../state/auth';
 
 // Defines
 const Navigation = () => {
   //states
   const location = useLocation();
   const { timeZone, nameZone, currentTime, methods, timezoneOptions } = useNav();
-  const user = Cookies.get('user')
+  const {LoggedStatus, methodsAuth} = useAuth();
+
+  
 
   //helpers
   const handleTimezoneChange = (key) => {
     methods.handleTimezoneChange(key);
   }
 
-  const cookieRemove = () => {
-    Cookies.remove('user')
-  }
+  // const cookieRemove = () => {
+  //   Cookies.remove('user')
+  // }
 
   const authBar =
     <Menu.Item>
@@ -33,8 +36,8 @@ const Navigation = () => {
 
   const cookieBar =
     <Menu.Item>
-      {/* <Header as='h5' >Welcome {user}</Header> */}
-      <Button primary onClick={cookieRemove} style={{ marginLeft: '0.9em' }}>Log out</Button>
+      <Header as='h5' >Welcome {LoggedStatus}</Header>
+      <Button primary onClick={() => methodsAuth.logOut()} style={{ marginLeft: '0.9em' }}>Log out</Button>
     </Menu.Item>
   return (
     <Menu >
@@ -78,7 +81,7 @@ const Navigation = () => {
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>
           </Menu.Item>
-          {user ? cookieBar : authBar}
+          {LoggedStatus != null ? cookieBar : authBar}
         </Menu.Menu>
 
       </Container>
