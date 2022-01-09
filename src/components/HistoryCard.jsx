@@ -8,7 +8,6 @@ import { useNav } from '../state/time-zone';
 
 const HistoryCard = ({ title, ended, description, subTodo }) => {
   const { timeZone } = useNav();
-
   return (
     <Card fluid>
       <Card.Content>
@@ -22,7 +21,7 @@ const HistoryCard = ({ title, ended, description, subTodo }) => {
             <List.Item as='li' style={{ marginTop: '10px' }} key={id}>
               {subdescription}
               <List.Content floated='right'>
-                <p>{moment(ended, DATE_TIME_FORMAT).tz(timeZone).format(DATE_TIME_FORMAT)}</p>
+                <p>{moment(ended).tz(timeZone).format(DATE_TIME_FORMAT)}</p>
               </List.Content>
             </List.Item>
           )}

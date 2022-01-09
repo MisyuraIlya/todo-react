@@ -1,43 +1,29 @@
 // GLOBAL
 import React, { useState } from 'react';
+import SignInComponent from '../components/SigninComponent';
 // LOCAL
-import SigninComponent from '../components/SigninComponent';
 import { useAuth } from '../state/auth';
 
-
-const Signin = ({ }) => {
+const SignIn = () => {
 
   // local states
-  const [details, setDetails] = useState({ 
-    name: '', lastname: '', email: '', phone:'',  password1: '', password2: '' 
-  })
-  const { loading, success, methodsAuth, error, checkbox, setCheckbox } = useAuth();
-
-  const createAccount = async () => {
-    await methodsAuth.createAccount(
-      details.name,
-      details.lastname,
-      details.email,
-      details.phone,
-      details.password1,
-      details.password2
-    )
-    setDetails({ 
-      name: '', lastname: '', email: '', phone: '',  password1: '', password2: '' 
-    })
+  const [details, setDetails] = useState({ email: '', password: '' })
+  const { loading, success, methodsAuth, error } = useAuth();
+  
+  const read = async () => {
+    await methodsAuth.login(details.email, details.password)
+    setDetails({ email: '', password: '' })
+    
   }
-
   return (
-    <SigninComponent
+    <SignInComponent
+      success={success}
       details={details}
       setDetails={setDetails}
-      createAccount={createAccount}
-      error={error}
-      success={success}
       loading={loading}
-      setCheckbox={setCheckbox}
-    />
+      handleLogin={() => read(details.email, details.password)}
+      error={error} />
   );
 };
 
-export default Signin;
+export default SignIn;

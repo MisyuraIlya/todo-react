@@ -1,6 +1,6 @@
 // GLOBAL
 import React, { useState } from 'react';
-import SignInComponent from '../components/SigninComponent';
+import SignInComponent from '../components/SignInComponent';
 // LOCAL
 import { useAuth } from '../state/auth';
 

@@ -34,17 +34,10 @@ const App = () => {
             <Navigation/>
             <Container style={{width:'50em'}}>
               <Switch>
-                {/* <Route exact path={ROUTES.HOME.path}>
-                  <Home/>
-                </Route> */}
 
                 <Route exact path={ROUTES.HOME.path}>
                   {(LoggedStatus == (null || undefined)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <Home/>}
                 </Route>
-
-                {/* <Route exact path={ROUTES.HISTORY.path}>
-                  <History/>
-                </Route> */}
 
                 <Route exact path={ROUTES.HISTORY.path}>
                   {(LoggedStatus == (null || undefined)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <History/>}
