@@ -19,6 +19,12 @@ const AuthProvider = (props) => {
   const [error, setError] = useState('')
   const [checkbox, setCheckbox] = useState(false)
   
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
   //Helers
   const login = async (email, password) => {
     if (email == '' || password == '') {
@@ -35,6 +41,17 @@ const AuthProvider = (props) => {
         setLoggetStatus(data.data[0].name)
         setSuccess(data.data[0].name)
       }
+<<<<<<< HEAD
+=======
+    //   if (data.data.message) {
+    //     setLoginStatus(data.data.message);
+    //   } else {
+    //     setLoginStatus(data.data[0].email);
+    //   }
+    //   if (data.data.loggedIn == true) {
+    //     setLoginStatus(data.data.user[0].email);
+    //   }
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
     } catch {
       setError('faild to login')
     } finally {
@@ -57,7 +74,13 @@ const AuthProvider = (props) => {
     }
     try {
       setLoading(true)
+<<<<<<< HEAD
       const data = await apiAuth.createAccount(name, lastname, email, phone, password1)
+=======
+      console.log(name, lastname, email, phone, password1)
+      const data = await apiAuth.createAccount(name, lastname, email, phone, password1)
+      console.log(data.status == 200)
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
       if(data.status == 200) {
         setSuccess(data.data.data)
       } else if(data.status == 400) {
@@ -111,6 +134,13 @@ const AuthProvider = (props) => {
       } else {
         setSuccess(data.data.data.msg)
       }
+<<<<<<< HEAD
+=======
+      console.log(data.status)
+
+      console.log(data.data.data.msg)
+      // setError('')
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
       setLoading(true)
     } catch {
       setError('Faild to send mail')
@@ -120,6 +150,10 @@ const AuthProvider = (props) => {
   }
 
   const NewPassword = async (password, password2) => {
+<<<<<<< HEAD
+=======
+    console.log(password, password2)
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
     if (password !== password2){
       return setError('passwords didnt exists')
     }
@@ -128,7 +162,11 @@ const AuthProvider = (props) => {
       return setError('one of the inputs not writen')
     }
     try {
+<<<<<<< HEAD
       const data = await apiAuth.NewPassword(password) 
+=======
+      const data = await apiAuth.NewPassword(password) //
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
       if (data.data.status == 200) {
         setSuccess(data.data.data)
       } else {

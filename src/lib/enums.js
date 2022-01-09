@@ -27,6 +27,14 @@ export const ROUTES = {
     path: '/newpassword',
     name: 'NewPassword'
   },
+  RESETPASSWORD: {
+    path: '/resetpassword',
+    name: 'ResetPassword'
+  },
+  NEWPASSWORD: {
+    path: '/newpassword',
+    name: 'NewPassword'
+  },
   ERROR: {
     path: '/error',
     name: 'Error'

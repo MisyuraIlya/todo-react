@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
 import NewPasswordComponent from '../components/NewPasswordComponent';
 import { useAuth } from '../state/auth';
 // LOCAL
@@ -16,6 +20,11 @@ const NewPassword = () => {
 
   }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
   return (
     <NewPasswordComponent 
       success={success}
