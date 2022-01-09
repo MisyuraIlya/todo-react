@@ -8,7 +8,12 @@ import HistoryCard from '../components/HistoryCard';
 import { useHistory } from '../state/history';
 
 const History = () => {
-  const { loading, subTodo, history, pagination, page, methods } = useHistory();
+  const { loading,
+    subTodo,
+    history,
+    paginationTotalPages,
+    page,
+    methods } = useHistory();
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }
@@ -35,7 +40,11 @@ const History = () => {
       </Dimmer>
       {history.length ? historyElement : missingElement}
       <Segment basic textAlign={'center'}>
-        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
+        <PaginationModal
+          page={page}
+          paginationTotalPages = {paginationTotalPages}
+          onPageChange={onPageChange} 
+        />
       </Segment>
     </Dimmer.Dimmable>
   );

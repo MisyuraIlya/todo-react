@@ -12,7 +12,15 @@ const Home = () => {
   //local states
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { todos, subTodo, loading, pagination, page,subLoading,  methods, } = useTodo();
+  const { 
+    todos,
+    subTodo,
+    loading,
+    paginationTotalPages,
+    page,
+    subLoading,
+    methods,
+  } = useTodo();
   const [subCheck, setSubCheck] = useState(false)
   const [subDescription, setSubDescription] = useState('');
   // Event hendlers
@@ -67,7 +75,6 @@ const Home = () => {
 
   useEffect(() => methods.loadSubTodo(), [page]);
   useEffect(() => methods.loadTodo(), [page])
-  const ended = subTodo
   const todoElements = todos
     .map(({ id, title, created, ended, description, status }) => <HomeCards
       key={id}
@@ -135,7 +142,13 @@ const Home = () => {
 
       {todos.length ? todoElements : missingElement}
       <Segment basic textAlign={'center'}>
-        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
+
+        <PaginationModal
+          page={page}
+          paginationTotalPages = {paginationTotalPages}
+          onPageChange={onPageChange} 
+        />
+
       </Segment>
     </Dimmer.Dimmable>
   );
