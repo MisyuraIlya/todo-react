@@ -36,11 +36,7 @@ const NewPasswordComponent = ({ details, setDetails, loading, handeNewPassword, 
 
         <Button type='submit' primary fluid onClick={handeNewPassword} >Send</Button>
         <Divider/>
-<<<<<<< HEAD
         <Button type='submit' fluid as={Link} to={ROUTES.SIGNUP.path}>Dont have an accout?</Button>
-=======
-        <Button type='submit' fluid as={Link} to={ROUTES.SINGIN.path}>Dont have an accout?</Button>
->>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
       </Form>
     </Dimmer.Dimmable>
   );

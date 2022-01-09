@@ -15,24 +15,10 @@ const Navigation = () => {
   const location = useLocation();
   const { timeZone, nameZone, currentTime, methods, timezoneOptions } = useNav();
   const {LoggedStatus, methodsAuth} = useAuth();
-<<<<<<< HEAD
-=======
-
-  
->>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
-
   //helpers
   const handleTimezoneChange = (key) => {
     methods.handleTimezoneChange(key);
   }
-<<<<<<< HEAD
-=======
-
-  // const cookieRemove = () => {
-  //   Cookies.remove('user')
-  // }
-
->>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
   const authBar =
     <Menu.Item>
       <Button primary as={Link} to={ROUTES.SIGNUP.path} style={{ marginLeft: '0.9em' }}>Sign up</Button>
@@ -41,10 +27,6 @@ const Navigation = () => {
 
   const cookieBar =
     <Menu.Item>
-<<<<<<< HEAD
-=======
-      <Header as='h5' >Welcome {LoggedStatus}</Header>
->>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
       <Button primary onClick={() => methodsAuth.logOut()} style={{ marginLeft: '0.9em' }}>Log out</Button>
     </Menu.Item>
 
@@ -98,10 +80,7 @@ const Navigation = () => {
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>
           </Menu.Item>
-<<<<<<< HEAD
           {LoggedStatus != null ? AuthName : null}
-=======
->>>>>>> 18b9e13434d8a2be444eec12da6d8949fb63040b
           {LoggedStatus != null ? cookieBar : authBar}
         </Menu.Menu>
 
