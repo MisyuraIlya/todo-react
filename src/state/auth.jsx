@@ -95,6 +95,7 @@ const AuthProvider = (props) => {
       const data = await apiAuth.logOut()
       setError('')
       setLoggetStatus(null)
+      setSuccess('')
       setLoading(true)
     } catch {
       setError('faild to logout')
@@ -115,6 +116,22 @@ const AuthProvider = (props) => {
     } catch {
       setError('Faild to send mail')
     } finally{
+      setLoading(false)
+    }
+  }
+
+  const verifyEmail = async () => {
+    try {
+      const data = await apiAuth.verifyEmail()
+      if (data.status == 400) {
+        setError(data.data.data.msg)
+      } else {
+        setSuccess(data.data.data.msg)
+      }
+      setLoading(true)
+    } catch {
+      setError('Faild to verify email try again')
+    } finally {
       setLoading(false)
     }
   }
@@ -158,6 +175,7 @@ const AuthProvider = (props) => {
     resetPassword,
     NewPassword,
     createAccount,
+    verifyEmail,
   };
 
   return <AuthContextt.Provider value={{

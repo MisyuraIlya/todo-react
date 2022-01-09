@@ -35,6 +35,10 @@ export const ROUTES = {
     path: '/newpassword',
     name: 'NewPassword'
   },
+  VERIFYEMAIL: {
+    path: '/verify-email',
+    name: 'VerifyEmail'
+  },
   ERROR: {
     path: '/error',
     name: 'Error'

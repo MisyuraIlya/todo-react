@@ -44,19 +44,21 @@ const SignUpComponent = ({ details, setDetails, createAccount, error, loading, s
           value={details.email} />
 
         <Form.Input
-          label='Phine'
+          label='Phone'
           placeholder='Phone'
           onChange={e => setDetails({ ...details, phone: e.target.value })}
           value={details.phone} />
 
         <Form.Input
           label='Passowrd'
+          type='password'
           placeholder='Password'
           onChange={e => setDetails({ ...details, password1: e.target.value })}
           value={details.password1} />
 
         <Form.Input
           label='Repeat Password'
+          type='password'
           placeholder='Repeat Password'
           onChange={e => setDetails({ ...details, password2: e.target.value })}
           value={details.password2} />

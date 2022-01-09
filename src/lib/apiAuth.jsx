@@ -63,6 +63,16 @@ const ResetPassword = async (email) => {
   return response
 }
 
+const verifyEmail = async () => {
+  const queryParams = new URLSearchParams(window.location.search);
+  const token = queryParams.get('token');
+  const response = await Axios.get(`${API}/verify-email?token=${token}`)
+    .catch((err) => {
+      return err.response
+    })
+  return response
+}
+
 const NewPassword = async (password) => {
   const queryParams = new URLSearchParams(window.location.search);
   const token = queryParams.get('token');
@@ -81,6 +91,7 @@ const apiAuth = {
   logOut,
   ResetPassword,
   NewPassword,
-  createAccount
+  createAccount,
+  verifyEmail
 }
 export default apiAuth;

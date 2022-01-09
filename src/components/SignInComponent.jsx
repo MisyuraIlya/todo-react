@@ -29,6 +29,7 @@ const SignInComponent = ({ success, details, setDetails, loading, handleLogin, e
           value={details.email} />
         <Form.Input
           label='Passowrd'
+          type='password'
           placeholder='Password'
           onChange={e => setDetails({ ...details, password: e.target.value })}
           value={details.password} />
