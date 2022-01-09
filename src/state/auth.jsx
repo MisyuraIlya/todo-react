@@ -95,6 +95,7 @@ const AuthProvider = (props) => {
       const data = await apiAuth.logOut()
       setError('')
       setLoggetStatus(null)
+      setSuccess('')
       setLoading(true)
     } catch {
       setError('faild to logout')

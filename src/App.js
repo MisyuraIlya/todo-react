@@ -14,7 +14,7 @@ import { TodoProvider } from './state/todos';
 import { HistoryProvider } from './state/history';
 import { NavigationProvider } from './state/time-zone';
 import SignUp from './pages/SignUp';
-import SignIn from './pages/Signin';
+import SignIn from './pages/SignIn';
 import ResetPassword from './pages/ResetPassword';
 import NewPassword from './pages/NewPassword';
 import { useAuth } from './state/auth';
