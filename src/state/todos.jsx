@@ -24,7 +24,9 @@ const TodoProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [subLoading, setSubLoading] = useState(false);
   const [page, setPage] = useState(0);
-  const [pagination, setPagination] = useState({ total: null, limit: null });
+  const [paginationTotal, setPaginationTotal] = useState(null);
+  const [paginationLimit, setPaginationLimit] = useState(null);
+  const [paginationTotalPages, setPaginationTotalPages] = useState(0)
   const [error, setError] = useState({ isError: false, message: '' });
 
   // Helpers
@@ -33,12 +35,11 @@ const TodoProvider = (props) => {
     setLoading(true);
     try {
       const { data, limit, total } = await apiTodo.read({ page, status: TODO_STATUS.ACTIVE });
-      // const tmp = data.map(({ id }) => apiSubTodo.read({ id }))
-      // const datasub = await Promise.all(tmp)
-      // const add = datasub.map(({ data }) => data).reduce((a, b) => { return a.concat(b) }, [])
       setTodos(data);
-      // setSubTodo(add);
-      setPagination({ limit, total });
+      setPaginationTotal(total);
+      setPaginationLimit(limit);
+      const totalPages = Math.ceil(total / limit);
+      setPaginationTotalPages(totalPages)
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load todos', { error });
       setError({ isError: true, message: error.message });
@@ -50,11 +51,9 @@ const TodoProvider = (props) => {
   const loadSubTodo = async () => {
     setSubLoading(true);
     try {
-      const { dataSub } = await apiTodo.read({ ...pagination, page, status: TODO_STATUS.ACTIVE });
+      const { dataSub } = await apiTodo.read({  page, status: TODO_STATUS.ACTIVE });
       const end = dataSub.map((x) => x)
-      // setTodos(data);
       setSubTodo(dataSub);
-      // setPagination({ limit, total });
     } catch (error) {
       console.error('[state/todo/loadTodo] Failed to load todos', { error });
       setError({ isError: true, message: error.message });
@@ -148,7 +147,9 @@ const TodoProvider = (props) => {
   return <TodoContex.Provider value={{
     todos,
     loading,
-    pagination,
+    paginationTotal,
+    paginationLimit,
+    paginationTotalPages,
     error,
     methods,
     page,

@@ -23,7 +23,9 @@ const HistoryProvider = (props) => {
   const [history, setHistory] = useState([]);
   const [subTodo, setSubTodo] = useState([]);
   const [page, setPage] = useState(0);
-  const [pagination, setPagination] = useState({ total: null, limit: null });
+  const [paginationTotal, setPaginationTotal] = useState(null);
+  const [paginationLimit, setPaginationLimit] = useState(null);
+  const [paginationTotalPages, setPaginationTotalPages] = useState(0)
   const [error, setError] = useState({ isError: false, message: '' });
 
   // Helpers
@@ -34,7 +36,10 @@ const HistoryProvider = (props) => {
       setHistory(data);
       const  dataSubHistory  = await apiSubTodo.read();
       setSubTodo(dataSubHistory);
-      setPagination({ limit, total });
+      setPaginationTotal(total);
+      setPaginationLimit(limit);
+      const totalPages = Math.ceil(total / limit);
+      setPaginationTotalPages(totalPages)
     } catch (error) {
       console.error('[state/history/loadHistory] Failed to load posts', { error });
       setError({ isError: true, message: error.message });
@@ -58,7 +63,9 @@ const HistoryProvider = (props) => {
   const value = {
     loading,
     history,
-    pagination,
+    paginationTotal,
+    paginationLimit,
+    paginationTotalPages,
     error,
     page,
     methods,

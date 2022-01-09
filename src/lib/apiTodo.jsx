@@ -1,22 +1,9 @@
 //GLOBAL
 import Axios from 'axios';
 //LOCAL
-import todolists from './todo-list'
-import subtodoslists from './todos-sub'
-import { DATE_TIME_FORMAT, TODO_STATUS, API } from './enums';
-
-
-let subtodos = [...subtodoslists]
-let todos = [...todolists]
-
-// Helpers
-const delay = (data, time) => {
-  return new Promise((resolve) => setTimeout(() => resolve(data), time));
-}
+import { API } from './enums';
 
 const create = (title, description) => {
-  console.log(title)
-  console.log(description)
   Axios.post(`${API}/todos`, {
     title,
     description,
@@ -25,7 +12,6 @@ const create = (title, description) => {
 
 const remove = (id) => {
   Axios.delete(`${API}/todos/${id}`)
-
 }
 
 const update = (postid) => {
@@ -33,14 +19,13 @@ const update = (postid) => {
 }
 
 const read = async ({ page, status }) => {
-  const response = await fetch(`${API}/todos?status=${status}&page=${page+1}`);
-  const datas =  await response.json();  
-  const data = datas.data.data
-  const total = datas.data.total
-  const limit = datas.data.limit
-  const dataSubPromise = data.map((x) => fetch(`${API}/subtodos/${x.id}`).then((x) => x.json()))
+  const response2 = await Axios(`${API}/todos?status=${status}&page=${page+1}`);
+  const data = response2.data.data.data
+  const total = response2.data.data.total
+  const limit = response2.data.data.limit
+  const dataSubPromise = data.map((x) => Axios(`${API}/subtodos/${x.id}`))
   const dataSubb = await Promise.all(dataSubPromise);
-  const subs = dataSubb.map((x) => (x.data))
+  const subs = dataSubb.map((x) => (x.data.data))
   const dataSub = subs.map((x) => x).reduce((a, b) => { return a.concat(b) }, [])
   return {
     data,
@@ -50,11 +35,7 @@ const read = async ({ page, status }) => {
     dataSub
   }
 }
-
-
   
-//------------------------------------------------------------
-
 const apiTodo = {
   create,
   remove,

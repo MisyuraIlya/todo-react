@@ -6,7 +6,6 @@ import moment from 'moment'
 import { useNav } from '../state/time-zone'
 import { DATE_TIME_FORMAT } from '../lib/enums';
 
-
 const HomeCards = ({
   id,
   title,
@@ -19,7 +18,6 @@ const HomeCards = ({
   updateSubDescription,
   removeSubTodo,
   created,
-  subLoading
 }) => {
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
