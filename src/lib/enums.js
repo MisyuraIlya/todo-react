@@ -27,14 +27,6 @@ export const ROUTES = {
     path: '/newpassword',
     name: 'NewPassword'
   },
-  RESETPASSWORD: {
-    path: '/resetpassword',
-    name: 'ResetPassword'
-  },
-  NEWPASSWORD: {
-    path: '/newpassword',
-    name: 'NewPassword'
-  },
   VERIFYEMAIL: {
     path: '/verify-email',
     name: 'VerifyEmail'
