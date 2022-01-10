@@ -65,10 +65,6 @@ const App = () => {
                   <NewPassword/>
                 </Route>
 
-                <Route exact path={ROUTES.NEWPASSWORD.path}>
-                  <NewPassword/>
-                </Route>
-
                 <Route exact path={ROUTES.VERIFYEMAIL.path}>
                   <VerifyEmail/>
                 </Route>
