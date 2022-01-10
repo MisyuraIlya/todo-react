@@ -64,7 +64,7 @@ const App = () => {
                 <Route exact path={ROUTES.NEWPASSWORD.path}>
                   <NewPassword/>
                 </Route>
-                {console.log('1')}
+
                 <Route exact path={ROUTES.VERIFYEMAIL.path}>
                   <VerifyEmail/>
                 </Route>
