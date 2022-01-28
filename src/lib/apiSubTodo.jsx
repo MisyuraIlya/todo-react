@@ -17,6 +17,7 @@ const read = async () => {
 }
 
 const update = async (id, fields) => {
+  console.log(id,fields)
   Axios.put(`${API}/subtodos/update/${id}/${fields.status}`)
 }
 

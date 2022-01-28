@@ -10,7 +10,8 @@ const SignIn = () => {
   const [details, setDetails] = useState({ email: '', password: '' })
   const { loading, success, methodsAuth, error } = useAuth();
   
-  const read = async () => {
+  const login = async () => {
+    console.log('start login')
     await methodsAuth.login(details.email, details.password)
     setDetails({ email: '', password: '' })
     
@@ -21,7 +22,7 @@ const SignIn = () => {
       details={details}
       setDetails={setDetails}
       loading={loading}
-      handleLogin={() => read(details.email, details.password)}
+      handleLogin={() => login(details.email, details.password)}
       error={error} />
   );
 };
