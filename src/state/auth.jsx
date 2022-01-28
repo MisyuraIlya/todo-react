@@ -15,35 +15,34 @@ const useAuth = () => {
 const AuthProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
-  const [LoggedStatus, setLoggetStatus] = useState(null)
+  const [LoggedStatus, setLoggetStatus] = useState(false)
+  const [User, SetUser] = useState(null)
   const [error, setError] = useState('')
   const [checkbox, setCheckbox] = useState(false)
-  
   //Helers
+
+
   const login = async (email, password) => {
     if (email == '' || password == '') {
       return setError('One of the inputs didnt write')
     }
     try {
-      const data = await apiAuth.read(email,password)
-      await apiAuth.signinCheck()
+      const response = await apiAuth.login(email,password)
+      localStorage.setItem('token', response.data.accessToken)
+      // await apiAuth.signinCheck()
       setError('')
       setLoading(true)
-      if (data.data.status == 400) {
-        setError(data.data.error)
-      } else {
-        setLoggetStatus(data.data[0].name)
-        setSuccess(data.data[0].name)
-      }
-    } catch {
-      setError('faild to login')
+      setLoggetStatus(true)
+      SetUser(response.data.data.user.name)
+    } catch(error) {
+      setError(error.response?.data.message)
     } finally {
       setLoading(false)
     }
     
   }
 
-  const createAccount = async (name, lastname, email, phone, password1, password2) => {
+  const registration = async (name, lastname, email, phone, password1, password2) => {
     if (password1 !== password2) {
       return setError('passwords didnt exist')
     }
@@ -57,33 +56,11 @@ const AuthProvider = (props) => {
     }
     try {
       setLoading(true)
-      const data = await apiAuth.createAccount(name, lastname, email, phone, password1)
-      if(data.status == 200) {
-        setSuccess(data.data.data)
-      } else if(data.status == 400) {
-        setError(data.error)
-      }else {
-        const errors = []
-        const result = data.error.flatMap(Object.keys);
-        if ( result.includes('phone') ){
-          errors.push('Phone contain caracters')
-        } 
-        if ( result.includes('email')) {
-          errors.push('Email is not valid')
-        } 
-        if ( result.includes('password') ) {
-          errors.push('password need contain minimum 5 caracthers')
-        } 
-        if ( result.includes('lastname')) {
-          errors.push('lastname contain numbers')
-        }
-        if (result.includes('name')) {
-          errors.push('name contain numbers')
-        }
-        setError(errors.join())
-      }
-    } catch {
-      setError('faild to create an account')
+      const response = await apiAuth.registration(name, lastname, email, phone, password1)
+      localStorage.setItem('token', response.data.accessToken)
+
+    } catch(error){
+      setError(error.response?.data?.message)
     } finally {
       setLoading(false)
     }
@@ -92,10 +69,11 @@ const AuthProvider = (props) => {
 
   const logOut = async () => {
     try {
-      const data = await apiAuth.logOut()
+      const response = await apiAuth.logOut()
+      localStorage.removeItem('token')
+      SetUser(null)
       setError('')
-      setLoggetStatus(null)
-      setSuccess('')
+      setLoggetStatus(false)
       setLoading(true)
     } catch {
       setError('faild to logout')
@@ -160,13 +138,26 @@ const AuthProvider = (props) => {
   }
   //Logic
   useEffect(() => {
-    const response = async () => {
-      const data = await apiAuth.signinCheck();
-      setLoggetStatus(data)
+  
+    if (localStorage.getItem('token')){
+      setLoading(true)
+      const response = async () => {
+        try{
+          const response = await apiAuth.checkAuth();
+          localStorage.setItem('token', response.data.data.accessToken)
+          setLoggetStatus(true)
+          SetUser(response.data.data.user.name)
+        }catch (error){
+          setError(error.response?.data?.message)
+        } finally {
+          setLoading(false)
+        }
+      }
+      response();
     }
-    response();
+
     
-  }, [LoggedStatus]);
+  }, []);
 
   //Export
   const methodsAuth = {
@@ -174,12 +165,13 @@ const AuthProvider = (props) => {
     logOut,
     resetPassword,
     NewPassword,
-    createAccount,
+    registration,
     verifyEmail,
   };
 
   return <AuthContextt.Provider value={{
     loading,
+    User,
     success,
     LoggedStatus,
     methodsAuth,

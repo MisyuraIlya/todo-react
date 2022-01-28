@@ -2,52 +2,48 @@
 import Axios from 'axios';
 import {API} from './enums';
 
+const $api = Axios.create({
+  withCredentials: true,
+  baseURL: API
+})
+
+$api.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  return config;
+})
 Axios.defaults.withCredentials = true;
 
-const createAccount = async (name, lastname, email,phone, password) => {
-
-  const data = await Axios.post(`${API}/auth/signup`, {
+const registration = async (name, lastname, email,phone, password) => {
+  const data = await Axios.post(`${API}/registration`, {
     name,
     lastname,
     email,
     phone,
     password
-  }).catch(error => {
-    if (error.response) {
-      return error.response.data
-    }
   })
 
-  if(data.data.status == 200){
-    const mail = await Axios.post(`${API}/send-email`, {
-      email
-    }).catch( error => {
-      if(error.response) {
-        return error.response.data
-      }
-    })
-  }
-  
   return data
 }
 
-const read = async (email, password) => {
-  const response = await Axios.post(`${API}/auth/signin`, {
+const login = async (email, password) => {
+  const response = await Axios.post(`${API}/login`, {
     email : email,
     password : password
-  }).then(response =>{
-    return response;
-  }).catch ((err) => {return err.response})
-  const data = response
-  return data
+  })
+  return response
 }
 
-const signinCheck = async () => {
-  const data = await Axios.get(`${API}/auth/signin`)
-  if (data.data.loggedIn == true) {
-    return data.data.user[0].name
-  }
+const checkAuth = async () => {
+  const response = await Axios.get(`${API}/refresh`)
+  return response
 }
+
+// const signinCheck = async () => {
+//   const data = await Axios.get(`${API}/auth/signin`)
+//   if (data.data.loggedIn == true) {
+//     return data.data.user[0].name
+//   }
+// }
 
 const logOut = async () => {
   await Axios.get(`${API}/logout`).then((response) => {
@@ -86,12 +82,12 @@ const NewPassword = async (password) => {
 }
 
 const apiAuth = {
-  read,
-  signinCheck,
+  login,
+  checkAuth,
   logOut,
   ResetPassword,
   NewPassword,
-  createAccount,
+  registration,
   verifyEmail
 }
 export default apiAuth;

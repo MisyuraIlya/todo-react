@@ -27,11 +27,9 @@ const Home = () => {
   const updateTitle = ({ target }) => {
     setTitle(target.value);
   }
-
   const updateDescription = ({ target }) => {
     setDescription(target.value);
   }
-
   const createTodo = async () => {
     await methods.createTodo(title, description);
     await methods.loadTodo();
@@ -44,8 +42,8 @@ const Home = () => {
     await methods.loadTodo();
   }
 
-  const removeTodo = async (id) => {
-    await methods.removeTodo(id);
+  const removeTodo = async (_id) => {
+    await methods.removeTodo(_id);
     await methods.loadTodo();
   }
 
@@ -53,8 +51,8 @@ const Home = () => {
     await methods.onPageChange(activePage - 1);
   }
 
-  const subUpdate = async (id, status) => {
-    await methods.doneSubUpdate(id, status);
+  const subUpdate = async (_id, status) => {
+    await methods.doneSubUpdate(_id, status);
     await methods.loadSubTodo();
   }
 
@@ -76,16 +74,16 @@ const Home = () => {
   useEffect(() => methods.loadSubTodo(), [page]);
   useEffect(() => methods.loadTodo(), [page])
   const todoElements = todos
-    .map(({ id, title, created, ended, description, status }) => <HomeCards
-      key={id}
-      id={id}
+    .map(({ _id, title, created, ended, description, status }) => <HomeCards
+      key={_id}
+      id={_id}
       title={title}
       ended={ended}
       created={created}
-      subTodo={subTodo.filter(({ parentid }) => parentid === id)}
+      subTodo={subTodo.filter(({ parentid }) => parentid === _id)}
       description={description}
-      donePost={() => update(id, title, description, status)}
-      removePost={() => removeTodo(id)}
+      donePost={() => update(_id, title, description, status)}
+      removePost={() => removeTodo(_id)}
       setSubCheck={setSubCheck}
       status={status}
       subUpdate={subUpdate}

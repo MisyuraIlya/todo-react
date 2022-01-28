@@ -14,7 +14,7 @@ const SignUp = ({ }) => {
   const { loading, success, methodsAuth, error, checkbox, setCheckbox } = useAuth();
 
   const createAccount = async () => {
-    await methodsAuth.createAccount(
+    await methodsAuth.registration(
       details.name,
       details.lastname,
       details.email,

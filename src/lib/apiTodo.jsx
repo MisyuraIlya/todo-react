@@ -10,11 +10,13 @@ const create = (title, description) => {
   })
 }
 
-const remove = (id) => {
-  Axios.delete(`${API}/todos/${id}`)
+const remove = (_id) => {
+  console.log(_id)
+  Axios.delete(`${API}/todos/${_id}`)
 }
 
 const update = (postid) => {
+  console.log(postid)
   Axios.put(`${API}/todos/${postid}`)
 }
 
@@ -23,10 +25,11 @@ const read = async ({ page, status }) => {
   const data = response2.data.data.data
   const total = response2.data.data.total
   const limit = response2.data.data.limit
-  const dataSubPromise = data.map((x) => Axios(`${API}/subtodos/${x.id}`))
+  const dataSubPromise = data.map((x) => Axios(`${API}/subtodos/${x._id}`))
   const dataSubb = await Promise.all(dataSubPromise);
   const subs = dataSubb.map((x) => (x.data.data))
   const dataSub = subs.map((x) => x).reduce((a, b) => { return a.concat(b) }, [])
+  // console.log(dataSub)
   return {
     data,
     limit,

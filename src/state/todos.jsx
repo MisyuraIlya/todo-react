@@ -28,7 +28,6 @@ const TodoProvider = (props) => {
   const [paginationLimit, setPaginationLimit] = useState(null);
   const [paginationTotalPages, setPaginationTotalPages] = useState(0)
   const [error, setError] = useState({ isError: false, message: '' });
-
   // Helpers
 
   const loadTodo = async () => {
@@ -62,7 +61,7 @@ const TodoProvider = (props) => {
     }
 
   }
-
+  
   const createTodo = async (title, description) => {
     try {
       await apiTodo.create(title, description);
@@ -81,9 +80,9 @@ const TodoProvider = (props) => {
     }
   }
 
-  const removeTodo = async (id) => {
+  const removeTodo = async (_id) => {
     try {
-      await apiTodo.remove(id);
+      await apiTodo.remove(_id);
     } catch (error) {
       console.error('[state/todo/removeTodo] Failed to Remove Todo', { error });
       setError({ isError: true, message: error.message });

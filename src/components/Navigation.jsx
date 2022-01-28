@@ -14,7 +14,7 @@ const Navigation = () => {
   //states
   const location = useLocation();
   const { timeZone, nameZone, currentTime, methods, timezoneOptions } = useNav();
-  const {LoggedStatus, methodsAuth} = useAuth();
+  const {User, LoggedStatus, methodsAuth} = useAuth();
   //helpers
   const handleTimezoneChange = (key) => {
     methods.handleTimezoneChange(key);
@@ -32,14 +32,14 @@ const Navigation = () => {
 
   const AuthName = 
     <Menu.Item>
-      <Header as='h5'>Welcome {LoggedStatus}</Header>
+      <Header as='h5'>Welcome {User}</Header>
     </Menu.Item>
     
   return (
     
     <Menu >
       <Container>
-        {(LoggedStatus == (null || undefined) ? null : 
+        {(User == (null || undefined) ? null : 
           <Menu.Item
             as={Link}
             to={ROUTES.HOME.path}
@@ -49,7 +49,7 @@ const Navigation = () => {
             {ROUTES.HOME.name}
           </Menu.Item>)}
 
-        {(LoggedStatus == (null || undefined) ? null : 
+        {(User == (null || undefined) ? null : 
           <Menu.Item
             as={Link}
             to={ROUTES.HISTORY.path}
@@ -80,8 +80,8 @@ const Navigation = () => {
           <Menu.Item>
             <Header as='h5'>{currentTime}</Header>
           </Menu.Item>
-          {LoggedStatus != null ? AuthName : null}
-          {LoggedStatus != null ? cookieBar : authBar}
+          {User != null ? AuthName : null}
+          {User != null ? cookieBar : authBar}
         </Menu.Menu>
 
       </Container>

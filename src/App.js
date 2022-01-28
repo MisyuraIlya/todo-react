@@ -36,12 +36,19 @@ const App = () => {
             <Container style={{width:'50em'}}>
               <Switch>
 
-                <Route exact path={ROUTES.HOME.path}>
+                {/* <Route exact path={ROUTES.HOME.path}>
                   {(LoggedStatus == (null || undefined)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <Home/>}
+                </Route> */}
+                <Route exact path={ROUTES.HOME.path}>
+                  <Home/>
                 </Route>
 
-                <Route exact path={ROUTES.HISTORY.path}>
+                {/* <Route exact path={ROUTES.HISTORY.path}>
                   {(LoggedStatus == (null || undefined)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <History/>}
+                </Route> */}
+
+                <Route  exact path={ROUTES.HISTORY.path}>
+                  <History/>
                 </Route>
 
 
@@ -49,12 +56,18 @@ const App = () => {
                   <About/>
                 </Route>
 
-                <Route exact path={ROUTES.SIGNUP.path}>
+                {/* <Route exact path={ROUTES.SIGNUP.path}>
                   {(LoggedStatus != (null || undefined)) ? <Redirect to={ROUTES.HOME.path} /> : <SignUp/>}
+                </Route> */}
+                <Route exact path={ROUTES.SIGNUP.path}>
+                  <SignUp/>
                 </Route>
 
-                <Route exact path={ROUTES.SIGNIN.path}>
+                {/* <Route exact path={ROUTES.SIGNIN.path}>
                   {(LoggedStatus != (null || undefined)) ? <Redirect to={ROUTES.HOME.path} /> : <SignIn/>}
+                </Route> */}
+                <Route exact path={ROUTES.SIGNIN.path}>
+                  <SignIn/>
                 </Route>
 
                 <Route exact path={ROUTES.RESETPASSWORD.path}>
