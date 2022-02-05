@@ -3,6 +3,8 @@ import Axios from 'axios';
 //LOCAL
 import { API } from './enums';
 
+Axios.defaults.withCredentials = true;
+
 const create = (title, description) => {
   Axios.post(`${API}/todos`, {
     title,
@@ -21,7 +23,11 @@ const update = (postid) => {
 }
 
 const read = async ({ page, status }) => {
-  const response2 = await Axios(`${API}/todos?status=${status}&page=${page+1}`);
+  const response2 = await Axios(`${API}/todos?status=${status}&page=${page+1}`,{
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  });
   const data = response2.data.data.data
   const total = response2.data.data.total
   const limit = response2.data.data.limit

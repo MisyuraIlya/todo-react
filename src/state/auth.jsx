@@ -57,8 +57,11 @@ const AuthProvider = (props) => {
     try {
       setLoading(true)
       const response = await apiAuth.registration(name, lastname, email, phone, password1)
+      console.log(response)
       localStorage.setItem('token', response.data.accessToken)
-
+      if(response.data.status == 200) {
+        setSuccess('Registration success verify in email account')
+      }
     } catch(error){
       setError(error.response?.data?.message)
     } finally {

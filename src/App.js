@@ -24,7 +24,6 @@ import VerifyEmail from './pages/VerifyEmail';
 const App = () => {
 
   const {LoggedStatus} = useAuth();
-
   return (
     
     <BrowserRouter>
@@ -36,39 +35,39 @@ const App = () => {
             <Container style={{width:'50em'}}>
               <Switch>
 
-                {/* <Route exact path={ROUTES.HOME.path}>
-                  {(LoggedStatus == (null || undefined)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <Home/>}
-                </Route> */}
                 <Route exact path={ROUTES.HOME.path}>
-                  <Home/>
+                  {(LoggedStatus == (null || undefined || false)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <Home/>}
                 </Route>
-
-                {/* <Route exact path={ROUTES.HISTORY.path}>
-                  {(LoggedStatus == (null || undefined)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <History/>}
+                {/* <Route exact path={ROUTES.HOME.path}>
+                  <Home/>
                 </Route> */}
 
-                <Route  exact path={ROUTES.HISTORY.path}>
-                  <History/>
+                <Route exact path={ROUTES.HISTORY.path}>
+                  {(LoggedStatus == (null || undefined || false)) ? <Redirect to={ROUTES.SIGNIN.path} /> : <History/>}
                 </Route>
+
+                {/* <Route  exact path={ROUTES.HISTORY.path}>
+                  <History/>
+                </Route> */}
 
 
                 <Route exact path={ROUTES.ABOUT.path}>
                   <About/>
                 </Route>
 
-                {/* <Route exact path={ROUTES.SIGNUP.path}>
-                  {(LoggedStatus != (null || undefined)) ? <Redirect to={ROUTES.HOME.path} /> : <SignUp/>}
-                </Route> */}
                 <Route exact path={ROUTES.SIGNUP.path}>
+                  {(LoggedStatus != (null || undefined || false)) ? <Redirect to={ROUTES.HOME.path} /> : <SignUp/>}
+                </Route>
+                {/* <Route exact path={ROUTES.SIGNUP.path}>
                   <SignUp/>
-                </Route>
-
-                {/* <Route exact path={ROUTES.SIGNIN.path}>
-                  {(LoggedStatus != (null || undefined)) ? <Redirect to={ROUTES.HOME.path} /> : <SignIn/>}
                 </Route> */}
+
                 <Route exact path={ROUTES.SIGNIN.path}>
-                  <SignIn/>
+                  {(LoggedStatus != (null || undefined || false)) ? <Redirect to={ROUTES.HOME.path} /> : <SignIn/>}
                 </Route>
+                {/* <Route exact path={ROUTES.SIGNIN.path}>
+                  <SignIn/>
+                </Route> */}
 
                 <Route exact path={ROUTES.RESETPASSWORD.path}>
                   <ResetPassword/>

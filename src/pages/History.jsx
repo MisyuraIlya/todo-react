@@ -14,7 +14,6 @@ const History = () => {
     paginationTotalPages,
     page,
     methods } = useHistory();
-  console.log(subTodo)
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }
