@@ -1,12 +1,16 @@
 import React from 'react';
 import { Pagination } from 'semantic-ui-react'
-const PaginationModal = ({ total, limit, page, onPageChange }) => {
-  const totalPages = Math.ceil(total / limit);
+const PaginationModal = ({ page, paginationTotalPages, onPageChange }) => {
   return (
     <Pagination
+      boundaryRange={0}
       onPageChange={onPageChange}
-      defaultActivePage={page + 1}
-      totalPages={totalPages}
+      defaultActivePage={page+1}
+      ellipsisItem={null}
+      firstItem={null}
+      lastItem={null}
+      siblingRange={1}
+      totalPages={paginationTotalPages}
     />
   );
 };

@@ -8,19 +8,24 @@ import HistoryCard from '../components/HistoryCard';
 import { useHistory } from '../state/history';
 
 const History = () => {
-  const { loading, subTodo, history, pagination, page, methods } = useHistory();
+  const { loading,
+    subTodo,
+    history,
+    paginationTotalPages,
+    page,
+    methods } = useHistory();
   const onPageChange = async (_, { activePage }) => {
     await methods.onPageChange(activePage - 1);
   }
   useEffect(() => methods.loadHistory(), [page])
-  const historyElement = history.map(({ id, title, ended, description }) =>
+  const historyElement = history.map(({ _id, title, ended, description }) =>
     <HistoryCard
-      key={id}
-      id={id}
+      key={_id}
+      id={_id}
       title={title}
       ended={ended}
       description={description}
-      subTodo={subTodo.filter(({ parentid }) => parentid === id)}
+      subTodo={subTodo.filter(({ parentid }) => parentid === _id)}
     />
   )
   const missingElement = <Header as='h2'>
@@ -35,7 +40,11 @@ const History = () => {
       </Dimmer>
       {history.length ? historyElement : missingElement}
       <Segment basic textAlign={'center'}>
-        <PaginationModal {...pagination} page={page} onPageChange={onPageChange} />
+        <PaginationModal
+          page={page}
+          paginationTotalPages = {paginationTotalPages}
+          onPageChange={onPageChange} 
+        />
       </Segment>
     </Dimmer.Dimmable>
   );

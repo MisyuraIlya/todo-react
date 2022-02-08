@@ -11,13 +11,25 @@ export const ROUTES = {
     path: '/about',
     name: 'About'
   },
-  SINGIN: {
-    path: '/singin',
-    name: 'Signin'
+  SIGNUP: {
+    path: '/signup',
+    name: 'SignUp'
   },
-  LOGIN: {
-    path: '/login',
-    name: 'Login'
+  SIGNIN: {
+    path: '/signin',
+    name: 'SignIn'
+  },
+  RESETPASSWORD: {
+    path: '/resetpassword',
+    name: 'ResetPassword'
+  },
+  NEWPASSWORD: {
+    path: '/newpassword',
+    name: 'NewPassword'
+  },
+  VERIFYEMAIL: {
+    path: '/verify-email',
+    name: 'VerifyEmail'
   },
   ERROR: {
     path: '/error',

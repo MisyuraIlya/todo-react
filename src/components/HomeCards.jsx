@@ -6,7 +6,6 @@ import moment from 'moment'
 import { useNav } from '../state/time-zone'
 import { DATE_TIME_FORMAT } from '../lib/enums';
 
-
 const HomeCards = ({
   id,
   title,
@@ -19,7 +18,6 @@ const HomeCards = ({
   updateSubDescription,
   removeSubTodo,
   created,
-  subLoading
 }) => {
   // states 
   const [isDrop, setIsDrop] = useState({ activeIndex: 1 })
@@ -73,18 +71,18 @@ const HomeCards = ({
           Sub todos
         </Header>
         <List >
-          {subTodo.map(({ id, subdescription, ended, status }) =>
-            <List.Item key={id}>
-              <Checkbox label={subdescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(id, data.checked) && loader(id)} style={{ marginBottom: '0.9em' }} />
+          {subTodo.map(({ _id, subdescription, ended, status }) =>
+            <List.Item key={_id}>
+              <Checkbox label={subdescription} checked={status === 'DONE'} onChange={(_, data) => subUpdate(_id, data.checked) && loader(_id)} style={{ marginBottom: '0.9em' }} />
               {
                 !edit
-                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(id) && loader(id)} /></List.Content>
+                  ? <List.Content floated='right'><Button icon='delete' color='red' size='mini' onClick={() => removeSubTodo(_id) && loader(_id)} /></List.Content>
                   : null
               }
               {
                 ended !== null
                   ? <List.Content floated='right'>
-                    <Label as='h5'>Ended in {ended}</Label>
+                    <Label as='h5'>Ended in {moment(ended).tz(timeZone).format(DATE_TIME_FORMAT)}</Label>
                   </List.Content>
                   : null
               }
