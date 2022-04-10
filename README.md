@@ -5,7 +5,7 @@
 Simple React TODO app made using React  with UI component framework SemanticUI.
 This app works with Todo - server (API for this app)
 
-## Main functionnality
+## Main functionality
 Simple todo app can add todos and subtodos, remove , done.
 
 ## Other funcionallity 
